@@ -4,3 +4,5 @@ Next make sure the website is viewed from the index.php page to avoid add ?? in 
 
 use print_r() to view objects and debugging
 
+created a class with default method since it's used nowhere else
+then with a constructor that runs immediately
