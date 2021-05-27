@@ -1,4 +1,18 @@
 	<?php $this->view('header', $data); ?>
+	<style>
+		.row {
+			text-align: center;
+		}
+
+		.col-sm-4 {
+			float: none;
+			display: inline-block;
+		}
+
+		#form {
+			margin-top: 5px;
+		}
+	</style>
 
 	<section id="form">
 		<div class="container">
@@ -17,13 +31,14 @@
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
 						<br>
-						<a href="signup">Don't have an account? Signup here</a>
+						<a href="signup">Don't have an account? Signup here.</a>
 					</div>
 					<!-- end login form-->
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<!--/form-->
 
 	<?php $this->view('footer', $data); ?>

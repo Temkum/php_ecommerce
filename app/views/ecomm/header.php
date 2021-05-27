@@ -15,8 +15,8 @@
   <link href="<?php echo ASSETS ?>css/main.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/responsive.css" rel="stylesheet">
   <!--[if lt IE 9]>
-    <script src="js.php5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="<?= ASSETS ?>js.php5shiv.js"></script>
+    <script src="<?= ASSETS ?>js/respond.min.js"></script>
     <![endif]-->
   <link rel="shortcut icon" href="<?= ASSETS ?>images/ico/favicon.ico">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= ASSETS ?>images/ico/apple-touch-icon-144-precomposed.png">
@@ -63,7 +63,7 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="logo pull-left">
-              <a href="index.php"><img src="images/home/logo.png" alt="" /></a>
+              <a href="index.php"><img src="<?= ASSETS ?>images/home/logo.png" alt="" /></a>
             </div>
             <div class="btn-group pull-right">
               <div class="btn-group">

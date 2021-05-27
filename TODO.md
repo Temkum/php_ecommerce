@@ -16,3 +16,6 @@ then with a constructor that runs immediately
   You could redirect user to the 404 page if the page doesn't exist or link is broken
 
 * Posting on login and signup
+
+Models are classes which do specifc things
+A simple model be used by many controller

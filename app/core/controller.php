@@ -6,6 +6,19 @@ class Controller
   {
     if (file_exists('../app/views/' . THEME . $path . '.php')) {
       include '../app/views/' . THEME . $path . '.php';
-    } 
+    }
+  }
+
+  public function loadModel($model)
+  {
+    if (file_exists('../app/models/' . strtolower($model) . '.class.php')) {
+      include '../app/models/' . strtolower($model) . '.class.php';
+
+      // return instance of the model
+
+      return $m = new $model();
+    }
+
+    return false;
   }
 }
