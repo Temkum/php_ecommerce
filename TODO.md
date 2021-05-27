@@ -19,3 +19,5 @@ then with a constructor that runs immediately
 
 Models are classes which do specifc things
 A simple model be used by many controller
+
+Db connection instancing
