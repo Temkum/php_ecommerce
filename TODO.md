@@ -10,4 +10,4 @@ then with a constructor that runs immediately
 * creating views
 
 - connect template to our mvc
-
+- add assets
