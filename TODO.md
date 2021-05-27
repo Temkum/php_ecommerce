@@ -7,10 +7,12 @@ use print_r() to view objects and debugging
 created a class with default method since it's used nowhere else
 then with a constructor that runs immediately
 
-* creating views
+- creating views
 
-- connect template to our mvc
-- add assets
+* connect template to our mvc
+* add assets
 
-- login and signup page
-You could redirect user to the 404 page if the page doesn't exist or link is broken
+* login and signup page
+  You could redirect user to the 404 page if the page doesn't exist or link is broken
+
+* Posting on login and signup
