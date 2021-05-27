@@ -1,10 +1,10 @@
 	<?php $this->view('header', $data); ?>
 	<style>
-		.row {
+		.txt-center {
 			text-align: center;
 		}
 
-		.col-sm-4 {
+		.col-display {
 			float: none;
 			display: inline-block;
 		}
@@ -16,8 +16,8 @@
 
 	<section id="form">
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
+			<div class="row txt-center">
+				<div class="col-sm-4 col-sm-offset-1 col-display">
 					<!-- LOGIN FORM -->
 					<div class="login-form">
 						<h2>Login to your account</h2>
