@@ -6,6 +6,6 @@ class Home extends Controller
   {
     $data['page_title'] = 'Home';
 
-    $this->view('ecomm/index', $data);
+    $this->view('index', $data);
   }
 }

@@ -1,10 +1,12 @@
 <?php
 
 // Contains all configuration needed for your website to run
-define('WEBSITE_TITLE', 'MY eSHOP');
+define('WEBSITE_TITLE', 'eShopper');
 define('DB_NAME', 'php_ecommerce');
 define('DB_USER', 'root');
 define('DB_PWD', 'loveisall21');
+
+define('THEME', 'ecomm/');
 
 define('DEBUG', true);
 

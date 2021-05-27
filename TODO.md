@@ -11,3 +11,6 @@ then with a constructor that runs immediately
 
 - connect template to our mvc
 - add assets
+
+- login and signup page
+You could redirect user to the 404 page if the page doesn't exist or link is broken
