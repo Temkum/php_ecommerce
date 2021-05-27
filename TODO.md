@@ -6,4 +6,5 @@ use print_r() to view objects and debugging
 
 created a class with default method since it's used nowhere else
 then with a constructor that runs immediately
-ended 4 9mins
+
+* creating views
