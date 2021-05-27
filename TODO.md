@@ -8,3 +8,6 @@ created a class with default method since it's used nowhere else
 then with a constructor that runs immediately
 
 * creating views
+
+- connect template to our mvc
+
