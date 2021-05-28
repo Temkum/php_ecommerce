@@ -1,3 +1,5 @@
+# PHP eCommerce with MVC OOP
+
 Want to add an htaccess file to prevent users from accessing the app folder
 
 Next make sure the website is viewed from the index.php page to avoid add ?? in the url ie in order to have clean URLs - we add an htaccess file which controls how requests are handled
@@ -17,7 +19,7 @@ then with a constructor that runs immediately
 
 * Posting on login and signup
 
-Models are classes which do specifc things
+Models are classes which do specific things
 A simple model be used by many controller
 
 Db connection instancing
@@ -28,3 +30,5 @@ DB read and write functions
   signup validation
 
 Sign up duplicates
+
+Password hashing

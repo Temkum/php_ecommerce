@@ -11,69 +11,77 @@ class User
 
     // instantiate db
     $db = Database::getInstance();
-
     $data['name'] = trim($POST['name']);
     $data['email'] = trim($POST['email']);
     $data['password'] = trim($POST['password']);
     $confirm_password = trim($POST['confirm_password']);
 
-    // validate signup form
-    if (!preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']) || empty($data['email'])) {
-      $this->error .= 'Please enter a valid email! <br>';
-    }
+    if (
+      empty($data['email']) && empty($data['password']) &&
+      empty($data['confirm_password'])
+    ) {
 
-    // name validation
-    if (!preg_match("/^[a-zA-Z]+$/", $data['name']) || empty($data['name'])) {
-      $this->error .= 'Please enter a valid name! <br>';
-    }
+      $this->error .= 'Please fill out all required fields! <br>';
+    } else {
 
-    // validate pwd
-    if (strlen($data['password']) < 5) {
-      $this->error .= 'Passwords must be at least 5 characters long! <br>';
-    }
+      // name validation
+      if (empty($data['name']) || !preg_match("/^[a-zA-Z0-9_]+$/", $data['name'])) {
+        $this->error .= 'Please enter a valid name! <br>';
+      }
 
-    // validate pwd
-    if ($data['password'] != $confirm_password) {
-      $this->error .= 'Passwords do not match! <br>';
-    }
+      // validate signup form
+      if (empty($data['email']) || !preg_match("/^[a-zA-Z0-9_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email'])) {
+        $this->error .= 'Please enter a valid email! <br>';
+      }
 
-    // check if email already exist
-    $sql = 'SELECT * FROM `users` WHERE `email` = :email limit 1';
-    $arr['email'] = $data['email'];
-    $check = $db->read($sql, $arr);
-    if (is_array($check)) {
-      $this->error .=  'Email is already in use! <br>';
-    }
+      // validate pwd
+      if (strlen($data['password']) < 5) {
+        $this->error .= 'Passwords must be at least 5 characters long! <br>';
+      }
 
-    // check if url_address exist
-    $data['url_address'] = $this->get_random_string_max(60);
-    $sql = 'SELECT * FROM `users` WHERE `url_address` = :url_address limit 1';
-    // reset array before use
-    $arr = false;
-    $arr['url_address'] = $data['url_address'];
-    $check = $db->read($sql, $arr);
-    
-    if (is_array($check)) {
+      // validate pwd
+      if ($data['password'] != $confirm_password) {
+        $this->error .= 'Passwords do not match! <br>';
+      }
+
+      // check if email already exist
+      $sql = "SELECT * FROM `users` WHERE `email` = :email limit 1";
+      $arr['email'] = $data['email'];
+      $check = $db->read($sql, $arr);
+      if (is_array($check)) {
+        $this->error .=  'Email is already in use! <br>';
+      }
+
+      // check if url_address exist
       $data['url_address'] = $this->get_random_string_max(60);
-    }
+      $sql = 'SELECT * FROM `users` WHERE `url_address` = :url_address limit 1';
+      // reset array before use
+      $arr = false;
+      $arr['url_address'] = $data['url_address'];
+      $check = $db->read($sql, $arr);
 
-    if ($this->error == '') {
-      # save
-      $data['rank'] = 'customer';
-      $data['date'] = date('Y-m-d H:i:s');
+      if (is_array($check)) {
+        $data['url_address'] = $this->get_random_string_max(60);
+      }
 
-      $sql = "INSERT INTO `users` (`url_address`, `name`, `email`, `password`, `rank`, `date`) VALUES(:url_address, :name, :email, :password, :rank, :date)";
+      if ($this->error == '') {
+        # save
+        $data['rank'] = 'customer';
+        $data['date'] = date('Y-m-d H:i:s');
+        $data['password'] = hash('sha5', $data['password']);
 
-      $result = $db->write($sql, $data);
+        $sql = "INSERT INTO `users` ( `name`, `url_address`, `email`, `password`, `rank`, `date`) VALUES(:name, :url_address, :email, :password, :rank, :date)";
 
-      if ($result) {
-        # check for errors to let it die down
-        header('Location: ' . ROOT . 'login');
+        $result = $db->write($sql, $data);
 
-        exit;
+        if ($result) {
+          # check for errors to let it die down
+          header('Location: ' . ROOT . 'login');
+
+          exit;
+        }
       }
     }
-
     $_SESSION['error'] = $this->error;
   }
 
