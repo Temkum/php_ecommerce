@@ -11,6 +11,7 @@ class User
 
     // instantiate db
     $db = Database::getInstance();
+
     $data['name'] = trim($POST['name']);
     $data['email'] = trim($POST['email']);
     $data['password'] = trim($POST['password']);
@@ -25,7 +26,7 @@ class User
     } else {
 
       // name validation
-      if (empty($data['name']) || !preg_match("/^[a-zA-Z0-9_]+$/", $data['name'])) {
+      if (preg_match("/^[a-zA-Z0-9]+$/", $data['name'])) {
         $this->error .= 'Please enter a valid name! <br>';
       }
 
@@ -68,7 +69,7 @@ class User
         # save
         $data['rank'] = 'customer';
         $data['date'] = date('Y-m-d H:i:s');
-        $data['password'] = hash('sha5', $data['password']);
+        $data['password'] = hash('sha1', $data['password']);
 
         $sql = "INSERT INTO `users` ( `name`, `url_address`, `email`, `password`, `rank`, `date`) VALUES(:name, :url_address, :email, :password, :rank, :date)";
 
@@ -80,6 +81,7 @@ class User
 
           exit;
         }
+        var_dump($result);
       }
     }
     $_SESSION['error'] = $this->error;
