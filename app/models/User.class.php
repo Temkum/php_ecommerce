@@ -26,7 +26,7 @@ class User
     } else {
 
       // name validation
-      if (preg_match("/^[a-zA-Z0-9]+$/", $data['name'])) {
+      if (empty($data['name']) && !preg_match("/^[a-zA-Z0-9]+$/", $data['name'])) {
         $this->error .= 'Please enter a valid name! <br>';
       }
 
@@ -81,7 +81,6 @@ class User
 
           exit;
         }
-        var_dump($result);
       }
     }
     $_SESSION['error'] = $this->error;
@@ -89,7 +88,53 @@ class User
 
   public  function login($POST)
   {
-    # code...
+    # get form values
+    # as an array, so you don't to create new arrays
+    $data = array();
+
+    // instantiate db
+    $db = Database::getInstance();
+
+    $data['email'] = trim($POST['email']);
+    $data['password'] = trim($POST['password']);
+
+    if (
+      empty($data['email']) && empty($data['password'])
+    ) {
+      $this->error .= 'Please fill out all required fields! <br>';
+    } else {
+
+      // validate login form
+      if (empty($data['email']) || !preg_match("/^[a-zA-Z0-9_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email'])) {
+        $this->error .= 'Please enter a valid email! <br>';
+      }
+
+      // validate pwd
+      if (strlen($data['password']) < 5) {
+        $this->error .= 'Please enter a valid password! <br>';
+      }
+
+      if ($this->error == '') {
+        # confirm login
+        $data['password'] = hash('sha1', $data['password']);
+
+        // check if email already exist
+        $sql = "SELECT * FROM `users` WHERE `email` = :email && `password` = :password LIMIT 1";
+
+        $result = $db->read($sql, $data);
+
+        if ($result) {
+          # check for errors to let it die down
+
+          $_SESSION['user_url'] = $result[0]->url_address;
+          header('Location: ' . ROOT . 'home');
+
+          exit;
+        }
+      }
+      $this->error = 'Invalid email or password <br>';
+    }
+    $_SESSION['error'] = $this->error;
   }
 
   public function getUser($url)

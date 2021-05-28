@@ -29,6 +29,10 @@ DB read and write functions
   add regular expression:
   signup validation
 
+- Authentication
+
 Sign up duplicates
 
 Password hashing
+
+login feature
