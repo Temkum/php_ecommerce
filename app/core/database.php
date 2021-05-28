@@ -8,7 +8,7 @@ class Database
   {
     try {
       // $string = "mysql:host=localhost;dbname=php_ecommerce";
-      $string = DB_TYPE . ':host=' . DB_HOST . ';dname=' . DB_NAME;
+      $string = DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
 
       self::$conn = new PDO($string, DB_USER, DB_PWD);
     } catch (PDOException $e) {
@@ -34,10 +34,10 @@ class Database
   }
 
   // fetch data from db
-  public function read($query, $data = array())
+  public function read($sql, $data = array())
   {
     # use self since it's a static value
-    $stmt = self::$conn->prepare($query);
+    $stmt = self::$conn->prepare($sql);
     $result = $stmt->execute($data);
 
     if ($result) {
@@ -53,15 +53,14 @@ class Database
     return false;
   }
 
-  public function write($query, $data = array())
+  public function write($sql, $data = array())
   {
-    $stmt = self::$conn->prepare($query);
+    $stmt = self::$conn->prepare($sql);
     $result = $stmt->execute($data);
 
     if ($result) {
       return true;
     }
-
     return false;
   }
 }
