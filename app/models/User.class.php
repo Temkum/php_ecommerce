@@ -158,4 +158,35 @@ class User
 
     return $text;
   }
+
+  public function checkLogin()
+  {
+    if (isset($_SESSION['user_url'])) {
+      # read from db
+      $arr['url'] = $_SESSION['user_url'];
+      $sql = 'SELECT * FROM users WHERE url_address = :url LIMIT 1';
+      $db = Database::getInstance();
+
+      $result = $db->read($sql, $arr);
+
+      if (is_array($result)) {
+        # code...
+
+        return $result[0];
+      }
+    }
+
+    return false;
+  }
+
+  public function logout()
+  {
+    if (isset($_SESSION['user_url'])) {
+
+      unset($_SESSION['user_url']);
+    }
+    return header('Location: ' . ROOT . 'home');
+
+    exit;
+  }
 }

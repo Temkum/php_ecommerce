@@ -11,9 +11,6 @@ class Login extends Controller
       $user = $this->loadModel('User');
       $user->login($_POST);
     }
-
-    show($_POST);
-
     $this->view('login', $data);
   }
 }

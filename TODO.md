@@ -33,6 +33,9 @@ DB read and write functions
 
 Sign up duplicates
 
-Password hashing
+apply Password hashing
 
-login feature
+add login feature
+
+Check login function: display name
+add logout feature: create logout controller
