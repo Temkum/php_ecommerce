@@ -23,8 +23,8 @@ A simple model be used by many controller
 Db connection instancing
 DB read and write functions
 
-* User class:
-add regular expression: 
-signup validation
+- User class:
+  add regular expression:
+  signup validation
 
-
+Sign up duplicates
