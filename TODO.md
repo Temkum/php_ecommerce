@@ -39,3 +39,6 @@ add login feature
 
 Check login function: display name
 add logout feature: create logout controller
+
+- Admin template
+create admin controller

@@ -40,7 +40,7 @@
                 <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
                 <?php if (isset($data['user_data'])) : ?>
                   <li><a href="#"><i class="fa fa-user"></i> <?php echo $data['user_data']->name ?></a></li>
-                <?php endif ?>
+                <?php endif; ?>
               </ul>
             </div>
           </div>
@@ -103,7 +103,7 @@
                   <li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
                 <?php else : ?>
                   <li><a href="login"><i class="fa fa-lock"></i> Login</a></li>
-                <?php endif ?>
+                <?php endif; ?>
               </ul>
             </div>
           </div>

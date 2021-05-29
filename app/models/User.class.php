@@ -168,7 +168,7 @@ class User
       $db = Database::getInstance();
 
       $result = $db->read($sql, $arr);
-
+      
       if (is_array($result)) {
         # code...
 

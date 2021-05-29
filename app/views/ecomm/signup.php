@@ -32,8 +32,10 @@
 						<!--sign up form-->
 						<h2>New User Signup!</h2>
 						<form method="POST">
-							<input name="name" type="text" placeholder="Name" />
-							<input name="email" type="email" placeholder="Email Address" />
+							<input name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : ''; ?>" type="text" placeholder="Name" />
+
+							<input name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : ''; ?>" type="email" placeholder="Email Address" />
+
 							<input name="password" type="password" placeholder="Password" />
 							<input name="confirm_password" type="password" placeholder="Confirm Password" />
 							<button type="submit" class="btn btn-default">Signup</button>

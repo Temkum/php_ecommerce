@@ -8,7 +8,7 @@ class Home extends Controller
     $user_data = $User->checkLogin();
 
     // check if user is logged in
-    if (is_array($user_data)) {
+    if (is_object($user_data)) {
       # code...
       $data['user_data'] = $user_data;
     }

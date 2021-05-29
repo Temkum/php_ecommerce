@@ -31,8 +31,9 @@
 					<div class="login-form">
 						<h2>Login to your account</h2>
 						<form method="POST">
-							<input name="email" type="email" placeholder="Email address" />
-							<input name="password" type="password" placeholder="Enter password" />
+							<input name="email" type="email" value="<?= isset($_POST['email']) ? $_POST['email'] : ''; ?>" placeholder="Email address" />
+
+							<input name="password" type="password" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" placeholder="Enter password" />
 							<span>
 								<input type="checkbox" class="checkbox">
 								Keep me signed in

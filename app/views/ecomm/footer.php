@@ -92,16 +92,19 @@
                 <li><a href="#">Order Status</a></li>
                 <li><a href="#">Change Location</a></li>
                 <li><a href="#">FAQ’s</a></li>
+                <?php if (isset($data['user_data']) && $data['user_data']->rank == 'admin') : ?>
+                  <li><a href="<?= ROOT ?>admin">Admin</a></li>
+                <?php endif ?>
               </ul>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="single-widget">
-              <h2>Quock Shop</h2>
+              <h2>Quick Shop</h2>
               <ul class="nav nav-pills nav-stacked">
                 <li><a href="#">T-Shirt</a></li>
-                <li><a href="#">Mens</a></li>
-                <li><a href="#">Womens</a></li>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
                 <li><a href="#">Gift Cards</a></li>
                 <li><a href="#">Shoes</a></li>
               </ul>
@@ -112,7 +115,7 @@
               <h2>Policies</h2>
               <ul class="nav nav-pills nav-stacked">
                 <li><a href="#">Terms of Use</a></li>
-                <li><a href="#">Privecy Policy</a></li>
+                <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Refund Policy</a></li>
                 <li><a href="#">Billing System</a></li>
                 <li><a href="#">Ticket System</a></li>
@@ -126,7 +129,7 @@
                 <li><a href="#">Company Information</a></li>
                 <li><a href="#">Careers</a></li>
                 <li><a href="#">Store Location</a></li>
-                <li><a href="#">Affillate Program</a></li>
+                <li><a href="#">Affiliate Program</a></li>
                 <li><a href="#">Copyright</a></li>
               </ul>
             </div>
