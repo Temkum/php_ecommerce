@@ -41,7 +41,9 @@ Check login function: display name
 add logout feature: create logout controller
 
 - Admin template
-create admin controller
+  create admin controller
 
 - User profile
-to create a page start with the controller
+  to create a page start with the controller
+
+- Modify admin page

@@ -15,13 +15,6 @@
   <link href="<?php echo ASSETS ?>css/main.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/responsive.css" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>admin/css/zabuto_calendar.css">
-  <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>admin/js/gritter/css/jquery.gritter.css" />
-  <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>admin/lineicons/style.css">
-
-  <!-- Custom styles for this template -->
-  <link href="<?= ASSETS ?>admin/css/style.css" rel="stylesheet">
-  <link href="<?= ASSETS ?>admin/css/style-responsive.css" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="<?= ASSETS ?>js.php5shiv.js"></script>
     <script src="<?= ASSETS ?>js/respond.min.js"></script>

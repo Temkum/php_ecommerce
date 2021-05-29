@@ -5,7 +5,7 @@ class Profile extends Controller
   public function index()
   {
     $User = $this->loadModel('User');
-    $user_data = $User->checkLogin();
+    $user_data = $User->checkLogin(true);
 
     // check if user is logged in
     if (is_object($user_data)) {

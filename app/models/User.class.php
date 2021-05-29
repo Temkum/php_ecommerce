@@ -159,7 +159,7 @@ class User
     return $text;
   }
 
-  public function checkLogin()
+  public function checkLogin($redirect = false)
   {
     if (isset($_SESSION['user_url'])) {
       # read from db
@@ -168,12 +168,19 @@ class User
       $db = Database::getInstance();
 
       $result = $db->read($sql, $arr);
-      
+
       if (is_array($result)) {
         # code...
 
         return $result[0];
       }
+    }
+
+    if ($redirect) {
+      # code...
+      header('Location: ' . ROOT . 'login');
+
+      exit;
     }
 
     return false;
