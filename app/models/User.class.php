@@ -170,7 +170,7 @@ class User
     if (count($userAccess) > 0) {
 
       $arr['url'] = $_SESSION['user_url'];
-      $sql = "SELECT `rank` FROM `users` WHERE `url_address` = :url LIMIT 1 ";
+      $sql = "SELECT * FROM `users` WHERE `url_address` = :url LIMIT 1 ";
 
       $result = $db->read($sql, $arr);
 

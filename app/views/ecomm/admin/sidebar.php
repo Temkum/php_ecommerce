@@ -1,6 +1,3 @@
-<!-- **********
-      MAIN SIDEBAR MENU
-      ************ -->
 <!--sidebar start-->
 <aside>
   <div id="sidebar" class="nav-collapse ">
@@ -8,7 +5,8 @@
     <ul class="sidebar-menu" id="nav-accordion">
 
       <p class="centered"><a href="profile.html"><img src="<?= ASSETS ?>admin/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-      <h5 class="centered">Marcel Newman</h5>
+      <h5 class="centered"><?php echo $data['user_data']->name ?></h5>
+      <h6 class="centered"><?php echo $data['user_data']->email ?></h6>
 
       <li class="mt">
         <a href="index.html">
@@ -18,69 +16,63 @@
       </li>
 
       <li class="sub-menu">
-        <a href="javascript:;">
-          <i class="fa fa-desktop"></i>
-          <span>UI Elements</span>
+        <a href="<?= ROOT ?>admin/products">
+          <i class="fa fa-barcode"></i>
+          <span>Products</span>
         </a>
         <ul class="sub">
-          <li><a href="general.html">General</a></li>
-          <li><a href="buttons.html">Buttons</a></li>
-          <li><a href="panels.html">Panels</a></li>
+          <li><a href="<?= ROOT ?>admin/products/add">Add new product</a></li>
+          <li><a href="<?= ROOT ?>admin/products/edit">Edit product</a></li>
+          <li><a href="<?= ROOT ?>admin/products/delete">Delete</a></li>
         </ul>
       </li>
 
-      <!-- <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-cogs"></i>
-                            <span>Components</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="calendar.html">Calendar</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="todo_list.html">Todo List</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a class="active" href="javascript:;">
-                            <i class="fa fa-book"></i>
-                            <span>Extra Pages</span>
-                        </a>
-                        <ul class="sub">
-                            <li class="active"><a href="blank.html">Blank Page</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="lock_screen.html">Lock Screen</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-tasks"></i>
-                            <span>Forms</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="form_component.html">Form Components</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-th"></i>
-                            <span>Data Tables</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="basic_table.html">Basic Table</a></li>
-                            <li><a href="responsive_table.html">Responsive Table</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class=" fa fa-bar-chart-o"></i>
-                            <span>Charts</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="morris.html">Morris</a></li>
-                            <li><a href="chartjs.html">Chartjs</a></li>
-                        </ul>
-                    </li> -->
+      <li class="sub-menu">
+        <a href="<?= ROOT ?>admin/categories">
+          <i class="fa fa-list-alt"></i>
+          <span>Categories</span>
+        </a>
+        <ul class="sub">
+          <li><a href="<?= ROOT ?>admin/categories/add">Add new category</a></li>
+          <li><a href="<?= ROOT ?>admin/categories/edit">Edit category</a></li>
+          <li><a href="<?= ROOT ?>admin/categories/delete">Delete</a></li>
+        </ul>
+      </li>
 
+      <li class="sub-menu">
+        <a href="<?= ROOT ?>admin/orders">
+          <i class="fa fa-reorder"></i>
+          <span>Orders</span>
+        </a>
+      </li>
+
+      <li class="sub-menu">
+        <a href="<?= ROOT ?>admin/settings">
+          <i class="fa fa-cogs"></i>
+          <span>Settings</span>
+        </a>
+        <ul class="sub">
+          <li><a href="<?= ROOT ?>admin/settings/slider">Image slider</a></li>
+        </ul>
+      </li>
+
+      <li class="sub-menu">
+        <a class="" href="<?= ROOT ?>admin/users">
+          <i class="fa fa-user"></i>
+          <span>Users</span>
+        </a>
+        <ul class="sub">
+          <li><a href="<?= ROOT ?>admin/users/customers">Customers</a></li>
+          <li><a href="<?= ROOT ?>admin/users/admins">Admins</a></li>
+        </ul>
+      </li>
+
+      <li class="sub-menu">
+        <a class="" href="<?= ROOT ?>admin/backup">
+          <i class="fa fa-hdd-o"></i>
+          <span>Website Backup</span>
+        </a>
+      </li>
     </ul>
     <!-- sidebar menu end-->
   </div>

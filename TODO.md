@@ -49,3 +49,16 @@ add logout feature: create logout controller
 - Modify admin page
 
 - Limit admin access
+
+- Populate admin sidebar:
+  products-> add, edit & delete
+
+  categories-> add, edit & delete
+
+  orders-> 
+  settings
+
+  home->images
+  customers
+  admins
+  website backup
