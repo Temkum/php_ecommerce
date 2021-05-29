@@ -159,28 +159,53 @@ class User
     return $text;
   }
 
-  public function checkLogin($redirect = false)
+  public function checkLogin($redirect = false, $userAccess = array())
   {
-    if (isset($_SESSION['user_url'])) {
-      # read from db
+    // limit user access
+    /* check current user rank
+    * get user from db
+    */
+    $db = Database::getInstance();
+
+    if (count($userAccess) > 0) {
+
       $arr['url'] = $_SESSION['user_url'];
-      $sql = 'SELECT * FROM users WHERE url_address = :url LIMIT 1';
-      $db = Database::getInstance();
+      $sql = "SELECT `rank` FROM `users` WHERE `url_address` = :url LIMIT 1 ";
 
       $result = $db->read($sql, $arr);
 
       if (is_array($result)) {
-        # code...
+        // get first item in result set
+        $result = $result[0];
+
+        if (in_array($result->rank, $userAccess)) {
+          return $result;
+        }
+      }
+
+      // redirect to login if user is not found
+      header('Location: ' . ROOT . 'login');
+    }
+
+    if (isset($_SESSION['user_url'])) {
+      // read from db
+      $arr = false;
+      $arr['url'] = $_SESSION['user_url'];
+      $sql = 'SELECT * FROM `users` WHERE `url_address` = :url LIMIT 1';
+      $result = $db->read($sql, $arr);
+
+      if (is_array($result)) {
+        // code...
 
         return $result[0];
       }
-    }
 
-    if ($redirect) {
-      # code...
-      header('Location: ' . ROOT . 'login');
+      if ($redirect) {
+        // code...
+        header('Location: ' . ROOT . 'login');
 
-      exit;
+        exit;
+      }
     }
 
     return false;

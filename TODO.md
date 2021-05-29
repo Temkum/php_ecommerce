@@ -47,3 +47,5 @@ add logout feature: create logout controller
   to create a page start with the controller
 
 - Modify admin page
+
+- Limit admin access
