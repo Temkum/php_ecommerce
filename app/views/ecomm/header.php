@@ -14,6 +14,14 @@
   <link href="<?php echo ASSETS ?>css/animate.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/main.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/responsive.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>admin/css/zabuto_calendar.css">
+  <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>admin/js/gritter/css/jquery.gritter.css" />
+  <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>admin/lineicons/style.css">
+
+  <!-- Custom styles for this template -->
+  <link href="<?= ASSETS ?>admin/css/style.css" rel="stylesheet">
+  <link href="<?= ASSETS ?>admin/css/style-responsive.css" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="<?= ASSETS ?>js.php5shiv.js"></script>
     <script src="<?= ASSETS ?>js/respond.min.js"></script>
@@ -95,7 +103,9 @@
           <div class="col-sm-8">
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
-                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                <?php if (isset($data['user_data']) && $data['user_data']->rank == 'admin') : ?>
+                  <li><a href="<?= ROOT ?>profile"><i class="fa fa-user"></i> Account</a></li>
+                <?php endif ?>
                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                 <li><a href="checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                 <li><a href="cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
