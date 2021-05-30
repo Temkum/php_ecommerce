@@ -52,13 +52,14 @@ add logout feature: create logout controller
 
 - Populate admin sidebar:
   products-> add, edit & delete
-
   categories-> add, edit & delete
-
-  orders-> 
+  orders->
   settings
-
   home->images
   customers
   admins
   website backup
+
+  - product and category tables
+
+  - add new categories view

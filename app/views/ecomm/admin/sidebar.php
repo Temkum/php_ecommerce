@@ -33,6 +33,7 @@
           <span>Categories</span>
         </a>
         <ul class="sub">
+          <li><a href="<?= ROOT ?>admin/categories/add">View categories</a></li>
           <li><a href="<?= ROOT ?>admin/categories/add">Add new category</a></li>
           <li><a href="<?= ROOT ?>admin/categories/edit">Edit category</a></li>
           <li><a href="<?= ROOT ?>admin/categories/delete">Delete</a></li>
@@ -78,3 +79,18 @@
   </div>
 </aside>
 <!--sidebar end-->
+
+<!-- *******************
+      MAIN CONTENT
+      *********** -->
+<!--main content start-->
+<section id="main-content">
+  <style>
+    .txt {
+      text-transform: uppercase;
+    }
+  </style>
+  <section class="wrapper site-min-height">
+    <h3 class="txt"><i class="fa fa-angle-right"> admin</i></h3>
+    <div class="row mt">
+      <div class="col-lg-12">
