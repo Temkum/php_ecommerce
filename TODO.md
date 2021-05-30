@@ -63,3 +63,4 @@ add logout feature: create logout controller
   - product and category tables
 
   - add new categories view
+    add categories table
