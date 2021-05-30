@@ -56,11 +56,11 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Category Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="category" class="form-control" name="category" placeholder="Enter product category">
+                <input type="text" id="category" class="form-control" name="category" placeholder="Enter product category" autofocus>
               </div>
             </div>
             <button class="btn btn-warning save" type="" onclick="showAddNew(event)">Cancel</button>
-            <button class="btn btn-primary save" type="button" onclick="sendData(event)">Save</button>
+            <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
           </form>
         </div>
         <hr>
@@ -93,35 +93,65 @@
 </div><!-- /row -->
 
 <script>
-  function showAddNew(e) {
+  function showAddNew() {
     let showModal = document.querySelector('.add-new');
     showModal.classList.toggle('hide');
 
     let cat_input = document.querySelector('#category');
     cat_input.focus();
+
+    cat_input.value = '';
   }
 
   // AJAX request
   function collectData(e) {
+    let cat_input = document.querySelector('#category');
+    if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
+      alert('Please enter a valid category.');
+    }
 
+    // send data as an object
+    let data = cat_input.value.trim();
+    sendData({
+      data: data,
+      data_type: 'add_category'
+    });
   }
 
-  function sendData(data) {
+  function sendData(data = {}) {
     // create new ajax object
-    const ajax = new XMLHttpRequest();
+    let ajax = new XMLHttpRequest();
 
     // send data as a form
-    /* const form = new FormData();
-    form.append('name', 'food'); */
+    // let form = new FormData();
+    // form.append('data', data);
 
     ajax.addEventListener('readystatechange', function() {
       if (ajax.readyState == 4 && ajax.status == 200) {
-        alert(ajax.responseText);
+        handleResult(ajax.responseText);
       }
     });
 
     ajax.open('POST', '<?= ROOT ?>ajax', true); //true here is to tell it to run in the background
     ajax.send(JSON.stringify(data));
+  }
+
+  function handleResult(result) {
+    // check if result is not empty
+    if (result != '') {
+      let obj = JSON.parse(result);
+
+      // keep dialogue box open if error exist
+      if (typeof obj.msg_type != 'undefined') {
+
+        if (obj.msg_type == 'success') {
+          alert(obj.msg);
+          showAddNew();
+        } else {
+          alert(obj.msg);
+        }
+      }
+    }
   }
 </script>
 

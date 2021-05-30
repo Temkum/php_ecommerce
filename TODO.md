@@ -64,3 +64,5 @@ add logout feature: create logout controller
 
   - add new categories view
     add categories table
+    using ajax to create category
+    collect category name and save to db - create model for creating the category
