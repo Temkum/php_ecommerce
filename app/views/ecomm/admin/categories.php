@@ -9,12 +9,13 @@
     }
 
     .add-new {
-      width: 60%;
+      width: 50%;
       height: 300px;
       left: 20%;
       background-color: #cecece;
       position: absolute;
       padding: 7px;
+      box-shadow: 0px 0px 8px #aaa;
     }
 
     .show {
@@ -24,6 +25,24 @@
     .hide {
       display: none;
     }
+
+    .save {
+      float: right;
+      margin-top: 10px;
+      margin-right: 15px;
+    }
+
+    .mb {
+      margin-bottom: 2rem;
+    }
+
+    .mt-2 {
+      margin-top: 2rem;
+    }
+
+    .ml-3 {
+      margin-left: 30px;
+    }
   </style>
 
   <div class="col-md-12">
@@ -32,7 +51,17 @@
         <h4><i class="fa fa-angle-right"></i> Product Categories <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new</button></h4>
         <!-- add new category -->
         <div class="add-new hide">
-
+          <h5 class="ml-3">New category</h5>
+          <form action="" class="form-horizontal style-form mt-2" method="POST">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Category Name</label>
+              <div class="col-sm-9 mb">
+                <input type="text" id="category" class="form-control" name="category" placeholder="Enter product category">
+              </div>
+            </div>
+            <button class="btn btn-warning save" type="" onclick="showAddNew(event)">Cancel</button>
+            <button class="btn btn-primary save" type="button" onclick="sendData(event)">Save</button>
+          </form>
         </div>
         <hr>
         <thead>
@@ -67,6 +96,32 @@
   function showAddNew(e) {
     let showModal = document.querySelector('.add-new');
     showModal.classList.toggle('hide');
+
+    let cat_input = document.querySelector('#category');
+    cat_input.focus();
+  }
+
+  // AJAX request
+  function collectData(e) {
+
+  }
+
+  function sendData(data) {
+    // create new ajax object
+    const ajax = new XMLHttpRequest();
+
+    // send data as a form
+    /* const form = new FormData();
+    form.append('name', 'food'); */
+
+    ajax.addEventListener('readystatechange', function() {
+      if (ajax.readyState == 4 && ajax.status == 200) {
+        alert(ajax.responseText);
+      }
+    });
+
+    ajax.open('POST', '<?= ROOT ?>ajax', true); //true here is to tell it to run in the background
+    ajax.send(JSON.stringify(data));
   }
 </script>
 
