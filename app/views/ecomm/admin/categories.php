@@ -150,6 +150,10 @@
           table_body.innerHTML = obj.data;
         } else
         if (obj.data_type == 'delete_row') {
+
+          let table_body = document.querySelector('#table_body');
+          table_body.innerHTML = obj.data;
+
           alert(obj.msg);
         }
       }

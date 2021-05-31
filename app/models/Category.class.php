@@ -27,9 +27,13 @@ class Category
     return false;
   }
 
-  public function edit($Data)
+  public function edit($id)
   {
     # code...
+    $DB = Database::newInstance();
+    $id = (int) $id; //to prevent hacking validate id as an integer
+    $sql = "DELETE FROM categories WHERE id = '{$id}' limit 1";
+    return $DB->write($sql);
   }
 
   public function getAll()

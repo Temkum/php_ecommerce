@@ -57,10 +57,14 @@ class Ajax extends Controller
         echo json_encode($arr);
       } else 
         if ($data->data_type == 'delete_row') {
+        $category->delete($data->id);
         $arr['msg'] = $_SESSION['Row successfully deleted!'];
         $_SESSION['error'] = '';
         $arr['msg_type'] = 'success';
-        $arr['data'] = '';
+
+        $cats = $category->getAll();
+        $arr['data'] = $category->makeTable($cats);
+
         $arr['data_type'] = 'delete_row';
 
         echo json_encode($arr);
