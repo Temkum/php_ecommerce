@@ -28,6 +28,8 @@ class Ajax extends Controller
           $arr['msg'] = 'Category added successfully!';
           $arr['msg_type'] = 'success';
           $arr['data'] = '';
+          $cats = $category->getAll();
+          $arr['data'] =  $category->makeTable($cats);
 
           echo json_encode($arr);
         }

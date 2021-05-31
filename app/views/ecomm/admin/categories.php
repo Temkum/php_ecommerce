@@ -67,18 +67,22 @@
         <thead>
           <tr>
             <th><i class="fa fa-bullhorn"></i> Category</th>
-            <th class="hidden-phone"><i class="fa fa-question-circle"></i> Description</th>
-            <th><i class="fa fa-bookmark"></i> Price</th>
             <th><i class="fa fa-bookmark"></i> Status</th>
             <th><i class=" fa fa-edit"></i> Action</th>
             <th></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="table_body">
+          <?php
+          $DB = Database::newInstance();
+          $categories = $DB->read('SELECT * FROM `categories` ORDER BY id DESC');
+
+          $category = $this->loadModel('Category');
+          $tbl_rows = $category->makeTable($categories);
+
+          ?>
           <tr>
             <td><a href="basic_table.html#">Company Ltd</a></td>
-            <td class="hidden-phone">Lorem Ipsum dolor</td>
-            <td>12000.00$ </td>
             <td><span class="label label-info label-mini">Enabled</span></td>
             <td>
               <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
@@ -147,6 +151,9 @@
         if (obj.msg_type == 'success') {
           alert(obj.msg);
           showAddNew();
+
+          let table = document.querySelector('#table_body');
+          table_body.innerHTML = obj.data;
         } else {
           alert(obj.msg);
         }

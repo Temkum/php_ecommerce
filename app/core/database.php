@@ -33,6 +33,14 @@ class Database
     return $instance;
   }
 
+  public static function newInstance()
+  {
+    // instantiate class within the class
+    $instance = new self();
+
+    return $instance;
+  }
+
   // fetch data from db
   public function read($sql, $data = array())
   {
