@@ -15,7 +15,7 @@ class Category
 
     # create category
     if (!isset($_SESSION['error']) && $_SESSION['error'] == "") {
-      $sql = 'INSERT INTO `categories` (category) VALUES (:category)';
+      $sql = "INSERT INTO `categories` (`category`) VALUES (:category)";
       $check = $DB->write($sql, $arr);
 
       if ($check) {
@@ -47,16 +47,23 @@ class Category
   {
     # use result instead of echo
     $result = '';
+
     if (is_array($cats)) {
       foreach ($cats as $cat_row) {
+        // convert status to text
+        $color = $cat_row->disabled ? '#797979' : '#3077d3';
+        $cat_row->disabled = $cat_row->disabled ? 'Disabled' : 'Enabled';
+        $args = $cat_row->id . ",'" . $cat_row->disabled . "'";
+
         $result .= '<tr>';
 
         $result .= '<td><a href="basic_table.html#">' . $cat_row->category . '</a></td>
-            <td><span class="label label-info label-mini">' . $cat_row->disabled . '</span></td>
+            <td><span class="label label-info label-mini cursor " style="background-color:' . $color . ';" onclick="disableRow(' . $args . ')">' . $cat_row->disabled . '</span></td>
+
             <td>
-              <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-              <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="editRow(' . $cat_row->id . ')"></i></button>
+
+              <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
             </td>';
         $result .= '</tr>';
       }

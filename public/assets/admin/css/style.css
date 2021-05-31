@@ -2402,3 +2402,11 @@ label {
 .site-min-height {
     min-height: 900px;
 }
+
+span.cursor {
+    cursor: pointer;
+}
+
+.info-color {
+    background-color: #3077d3;
+}

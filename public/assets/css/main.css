@@ -650,6 +650,7 @@ ul.sub-menu {
 
 .item button:hover {
   background: #FE980F;
+  cursor: pointer;
 }
 
 .control-carousel {

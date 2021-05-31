@@ -130,19 +130,58 @@
       let obj = JSON.parse(result);
 
       // keep dialogue box open if error exist
-      if (typeof obj.msg_type != 'undefined') {
+      if (typeof obj.data_type != 'undefined') {
 
-        if (obj.msg_type == 'success') {
-          alert(obj.msg);
-          showAddNew();
+        if (obj.data_type == 'add_new') {
 
-          let table = document.querySelector('#table_body');
+          if (obj.msg_type == 'success') {
+            alert(obj.msg);
+            showAddNew();
+
+            let table_body = document.querySelector('#table_body');
+            table_body.innerHTML = obj.data;
+          } else {
+            alert(obj.msg);
+          }
+
+        } else
+        if (obj.data_type == 'disable_row') {
+          let table_body = document.querySelector('#table_body');
           table_body.innerHTML = obj.data;
-        } else {
+        } else
+        if (obj.data_type == 'delete_row') {
           alert(obj.msg);
         }
       }
     }
+  }
+
+  function editRow(id) {
+    sendData({
+      data_type: '',
+    })
+  }
+
+  function deleteRow(id) {
+
+    //  confirm row delete
+    if (!confirm('Are you sure you want to delete this row?')) {
+
+      return;
+    }
+
+    sendData({
+      data_type: 'delete_row',
+      id: id
+    })
+  }
+
+  function disableRow(id, state) {
+    sendData({
+      data_type: 'disable_row',
+      id: id,
+      current_state: state
+    })
   }
 </script>
 

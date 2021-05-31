@@ -70,3 +70,4 @@ add logout feature: create logout controller
   - read category from db
 
   - disable / enable categories
+  - delete categories
