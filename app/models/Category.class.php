@@ -52,7 +52,7 @@ class Category
         $result .= '<tr>';
 
         $result .= '<td><a href="basic_table.html#">' . $cat_row->category . '</a></td>
-            <td><span class="label label-info label-mini">' . $cat_row->category . '</span></td>
+            <td><span class="label label-info label-mini">' . $cat_row->disabled . '</span></td>
             <td>
               <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
               <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>

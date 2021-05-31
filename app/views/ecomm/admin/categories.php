@@ -73,23 +73,7 @@
           </tr>
         </thead>
         <tbody id="table_body">
-          <?php
-          $DB = Database::newInstance();
-          $categories = $DB->read('SELECT * FROM `categories` ORDER BY id DESC');
-
-          $category = $this->loadModel('Category');
-          $tbl_rows = $category->makeTable($categories);
-
-          ?>
-          <tr>
-            <td><a href="basic_table.html#">Company Ltd</a></td>
-            <td><span class="label label-info label-mini">Enabled</span></td>
-            <td>
-              <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-              <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-            </td>
-          </tr>
+          <?= $data['tbl_rows']; ?>
         </tbody>
       </table>
     </div><!-- /content-panel -->
