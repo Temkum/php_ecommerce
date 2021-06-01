@@ -1,12 +1,12 @@
 <?php
 class Category
 {
-  public function create($Data)
+  public function create($DATA)
   {
     # code...
-    $DB = Database::getInstance();
+    $DB = Database::newInstance();
 
-    $arr['category'] = ucwords($Data->data);
+    $arr['category'] = ucwords($DATA->data);
 
     // validate user input
     if (!preg_match("/^[a-zA-Z ]+$/", trim($arr['category']))) {
@@ -14,7 +14,7 @@ class Category
     }
 
     # create category
-    if (!isset($_SESSION['error']) && $_SESSION['error'] == "") {
+    if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
       $sql = "INSERT INTO `categories` (`category`) VALUES (:category)";
       $check = $DB->write($sql, $arr);
 
@@ -27,8 +27,13 @@ class Category
     return false;
   }
 
-  public function edit()
+  public function edit($id, $category)
   {
+    $DB = Database::newInstance();
+    $arr['id'] = $id;
+    $arr['category'] = $category;
+    $sql = "UPDATE categories set `category`=:category WHERE id = :id LIMIT 1";
+    $DB->write($sql, $arr);
   }
 
   public function getAll()

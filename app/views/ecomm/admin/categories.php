@@ -99,6 +99,9 @@
 </div><!-- /row -->
 
 <script>
+  // set global id
+  let EDIT_ID = 0;
+
   function showAddNew() {
     let showModal = document.querySelector('.add-new');
 
@@ -110,6 +113,9 @@
   }
 
   function showEditCategory(id, category, e) {
+
+    EDIT_ID = id; //in order to update the id of edited item
+
     let show_edit_modal = document.querySelector('.edit_category');
 
     // show modal on clicked position
@@ -143,7 +149,7 @@
     let cat_input = document.querySelector('#category');
 
     if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
-      alert('Please enter a valid category.');
+      alert('Please enter a valid category name.');
     }
 
     // send data as an object
@@ -151,6 +157,22 @@
     sendData({
       data: data,
       data_type: 'add_category'
+    });
+  }
+
+  function getEditData(e) {
+    let cat_input = document.querySelector('#category_edit');
+
+    if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
+      alert('Please enter a valid category name.');
+    }
+
+    // send data as an object
+    let data = cat_input.value.trim();
+    sendData({
+      id: EDIT_ID,
+      category: data,
+      data_type: 'edit_category'
     });
   }
 
@@ -175,6 +197,7 @@
   function handleResult(result) {
     // check if result is not empty
     if (result != '') {
+      console.log(result);
       let obj = JSON.parse(result);
 
       // keep dialogue box open if error exist
@@ -203,6 +226,13 @@
           table_body.innerHTML = obj.data;
 
           alert(obj.msg);
+        } else
+        if (obj.data_type == 'edit_category') {
+
+          showEditCategory(0, '', false);
+
+          let table_body = document.querySelector('#table_body');
+          table_body.innerHTML = obj.data;
         }
       }
     }
