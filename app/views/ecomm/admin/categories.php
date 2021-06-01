@@ -51,7 +51,7 @@
       <table class="table table-striped table-advance table-hover">
         <h4><i class="fa fa-angle-right"></i> Product Categories <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new</button></h4>
         <!-- add new category -->
-        <div class="add-new hid">
+        <div class="add-new hide">
           <h5 class="ml-3">New category</h5>
           <form action="" class="form-horizontal style-form mt-2" method="POST">
             <div class="form-group ">

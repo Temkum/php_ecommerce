@@ -27,13 +27,8 @@ class Category
     return false;
   }
 
-  public function edit($id)
+  public function edit()
   {
-    # code...
-    $DB = Database::newInstance();
-    $id = (int) $id; //to prevent hacking validate id as an integer
-    $sql = "DELETE FROM categories WHERE id = '{$id}' limit 1";
-    return $DB->write($sql);
   }
 
   public function getAll()
@@ -42,9 +37,13 @@ class Category
     return $DB->read('SELECT * FROM `categories` ORDER BY id DESC');
   }
 
-  public function delete($Data)
+  public function delete($id)
   {
     # code...
+    $DB = Database::newInstance();
+    $id = (int) $id; //to prevent hacking validate id as an integer
+    $sql = "DELETE FROM categories WHERE id = '{$id}' LIMIT 1";
+    $DB->write($sql);
   }
 
   public function makeTable($cats)
