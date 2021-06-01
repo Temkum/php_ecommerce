@@ -58,6 +58,7 @@ class Category
         $color = $cat_row->disabled ? '#797979' : '#3077d3';
         $cat_row->disabled = $cat_row->disabled ? 'Disabled' : 'Enabled';
         $args = $cat_row->id . ",'" . $cat_row->disabled . "'";
+        $edit_args = $cat_row->id . ",'" . $cat_row->category . "'";
 
         $result .= '<tr>';
 
@@ -65,7 +66,7 @@ class Category
             <td><span class="label label-info label-mini cursor " style="background-color:' . $color . ';" onclick="disableRow(' . $args . ')">' . $cat_row->disabled . '</span></td>
 
             <td>
-              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="editRow(' . $cat_row->id . ')"></i></button>
+              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="showEditCategory(' . $edit_args . ', event)"></i></button>
 
               <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
             </td>';

@@ -71,3 +71,7 @@ add logout feature: create logout controller
 
   - disable / enable categories
   - delete categories
+
+  - Edit category in UI
+    populate input fields with category name
+    

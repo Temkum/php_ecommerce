@@ -8,9 +8,10 @@
       padding: 3px 7px;
     }
 
-    .add-new {
+    .add-new,
+    .edit_category {
       width: 50%;
-      height: 300px;
+      height: 200px;
       left: 20%;
       background-color: #cecece;
       position: absolute;
@@ -41,7 +42,7 @@
     }
 
     .ml-3 {
-      margin-left: 30px;
+      margin-left: 16px;
     }
   </style>
 
@@ -50,19 +51,36 @@
       <table class="table table-striped table-advance table-hover">
         <h4><i class="fa fa-angle-right"></i> Product Categories <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new</button></h4>
         <!-- add new category -->
-        <div class="add-new hide">
+        <div class="add-new hid">
           <h5 class="ml-3">New category</h5>
           <form action="" class="form-horizontal style-form mt-2" method="POST">
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Category Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="category" class="form-control" name="category" placeholder="Enter product category" autofocus>
+                <input type="text" id="category" class="form-control" name="category" placeholder="Enter category name" autofocus>
               </div>
             </div>
             <button class="btn btn-warning save" type="" onclick="showAddNew(event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
           </form>
         </div>
+        <!-- end add new category -->
+
+        <!-- EDIT category -->
+        <div class="edit_category hide">
+          <h5 class="ml-3">Edit category</h5>
+          <form action="" class="form-horizontal style-form mt-2" method="POST">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Category Name</label>
+              <div class="col-sm-9 mb">
+                <input type="text" id="category_edit" class="form-control" name="category" placeholder="Enter category name" autofocus>
+              </div>
+            </div>
+            <button class="btn btn-warning save" type="" onclick="showEditCategory(0, '', event)">Cancel</button>
+            <button class="btn btn-primary save" type="button" onclick="getEditData(event)">Update</button>
+          </form>
+        </div>
+        <!-- end add new category -->
         <hr>
         <thead>
           <tr>
@@ -83,17 +101,47 @@
 <script>
   function showAddNew() {
     let showModal = document.querySelector('.add-new');
-    showModal.classList.toggle('hide');
 
     let cat_input = document.querySelector('#category');
-    cat_input.focus();
+    showModal.classList.toggle('hide');
 
+    cat_input.focus();
     cat_input.value = '';
   }
+
+  function showEditCategory(id, category, e) {
+    let show_edit_modal = document.querySelector('.edit_category');
+
+    // show modal on clicked position
+    /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
+    show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
+
+    let cat_input = document.querySelector('#category_edit');
+    cat_input.value = category;
+
+    show_edit_modal.classList.toggle('hide');
+
+    cat_input.focus();
+  }
+
+  /* function showEditCategory(id, category) {
+    let show_edit_modal = document.querySelector('.add_new');
+    let cat_input = document.querySelector('#category_edit');
+    cat_input.value = category;
+
+    if (show_edit_modal.classList.contains('hide')) {
+      show_edit_modal.classList.remove('hide');
+      cat_input.focus();
+    } else {
+      show_edit_modal.classList.add('hide');
+      cat_input.value = '';
+    }
+  } */
 
   // AJAX request
   function collectData(e) {
     let cat_input = document.querySelector('#category');
+
     if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
       alert('Please enter a valid category.');
     }
@@ -111,8 +159,8 @@
     let ajax = new XMLHttpRequest();
 
     // send data as a form
-    // let form = new FormData();
-    // form.append('data', data);
+    /*  let form = new FormData();
+     form.append('data', data); */
 
     ajax.addEventListener('readystatechange', function() {
       if (ajax.readyState == 4 && ajax.status == 200) {
