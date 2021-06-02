@@ -75,3 +75,9 @@ add logout feature: create logout controller
   - Edit category in UI
     populate input fields with category name
     -update edit data
+
+- Product Class
+  create a product controller and class file
+  add a products view template
+
+  - Save products to db

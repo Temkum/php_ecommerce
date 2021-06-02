@@ -15,18 +15,7 @@
         </a>
       </li>
 
-      <li class="sub-menu">
-        <a href="<?= ROOT ?>admin/products">
-          <i class="fa fa-barcode"></i>
-          <span>Products</span>
-        </a>
-        <ul class="sub">
-          <li><a href="<?= ROOT ?>admin/products/add">Add new product</a></li>
-          <li><a href="<?= ROOT ?>admin/products/edit">Edit product</a></li>
-          <li><a href="<?= ROOT ?>admin/products/delete">Delete</a></li>
-        </ul>
-      </li>
-
+      <!-- categories -->
       <li class="sub-menu">
         <a href="<?= ROOT ?>admin/categories">
           <i class="fa fa-list-alt"></i>
@@ -34,9 +23,17 @@
         </a>
         <ul class="sub">
           <li><a href="<?= ROOT ?>admin/categories">View categories</a></li>
-          <li><a href="<?= ROOT ?>admin/categories/add">Add new category</a></li>
-          <li><a href="<?= ROOT ?>admin/categories/edit">Edit category</a></li>
-          <li><a href="<?= ROOT ?>admin/categories/delete">Delete</a></li>
+        </ul>
+      </li>
+
+      <!-- Products -->
+      <li class="sub-menu">
+        <a href="<?= ROOT ?>admin/products">
+          <i class="fa fa-barcode"></i>
+          <span>Products</span>
+        </a>
+        <ul class="sub">
+          <li><a href="<?= ROOT ?>admin/products">View Products</a></li>
         </ul>
       </li>
 

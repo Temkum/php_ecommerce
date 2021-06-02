@@ -9,7 +9,7 @@ class Admin extends Controller
 
     // check if user is logged in
     if (is_object($user_data)) {
-      # code...
+      // code...
       $data['user_data'] = $user_data;
     }
 
@@ -24,23 +24,40 @@ class Admin extends Controller
 
     // check if user is logged in
     if (is_object($user_data)) {
-      # code...
+      // code...
       $data['user_data'] = $user_data;
     }
-
 
     $DB = Database::newInstance();
     $categories = $DB->read('SELECT * FROM `categories` ORDER BY id DESC');
 
     $category = $this->loadModel('Category');
     $tbl_rows = $category->makeTable($categories);
-    // get table results as an array
-    if (is_array($categories)) {
-
-      $data['tbl_rows'] = $tbl_rows;
-    }
+    $data['tbl_rows'] = $tbl_rows;
 
     $data['page_title'] = 'Admin';
     $this->view('admin/categories', $data);
+  }
+
+  public function products()
+  {
+    $User = $this->loadModel('User');
+    $user_data = $User->checkLogin(true, ['admin']);
+
+    // check if user is logged in
+    if (is_object($user_data)) {
+      // code...
+      $data['user_data'] = $user_data;
+    }
+
+    $DB = Database::newInstance();
+    $products = $DB->read('SELECT * FROM `products` ORDER BY id DESC');
+
+    $product = $this->loadModel('Product');
+    $tbl_rows = $product->makeTable($products);
+    $data['tbl_rows'] = $tbl_rows;
+
+    $data['page_title'] = 'Admin';
+    $this->view('admin/products', $data);
   }
 }

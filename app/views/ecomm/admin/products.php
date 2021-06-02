@@ -9,7 +9,7 @@
     }
 
     .add-new,
-    .edit_category {
+    .edit_product {
       width: 50%;
       height: 200px;
       left: 20%;
@@ -49,49 +49,49 @@
   <div class="col-md-12">
     <div class="content-panel">
       <table class="table table-striped table-advance table-hover">
-        <h4><i class="fa fa-angle-right"></i> Product Categories <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new</button></h4>
-        <!-- add new category -->
+        <h4><i class="fa fa-angle-right"></i> Products <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new</button></h4>
+        <!-- add new product -->
         <div class="add-new hide">
-          <h5 class="ml-3">New category</h5>
+          <h5 class="ml-3">New product</h5>
           <form action="" class="form-horizontal style-form mt-2" method="POST">
             <div class="form-group ">
-              <label for="" class="col-sm-3 control-label">Category Name</label>
+              <label for="" class="col-sm-3 control-label">Product Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="category" class="form-control" name="category" placeholder="Enter category name" autofocus>
+                <input type="text" id="product" class="form-control" name="product" placeholder="Enter product name" autofocus>
               </div>
             </div>
             <button class="btn btn-warning save" type="" onclick="showAddNew(event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
           </form>
         </div>
-        <!-- end add new category -->
+        <!-- end add new product -->
 
-        <!-- EDIT category -->
-        <div class="edit_category hide">
-          <h5 class="ml-3">Edit category</h5>
+        <!-- EDIT product -->
+        <div class="edit_product hide">
+          <h5 class="ml-3">Edit product</h5>
           <form action="" class="form-horizontal style-form mt-2" method="POST">
             <div class="form-group ">
-              <label for="" class="col-sm-3 control-label">Category Name</label>
+              <label for="" class="col-sm-3 control-label">product Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="category_edit" class="form-control" name="category" placeholder="Enter category name" autofocus>
+                <input type="text" id="product_edit" class="form-control" name="product" placeholder="Enter product name" autofocus>
               </div>
             </div>
-            <button class="btn btn-warning save" type="" onclick="showEditCategory(0, '', event)">Cancel</button>
+            <button class="btn btn-warning save" type="" onclick="showEditProduct(0, '', event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="getEditData(event)">Update</button>
           </form>
         </div>
-        <!-- end add new category -->
+        <!-- end add new product -->
         <hr>
         <thead>
           <tr>
-            <th><i class="fa fa-bullhorn"></i> Category</th>
-            <th><i class="fa fa-bookmark"></i> Status</th>
+            <th><i class="fa fa-bullhorn"></i> Products</th>
+            <!-- <th><i class="fa fa-bookmark"></i> Status</th> -->
             <th><i class=" fa fa-edit"></i> Action</th>
             <th></th>
           </tr>
         </thead>
         <tbody id="table_body">
-          <?= $data['tbl_rows']; ?>
+          <?= $tbl_rows ?>
         </tbody>
       </table>
     </div><!-- /content-panel -->
@@ -105,74 +105,60 @@
   function showAddNew() {
     let showModal = document.querySelector('.add-new');
 
-    let cat_input = document.querySelector('#category');
+    let cat_input = document.querySelector('#product');
     showModal.classList.toggle('hide');
 
     cat_input.focus();
     cat_input.value = '';
   }
 
-  function showEditCategory(id, category, e) {
+  function showEditProduct(id, product, e) {
 
     EDIT_ID = id; //in order to update the id of edited item
 
-    let show_edit_modal = document.querySelector('.edit_category');
+    let show_edit_modal = document.querySelector('.edit_product');
 
     // show modal on clicked position
     /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
     show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
 
-    let cat_input = document.querySelector('#category_edit');
-    cat_input.value = category;
+    let cat_input = document.querySelector('#product_edit');
+    cat_input.value = product;
 
     show_edit_modal.classList.toggle('hide');
 
     cat_input.focus();
   }
 
-  /* function showEditCategory(id, category) {
-    let show_edit_modal = document.querySelector('.add_new');
-    let cat_input = document.querySelector('#category_edit');
-    cat_input.value = category;
-
-    if (show_edit_modal.classList.contains('hide')) {
-      show_edit_modal.classList.remove('hide');
-      cat_input.focus();
-    } else {
-      show_edit_modal.classList.add('hide');
-      cat_input.value = '';
-    }
-  } */
-
   // AJAX request
   function collectData(e) {
-    let cat_input = document.querySelector('#category');
+    let cat_input = document.querySelector('#product');
 
     if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
-      alert('Please enter a valid category name.');
+      alert('Please enter a valid product name.');
     }
 
     // send data as an object
     let data = cat_input.value.trim();
     sendData({
       data: data,
-      data_type: 'add_category'
+      data_type: 'add_product'
     });
   }
 
   function getEditData(e) {
-    let cat_input = document.querySelector('#category_edit');
+    let cat_input = document.querySelector('#product_edit');
 
     if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
-      alert('Please enter a valid category name.');
+      alert('Please enter a valid product name.');
     }
 
     // send data as an object
     let data = cat_input.value.trim();
     sendData({
       id: EDIT_ID,
-      category: data,
-      data_type: 'edit_category'
+      product: data,
+      data_type: 'edit_product'
     });
   }
 
@@ -190,13 +176,14 @@
       }
     });
 
-    ajax.open('POST', '<?= ROOT ?>ajaxcategory', true); //true here is to tell it to run in the background
+    ajax.open('POST', '<?= ROOT ?>ajaxproduct', true); //true here is to tell it to run in the background
     ajax.send(JSON.stringify(data));
   }
 
   function handleResult(result) {
     // check if result is not empty
     if (result != '') {
+
       let obj = JSON.parse(result);
 
       // keep dialogue box open if error exist
@@ -226,9 +213,9 @@
 
           alert(obj.msg);
         } else
-        if (obj.data_type == 'edit_category') {
+        if (obj.data_type == 'edit_product') {
 
-          showEditCategory(0, '', false);
+          showEditProduct(0, '', false);
 
           let table_body = document.querySelector('#table_body');
           table_body.innerHTML = obj.data;

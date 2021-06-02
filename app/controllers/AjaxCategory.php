@@ -1,6 +1,6 @@
 <?php
 
-class Ajax extends Controller
+class AjaxCategory extends Controller
 {
   public function index()
   {
