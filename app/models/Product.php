@@ -6,16 +6,32 @@ class Product
     # code...
     $DB = Database::newInstance();
 
-    $arr['description'] = ucwords($DATA->data);
+    $arr['description'] = ucwords($DATA->description);
+    $arr['quantity'] = ucwords($DATA->quantity);
+    $arr['category'] = ucwords($DATA->category);
+    $arr['price'] = ucwords($DATA->price);
+    $arr['image'] = ucwords($DATA->image);
+    $arr['date'] = date('Y-m-d H:i:s');
+    $arr['user_url'] = $_SESSION['user_url'];
 
     // validate user input
     if (!preg_match("/^[a-zA-Z ]+$/", trim($arr['description']))) {
-      $_SESSION['error'] = 'Please enter a valid description for this product!';
+      $_SESSION['error'] .= 'Please enter a valid description for this product!<br>';
+    }
+
+    if (!is_numeric($arr['quantity'])) {
+      $_SESSION['error'] .= 'Please enter a valid quantity!<br>';
+    }
+    if (!is_numeric($arr['category'])) {
+      $_SESSION['error'] .= 'Please enter a valid category!<br>';
+    }
+    if (!is_numeric($arr['price'])) {
+      $_SESSION['error'] .= 'Please enter a valid price!<br>';
     }
 
     # create product
     if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
-      $sql = "INSERT INTO `products` (`description`) VALUES (:description)";
+      $sql = "INSERT INTO `products` (`description`, quantity, category, price, user_url, date) VALUES (:description, :quantity, :category, :price, :user_url, :date)";
       $check = $DB->write($sql, $arr);
 
       if ($check) {
