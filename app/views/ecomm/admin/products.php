@@ -57,24 +57,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Product Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="product" class="form-control" name="product" placeholder="Enter product name" autofocus>
-              </div>
-            </div>
-
-            <button class="btn btn-warning save" type="button" onclick="showAddNew(event)">Cancel</button>
-            <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
-          </form>
-        </div>
-        <!-- end add new product -->
-
-        <!-- EDIT product -->
-        <div class="edit_product hide">
-          <h5 class="ml-3">Edit product</h5>
-          <form action="" class="form-horizontal style-form mt-2" method="POST">
-            <div class="form-group ">
-              <label for="" class="col-sm-3 control-label">Product Name</label>
-              <div class="col-sm-9 mb">
-                <input type="text" id="product_edit" class="form-control" name="description" placeholder="Enter description" autofocus>
+                <input type="text" id="description" class="form-control" name="description" placeholder="Enter product name" autofocus>
               </div>
             </div>
 
@@ -82,9 +65,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Product Category</label>
               <div class="col-sm-9 mb">
-
-
-                <select name="category" id="product_edit" class="form-control" required>
+                <select name="category" id="category" class="form-control" required>
                   <option value=""></option>
                   <?php if (is_array($categories)) : ?>
                     <?php foreach ($categories as $categ) : ?>
@@ -122,7 +103,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image2" placeholder="" >
+                <input type="file" id="product_edit" class="form-control" name="image2" placeholder="">
               </div>
             </div>
             <div class="form-group ">
@@ -135,6 +116,83 @@
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
                 <input type="file" id="product_edit" class="form-control" name="image4" placeholder="">
+              </div>
+            </div>
+
+            <button class="btn btn-warning save" type="button" onclick="showAddNew(event)">Cancel</button>
+            <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
+          </form>
+        </div>
+        <!-- end add new product -->
+
+        <!-- EDIT product -->
+        <div class="edit_product hide">
+          <h5 class="ml-3">Edit product</h5>
+          <form action="" class="form-horizontal style-form mt-2" method="POST">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Product Name</label>
+              <div class="col-sm-9 mb">
+                <input type="text" id="product_edit" class="form-control" name="description" placeholder="Enter description" autofocus>
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Product Category</label>
+              <div class="col-sm-9 mb">
+
+
+                <select name="category" id="product_edit" class="form-control" required>
+                  <option value=""></option>
+                  <!-- <?php if (is_array($categories)) : ?>
+                    <?php foreach ($categories as $categ) : ?>
+                      <option value="<?= $categ->id ?>"><?= $categ->$category ?></option>
+                    <?php endforeach; ?>
+                  <?php endif; ?> -->
+                </select>
+                <input type="text" class="form-control" placeholder="Enter category" autofocus>
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Price</label>
+              <div class="col-sm-9 mb">
+                <input type="number" id="price" class="form-control" name="price" placeholder="0.00" autofocus required>
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Quantity</label>
+              <div class="col-sm-9 mb">
+                <input type="number" id="quantity" class="form-control" name="quantity" value="1" placeholder="">
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="image" class="form-control" name="image" placeholder="" required>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="image2" class="form-control" name="image2" placeholder="">
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="image3" class="form-control" name="image3" placeholder="">
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="image4" class="form-control" name="image4" placeholder="">
               </div>
             </div>
 
@@ -167,11 +225,11 @@
   function showAddNew() {
     let showModal = document.querySelector('.add-new');
 
-    let cat_input = document.querySelector('#product');
+    let product_input = document.querySelector('#description');
     showModal.classList.toggle('hide');
 
-    cat_input.focus();
-    cat_input.value = '';
+    product_input.focus();
+    product_input.value = '';
   }
 
   function showEditProduct(id, product, e) {
@@ -184,39 +242,64 @@
     /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
     show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
 
-    let cat_input = document.querySelector('#product_edit');
-    cat_input.value = product;
+    let product_input = document.querySelector('#product_edit');
+    product_input.value = product;
 
     show_edit_modal.classList.toggle('hide');
 
-    cat_input.focus();
+    product_input.focus();
   }
 
   // AJAX request
   function collectData(e) {
-    let cat_input = document.querySelector('#product');
-
-    if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
+    let product_input = document.querySelector('#product');
+    if (product_input.value.trim() == '' || !isNaN(product_input.value.trim())) {
       alert('Please enter a valid product name.');
+
+      return; //to exit function
+    }
+
+    let quantity_input = document.querySelector('#quantity');
+    if (quantity_input.value.trim() == '' || isNaN(quantity_input.value.trim())) {
+      alert('Please enter a valid quantity.');
+
+      return; //to exit function
+    }
+
+    let category_input = document.querySelector('#category');
+    if (category_input.value.trim() == '' || isNaN(category_input.value.trim())) {
+      alert('Please enter a valid category.');
+
+      return; //to exit function
+    }
+
+    let price_input = document.querySelector('#price');
+    if (price_input.value.trim() == '' || isNaN(price_input.value.trim())) {
+      alert('Please enter a valid price.');
+
+      return; //to exit function
     }
 
     // send data as an object
-    let data = cat_input.value.trim();
+    let data = product_input.value.trim();
     sendData({
-      data: data,
+      description: product_input.value.trim(),
+      quantity: quantity_input.value.trim(),
+      category: category_input.value.trim(),
+      price: price_input.value.trim(),
       data_type: 'add_product'
     });
   }
 
   function getEditData(e) {
-    let cat_input = document.querySelector('#product_edit');
+    let product_input = document.querySelector('#product_edit');
 
-    if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
+    if (product_input.value.trim() == '' || !isNaN(product_input.value.trim())) {
       alert('Please enter a valid product name.');
     }
 
     // send data as an object
-    let data = cat_input.value.trim();
+    let data = product_input.value.trim();
     sendData({
       id: EDIT_ID,
       product: data,

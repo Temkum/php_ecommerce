@@ -5,7 +5,6 @@ class AjaxProduct extends Controller
   public function index()
   {
     $data = file_get_contents('php://input');
-
     $data = json_decode($data); //add true to convert to an array instead of stdObject
 
     if (is_object($data) && isset($data->data_type)) {

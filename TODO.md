@@ -81,3 +81,4 @@ add logout feature: create logout controller
   add a products view template
 
   - Save products to db
+  - collect product data to db
