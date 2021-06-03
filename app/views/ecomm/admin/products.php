@@ -49,7 +49,7 @@
   <div class="col-md-12">
     <div class="content-panel">
       <table class="table table-striped table-advance table-hover">
-        <h4><i class="fa fa-angle-right"></i> Products <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new</button></h4>
+        <h4><i class="fa fa-angle-right"></i> Products <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new product</button></h4>
         <!-- add new product -->
         <div class="add-new hide">
           <h5 class="ml-3">New product</h5>
@@ -60,7 +60,8 @@
                 <input type="text" id="product" class="form-control" name="product" placeholder="Enter product name" autofocus>
               </div>
             </div>
-            <button class="btn btn-warning save" type="" onclick="showAddNew(event)">Cancel</button>
+
+            <button class="btn btn-warning save" type="button" onclick="showAddNew(event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
           </form>
         </div>
@@ -71,11 +72,67 @@
           <h5 class="ml-3">Edit product</h5>
           <form action="" class="form-horizontal style-form mt-2" method="POST">
             <div class="form-group ">
-              <label for="" class="col-sm-3 control-label">product Name</label>
+              <label for="" class="col-sm-3 control-label">Product Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="product_edit" class="form-control" name="product" placeholder="Enter product name" autofocus>
+                <input type="text" id="product_edit" class="form-control" name="description" placeholder="Enter description" autofocus>
               </div>
             </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Product Category</label>
+              <div class="col-sm-9 mb">
+              
+              <?=show($categories)?>
+                <select name="category" id="product_edit" class="form-control">
+                  <option value=""></option>
+                </select>
+                <input type="text" class="form-control" placeholder="Enter category" autofocus>
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Price</label>
+              <div class="col-sm-9 mb">
+                <input type="number" id="product_edit" class="form-control" name="price" placeholder="0.00" autofocus>
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Quantity</label>
+              <div class="col-sm-9 mb">
+                <input type="number" id="product_edit" class="form-control" name="quantity" value="1" placeholder="" autofocus>
+              </div>
+            </div>
+
+            <br><br style="clear: both;">
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="product_edit" class="form-control" name="image" placeholder="" autofocus>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="product_edit" class="form-control" name="image2" placeholder="" autofocus>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="product_edit" class="form-control" name="image3" placeholder="" autofocus>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
+              <div class="col-sm-9 mb">
+                <input type="file" id="product_edit" class="form-control" name="image4" placeholder="" autofocus>
+              </div>
+            </div>
+
             <button class="btn btn-warning save" type="" onclick="showEditProduct(0, '', event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="getEditData(event)">Update</button>
           </form>

@@ -39,7 +39,7 @@ class Product
   public function getAll()
   {
     $DB = Database::newInstance();
-    return $DB->read('SELECT * FROM products ORDER BY id DESC');
+    return $DB->read("SELECT * FROM products ORDER BY id DESC");
   }
 
   public function delete($id)
