@@ -82,10 +82,15 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Product Category</label>
               <div class="col-sm-9 mb">
-              
-              <?=show($categories)?>
-                <select name="category" id="product_edit" class="form-control">
+
+
+                <select name="category" id="product_edit" class="form-control" required>
                   <option value=""></option>
+                  <?php if (is_array($categories)) : ?>
+                    <?php foreach ($categories as $categ) : ?>
+                      <option value="<?= $categ->id ?>"><?= $categ->$category ?></option>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
                 </select>
                 <input type="text" class="form-control" placeholder="Enter category" autofocus>
               </div>
@@ -95,7 +100,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Price</label>
               <div class="col-sm-9 mb">
-                <input type="number" id="product_edit" class="form-control" name="price" placeholder="0.00" autofocus>
+                <input type="number" id="product_edit" class="form-control" name="price" placeholder="0.00" autofocus required>
               </div>
             </div>
 
@@ -111,25 +116,25 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image" placeholder="" autofocus>
+                <input type="file" id="product_edit" class="form-control" name="image" placeholder="" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image2" placeholder="" autofocus>
+                <input type="file" id="product_edit" class="form-control" name="image2" placeholder="" >
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image3" placeholder="" autofocus>
+                <input type="file" id="product_edit" class="form-control" name="image3" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image4" placeholder="" autofocus>
+                <input type="file" id="product_edit" class="form-control" name="image4" placeholder="">
               </div>
             </div>
 
