@@ -1,7 +1,7 @@
 <?php
 class Product
 {
-  public function create($DATA)
+  public function create($DATA, $FILES)
   {
     # code...
     $DB = Database::newInstance();
@@ -29,9 +29,43 @@ class Product
       $_SESSION['error'] .= 'Please enter a valid price!<br>';
     }
 
+    $arr['image'] = '';
+    $arr['image2'] = '';
+    $arr['image3'] = '';
+    $arr['image4'] = '';
+
+    // set whitelisting rules
+    $allowed[] = 'image/jpeg';
+    $allowed[] = 'image/jpg';
+    $allowed[] = 'image/png';
+    $allowed[] = 'image/gif';
+    $allowed[] = 'application/pdf';
+
+    $size = 10;
+    $size = ($size * 1024 * 1024);
+
+    $dir = 'uploads/';
+    if (!file_exists($dir)) {
+      mkdir($dir, 0777, true);
+    }
+
+    // check if files are set
+    foreach ($FILES as $key => $img_row) {
+      # code...
+      if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
+        if ($img_row['size'] <= $size) {
+          # code...
+          $destination = $dir . $img_row['name'];
+          move_uploaded_file($img_row['tmp_name'], $destination);
+          $arr[$key] = $destination;
+        } else {
+          $_SESSION['error'] .= $key . ' is bigger than required size.';
+        }
+      }
+    }
     # create product
     if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
-      $sql = "INSERT INTO `products` (`description`, quantity, category, price, user_url, date) VALUES (:description, :quantity, :category, :price, :user_url, :date)";
+      $sql = "INSERT INTO `products` (`description`, `quantity`, `category`, `price`, `user_url`, `date`, `image`, image2, image3, image4) VALUES (:description, :quantity, :category, :price, :user_url, :date, :image, :image2, :image3, :image4)";
       $check = $DB->write($sql, $arr);
 
       if ($check) {
@@ -48,14 +82,14 @@ class Product
     $DB = Database::newInstance();
     $arr['id'] = $id;
     $arr['description'] = $description;
-    $sql = "UPDATE products SET `description`=:description WHERE id = :id LIMIT 1";
+    $sql = "UPDATE `products` SET `description`=:description WHERE `id` = :id LIMIT 1";
     $DB->write($sql, $arr);
   }
 
   public function getAll()
   {
     $DB = Database::newInstance();
-    return $DB->read("SELECT * FROM products ORDER BY id DESC");
+    return $DB->read("SELECT * FROM `products` ORDER BY id DESC");
   }
 
   public function delete($id)
@@ -67,7 +101,7 @@ class Product
     $DB->write($sql);
   }
 
-  public function makeTable($cats)
+  public function makeTable($cats, $model = null)
   {
     # use result instead of echo
     $result = '';
@@ -77,12 +111,21 @@ class Product
         // convert status to text
         $edit_args = $cat_row->id . ",'" . $cat_row->description . "'";
 
+        // $cat_class = $this->loadModel('Category');
+
+        $one_cat = $model->getOne($cat_row->category);
+
         $result .= '<tr>';
 
-        $result .= '<td><a href="basic_table.html#">' . $cat_row->description . '</a></td>
-            <td>
-              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="showEditProduct(' . $edit_args . ', event)"></i></button>
+        $result .= '<td><a href="basic_table.html#">' . $cat_row->id . '</a></td>
+        <td><a href="basic_table.html#">' . $cat_row->description . '</a></td>
+        <td><a href="basic_table.html#">' . $one_cat->category . '</a></td>
+        <td><a href="basic_table.html#">' . $cat_row->quantity . '</a></td>
+        <td><a href="basic_table.html#">' . $cat_row->price . '</a></td>
+        <td><a href="basic_table.html#">' . date("jS M, y H:i:s", strtotime($cat_row->date)) . '</a></td>
 
+            <td>
+              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="showEditDescription(' . $edit_args . ', event)"></i></button>
               <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
             </td>';
         $result .= '</tr>';

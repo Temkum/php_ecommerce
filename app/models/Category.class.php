@@ -42,6 +42,16 @@ class Category
     return $DB->read('SELECT * FROM `categories` ORDER BY id DESC');
   }
 
+  public function getOne($id)
+  {
+    
+    $id = (int) $id;// sanitize item
+    $DB = Database::newInstance();
+    $data = $DB->read("SELECT * FROM `categories` WHERE id='$id' LIMIT 1");
+
+    return $data[0]; //to return one item instead of an array of arrays
+  }
+
   public function delete($id)
   {
     # code...

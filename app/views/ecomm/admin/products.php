@@ -11,7 +11,7 @@
     .add-new,
     .edit_product {
       width: 50%;
-      height: 200px;
+      height: auto;
       left: 20%;
       background-color: #cecece;
       position: absolute;
@@ -66,14 +66,13 @@
               <label for="" class="col-sm-3 control-label">Product Category</label>
               <div class="col-sm-9 mb">
                 <select name="category" id="category" class="form-control" required>
-                  <option value=""></option>
+                  <option value="">Select product category</option>
                   <?php if (is_array($categories)) : ?>
                     <?php foreach ($categories as $categ) : ?>
-                      <option value="<?= $categ->id ?>"><?= $categ->$category ?></option>
+                      <option value="<?= $categ->id ?>"><?= $categ->category ?></option>
                     <?php endforeach; ?>
                   <?php endif; ?>
                 </select>
-                <input type="text" class="form-control" placeholder="Enter category" autofocus>
               </div>
             </div>
 
@@ -81,7 +80,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Price</label>
               <div class="col-sm-9 mb">
-                <input type="number" id="product_edit" class="form-control" name="price" placeholder="0.00" autofocus required>
+                <input type="number" id="price" class="form-control" name="price" placeholder="0.00" autofocus required>
               </div>
             </div>
 
@@ -89,7 +88,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Quantity</label>
               <div class="col-sm-9 mb">
-                <input type="number" id="product_edit" class="form-control" name="quantity" value="1" placeholder="" autofocus>
+                <input type="number" id="quantity" class="form-control" name="quantity" value="1" placeholder="" autofocus>
               </div>
             </div>
 
@@ -97,25 +96,25 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image" placeholder="" required>
+                <input type="file" id="image" class="form-control" name="image" placeholder="" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image2" placeholder="">
+                <input type="file" id="image2" class="form-control" name="image2" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image3" placeholder="">
+                <input type="file" id="image3" class="form-control" name="image3" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="product_edit" class="form-control" name="image4" placeholder="">
+                <input type="file" id="image4" class="form-control" name="image4" placeholder="">
               </div>
             </div>
 
@@ -204,10 +203,13 @@
         <hr>
         <thead>
           <tr>
-            <th><i class="fa fa-bullhorn"></i> Products</th>
-            <!-- <th><i class="fa fa-bookmark"></i> Status</th> -->
-            <th><i class=" fa fa-edit"></i> Action</th>
-            <th></th>
+            <th> Product ID</th>
+            <th> Product Name</th>
+            <th> Category</th>
+            <th> Quantity</th>
+            <th> Price</th>
+            <th> Date</th>
+            <th> Action</th>
           </tr>
         </thead>
         <tbody id="table_body">
@@ -252,7 +254,7 @@
 
   // AJAX request
   function collectData(e) {
-    let product_input = document.querySelector('#product');
+    let product_input = document.querySelector('#description');
     if (product_input.value.trim() == '' || !isNaN(product_input.value.trim())) {
       alert('Please enter a valid product name.');
 
@@ -280,15 +282,16 @@
       return; //to exit function
     }
 
-    // send data as an object
-    let data = product_input.value.trim();
-    sendData({
-      description: product_input.value.trim(),
-      quantity: quantity_input.value.trim(),
-      category: category_input.value.trim(),
-      price: price_input.value.trim(),
-      data_type: 'add_product'
-    });
+    // send form data
+    let form_data = new FormData();
+    form_data.append('description', product_input.value.trim());
+    form_data.append('quantity', quantity_input.value.trim());
+    form_data.append('category', category_input.value.trim());
+    form_data.append('price', price_input.value.trim());
+    form_data.append('data_type', 'add_product');
+
+    sendDataFiles(form_data);
+
   }
 
   function getEditData(e) {
@@ -311,10 +314,6 @@
     // create new ajax object
     let ajax = new XMLHttpRequest();
 
-    // send data as a form
-    /*  let form = new FormData();
-     form.append('data', data); */
-
     ajax.addEventListener('readystatechange', function() {
       if (ajax.readyState == 4 && ajax.status == 200) {
         handleResult(ajax.responseText);
@@ -323,6 +322,20 @@
 
     ajax.open('POST', '<?= ROOT ?>ajaxproduct', true); //true here is to tell it to run in the background
     ajax.send(JSON.stringify(data));
+  }
+
+  function sendDataFiles(formData) {
+    // create new ajax object
+    let ajax = new XMLHttpRequest();
+
+    ajax.addEventListener('readystatechange', function() {
+      if (ajax.readyState == 4 && ajax.status == 200) {
+        handleResult(ajax.responseText);
+      }
+    });
+
+    ajax.open('POST', '<?= ROOT ?>ajaxproduct', true); //true here is to tell it to run in the background
+    ajax.send(formData);
   }
 
   function handleResult(result) {
