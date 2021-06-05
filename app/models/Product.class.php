@@ -39,6 +39,8 @@ class Product
     $allowed[] = 'image/jpg';
     $allowed[] = 'image/png';
     $allowed[] = 'image/gif';
+    $allowed[] = 'image/tif';
+    $allowed[] = 'image/svg';
     $allowed[] = 'application/pdf';
 
     $size = 10;
@@ -56,13 +58,16 @@ class Product
         if ($img_row['size'] <= $size) {
           # code...
           $destination = $dir . $img_row['name'];
+
           move_uploaded_file($img_row['tmp_name'], $destination);
+
           $arr[$key] = $destination;
         } else {
           $_SESSION['error'] .= $key . ' is bigger than required size.';
         }
       }
     }
+
     # create product
     if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
       $sql = "INSERT INTO `products` (`description`, `quantity`, `category`, `price`, `user_url`, `date`, `image`, image2, image3, image4) VALUES (:description, :quantity, :category, :price, :user_url, :date, :image, :image2, :image3, :image4)";
@@ -122,12 +127,13 @@ class Product
         <td><a href="basic_table.html#">' . $one_cat->category . '</a></td>
         <td><a href="basic_table.html#">' . $cat_row->quantity . '</a></td>
         <td><a href="basic_table.html#">' . $cat_row->price . '</a></td>
+        <td><a href="basic_table.html#"><img src="' . ROOT . $cat_row->image . '?>" width="50px" height="50px"></a></td>
         <td><a href="basic_table.html#">' . date("jS M, y H:i:s", strtotime($cat_row->date)) . '</a></td>
 
-            <td>
-              <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="showEditDescription(' . $edit_args . ', event)"></i></button>
-              <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
-            </td>';
+        <td>
+          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="editProduct(' . $edit_args . ', event)"></i></button>
+          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
+        </td>';
         $result .= '</tr>';
       }
     }

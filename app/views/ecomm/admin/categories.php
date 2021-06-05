@@ -11,7 +11,7 @@
     .add-new,
     .edit_category {
       width: 50%;
-      height: 200px;
+      height: auto;
       left: 20%;
       background-color: #cecece;
       position: absolute;
@@ -60,6 +60,20 @@
                 <input type="text" id="category" class="form-control" name="category" placeholder="Enter category name" autofocus>
               </div>
             </div>
+
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Parent (Optional)</label>
+              <div class="col-sm-9 mb">
+                <select name="parent" id="parent" class="form-control" required>
+                  <option value="">Select parent</option>
+                  <?php if (is_array($categories)) : ?>
+                    <?php foreach ($categories as $categ) : ?>
+                      <option value="<?= $categ->id ?>"><?= $categ->category ?></option>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </select>
+              </div>
+            </div>
             <button class="btn btn-warning save" type="" onclick="showAddNew(event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
           </form>
@@ -74,6 +88,20 @@
               <label for="" class="col-sm-3 control-label">Category Name</label>
               <div class="col-sm-9 mb">
                 <input type="text" id="category_edit" class="form-control" name="category" placeholder="Enter category name" autofocus>
+              </div>
+            </div>
+
+            <div class="form-group ">
+              <label for="" class="col-sm-3 control-label">Parent (Optional)</label>
+              <div class="col-sm-9 mb">
+                <select name="parent" id="parent_edit" class="form-control" required>
+                  <option value="">Select parent</option>
+                  <?php if (is_array($categories)) : ?>
+                    <?php foreach ($categories as $categ) : ?>
+                      <option value="<?= $categ->id ?>"><?= $categ->category ?></option>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </select>
               </div>
             </div>
             <button class="btn btn-warning save" type="" onclick="showEditCategory(0, '', event)">Cancel</button>

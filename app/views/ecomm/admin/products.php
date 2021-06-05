@@ -44,12 +44,16 @@
     .ml-3 {
       margin-left: 16px;
     }
+
+    input[type='file'] {
+      margin-top: 4px;
+    }
   </style>
 
   <div class="col-md-12">
     <div class="content-panel">
       <table class="table table-striped table-advance table-hover">
-        <h4><i class="fa fa-angle-right"></i> Products <button class="btn btn-primary btn-xs add" onclick="showAddNew(event)"><i class="fa fa-plus"></i> Add new product</button></h4>
+        <h4><i class="fa fa-angle-right"></i> Products <button class="btn btn-primary btn-xs add" onclick="addNew(event)"><i class="fa fa-plus"></i> Add new product</button></h4>
         <!-- add new product -->
         <div class="add-new hide">
           <h5 class="ml-3">New product</h5>
@@ -96,29 +100,29 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image" class="form-control" name="image" placeholder="" required>
+                <input type="file" id="image" class="" name="image" placeholder="" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image2" class="form-control" name="image2" placeholder="">
+                <input type="file" id="image2" class="" name="image2" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image3" class="form-control" name="image3" placeholder="">
+                <input type="file" id="image3" class="" name="image3" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image4" class="form-control" name="image4" placeholder="">
+                <input type="file" id="image4" class="" name="image4" placeholder="">
               </div>
             </div>
 
-            <button class="btn btn-warning save" type="button" onclick="showAddNew(event)">Cancel</button>
+            <button class="btn btn-warning save" type="button" onclick="addNew(event)">Cancel</button>
             <button class="btn btn-primary save" type="button" onclick="collectData(event)">Save</button>
           </form>
         </div>
@@ -131,7 +135,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Product Name</label>
               <div class="col-sm-9 mb">
-                <input type="text" id="product_edit" class="form-control" name="description" placeholder="Enter description" autofocus>
+                <input type="text" id="edit_description" class="form-control" name="description" placeholder="Enter description" autofocus>
               </div>
             </div>
 
@@ -139,17 +143,14 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Product Category</label>
               <div class="col-sm-9 mb">
-
-
-                <select name="category" id="product_edit" class="form-control" required>
-                  <option value=""></option>
-                  <!-- <?php if (is_array($categories)) : ?>
+                <select name="category" id="edit_category" class="form-control" required>
+                  <option value="">Select category</option>
+                  <?php if (is_array($categories)) : ?>
                     <?php foreach ($categories as $categ) : ?>
-                      <option value="<?= $categ->id ?>"><?= $categ->$category ?></option>
+                      <option value="<?= $categ->id ?>"><?= $categ->category ?></option>
                     <?php endforeach; ?>
-                  <?php endif; ?> -->
+                  <?php endif; ?>
                 </select>
-                <input type="text" class="form-control" placeholder="Enter category" autofocus>
               </div>
             </div>
 
@@ -157,7 +158,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Price</label>
               <div class="col-sm-9 mb">
-                <input type="number" id="price" class="form-control" name="price" placeholder="0.00" autofocus required>
+                <input type="number" id="edit_price" class="form-control" name="price" placeholder="0.00" required>
               </div>
             </div>
 
@@ -165,7 +166,7 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Quantity</label>
               <div class="col-sm-9 mb">
-                <input type="number" id="quantity" class="form-control" name="quantity" value="1" placeholder="">
+                <input type="number" id="edit_quantity" class="form-control" name="quantity" value="1" placeholder="">
               </div>
             </div>
 
@@ -173,30 +174,30 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image" class="form-control" name="image" placeholder="" required>
+                <input type="file" id="edit_image" class="" name="image" placeholder="" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image2" class="form-control" name="image2" placeholder="">
+                <input type="file" id="edit_image2" class="" name="image2" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image3" class="form-control" name="image3" placeholder="">
+                <input type="file" id="edit_image3" class="" name="image3" placeholder="">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image4" class="form-control" name="image4" placeholder="">
+                <input type="file" id="edit_image4" class="" name="image4" placeholder="">
               </div>
             </div>
 
-            <button class="btn btn-warning save" type="" onclick="showEditProduct(0, '', event)">Cancel</button>
-            <button class="btn btn-primary save" type="button" onclick="getEditData(event)">Update</button>
+            <button class="btn btn-warning save" type="" onclick="editProduct(0, '', event)">Cancel</button>
+            <button class="btn btn-primary save" type="button" onclick="editData(event)">Update</button>
           </form>
         </div>
         <!-- end add new product -->
@@ -208,6 +209,7 @@
             <th> Category</th>
             <th> Quantity</th>
             <th> Price</th>
+            <th> Image</th>
             <th> Date</th>
             <th> Action</th>
           </tr>
@@ -224,7 +226,7 @@
   // set global id
   let EDIT_ID = 0;
 
-  function showAddNew() {
+  function addNew() {
     let showModal = document.querySelector('.add-new');
 
     let product_input = document.querySelector('#description');
@@ -234,7 +236,7 @@
     product_input.value = '';
   }
 
-  function showEditProduct(id, product, e) {
+  function editProduct(id, product, e) {
 
     EDIT_ID = id; //in order to update the id of edited item
 
@@ -244,12 +246,12 @@
     /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
     show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
 
-    let product_input = document.querySelector('#product_edit');
-    product_input.value = product;
+    let edit_input = document.querySelector('#edit_description');
+    edit_input.value = product;
 
     show_edit_modal.classList.toggle('hide');
 
-    product_input.focus();
+    edit_input.focus();
   }
 
   // AJAX request
@@ -294,7 +296,7 @@
 
   }
 
-  function getEditData(e) {
+  function editData(e) {
     let product_input = document.querySelector('#product_edit');
 
     if (product_input.value.trim() == '' || !isNaN(product_input.value.trim())) {
@@ -351,7 +353,7 @@
 
           if (obj.msg_type == 'success') {
             alert(obj.msg);
-            showAddNew();
+            addNew();
 
             let table_body = document.querySelector('#table_body');
             table_body.innerHTML = obj.data;
@@ -373,7 +375,7 @@
         } else
         if (obj.data_type == 'edit_product') {
 
-          showEditProduct(0, '', false);
+          editProduct(0, '', false);
 
           let table_body = document.querySelector('#table_body');
           table_body.innerHTML = obj.data;

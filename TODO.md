@@ -84,4 +84,6 @@ add logout feature: create logout controller
   - collect product data to db
   - save to db
   - add images to products
+  - display images
 
+- Add sub categories
