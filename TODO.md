@@ -87,3 +87,5 @@ add logout feature: create logout controller
   - display images
 
 - Add sub categories
+
+- Edit product feature

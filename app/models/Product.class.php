@@ -116,6 +116,20 @@ class Product
         // convert status to text
         $edit_args = $cat_row->id . ",'" . $cat_row->description . "'";
 
+        $info = [];
+        $info['id'] = $cat_row->id;
+        $info['description'] = $cat_row->description;
+        $info['quantity'] = $cat_row->quantity;
+        $info['price'] = $cat_row->price;
+        $info['category'] = $cat_row->category;
+        $info['image'] = $cat_row->image;
+        $info['image2'] = $cat_row->image2;
+        $info['image3'] = $cat_row->image3;
+        $info['image4'] = $cat_row->image4;
+
+        // convert info into json
+        $info = str_replace('"', "'", json_encode($info));
+
         // $cat_class = $this->loadModel('Category');
 
         $one_cat = $model->getOne($cat_row->category);
@@ -131,7 +145,8 @@ class Product
         <td><a href="basic_table.html#">' . date("jS M, y H:i:s", strtotime($cat_row->date)) . '</a></td>
 
         <td>
-          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="editProduct(' . $edit_args . ', event)"></i></button>
+          <button info="' . $info . '" class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="editProduct(' . $edit_args . ', event)"></i></button>
+          
           <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
         </td>';
         $result .= '</tr>';

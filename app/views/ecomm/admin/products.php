@@ -200,7 +200,7 @@
             <button class="btn btn-primary save" type="button" onclick="editData(event)">Update</button>
           </form>
         </div>
-        <!-- end add new product -->
+        <!-- end edit product -->
         <hr>
         <thead>
           <tr>
@@ -238,6 +238,10 @@
 
   function editProduct(id, product, e) {
 
+    let alrt = (e.currentTarget.getAttribute("info"));
+    let info = JSON.parse(alrt.replaceAll("'", '"'));
+    alert(info);
+
     EDIT_ID = id; //in order to update the id of edited item
 
     let show_edit_modal = document.querySelector('.edit_product');
@@ -246,8 +250,17 @@
     /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
     show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
 
-    let edit_input = document.querySelector('#edit_description');
-    edit_input.value = product;
+    let edit_description = document.querySelector('#edit_description');
+    edit_description.value = info.description;
+
+    let edit_category = document.querySelector('#edit_category');
+    edit_category.value = info.category;
+
+    let edit_price = document.querySelector('#edit_price');
+    edit_price.value = info.price;
+
+    let edit_quantity = document.querySelector('#edit_quantity');
+    edit_quantity.value = info.quantity;
 
     show_edit_modal.classList.toggle('hide');
 
