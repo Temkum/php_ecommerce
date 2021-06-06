@@ -6,7 +6,8 @@ class Category
     # code...
     $DB = Database::newInstance();
 
-    $arr['category'] = ucwords($DATA->data);
+    $arr['category'] = ucwords($DATA->category);
+    $arr['parent'] = ucwords($DATA->parent);
 
     // validate user input
     if (!preg_match("/^[a-zA-Z ]+$/", trim($arr['category']))) {
@@ -15,7 +16,7 @@ class Category
 
     # create category
     if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
-      $sql = "INSERT INTO `categories` (`category`) VALUES (:category)";
+      $sql = "INSERT INTO `categories` (`category`, parent) VALUES (:category,:parent)";
       $check = $DB->write($sql, $arr);
 
       if ($check) {
@@ -27,12 +28,13 @@ class Category
     return false;
   }
 
-  public function edit($id, $category)
+  public function edit($data)
   {
     $DB = Database::newInstance();
-    $arr['id'] = $id;
-    $arr['category'] = $category;
-    $sql = "UPDATE categories set `category`=:category WHERE id = :id LIMIT 1";
+    $arr['id'] = $data->id;
+    $arr['category'] = $data->category;
+    $arr['parent'] = $data->parent;
+    $sql = "UPDATE categories set `category`=:category, parent=:parent WHERE id = :id LIMIT 1";
     $DB->write($sql, $arr);
   }
 
@@ -44,8 +46,8 @@ class Category
 
   public function getOne($id)
   {
-    
-    $id = (int) $id;// sanitize item
+
+    $id = (int) $id; // sanitize item
     $DB = Database::newInstance();
     $data = $DB->read("SELECT * FROM `categories` WHERE id='$id' LIMIT 1");
 
@@ -71,12 +73,22 @@ class Category
         // convert status to text
         $color = $cat_row->disabled ? '#797979' : '#3077d3';
         $cat_row->disabled = $cat_row->disabled ? 'Disabled' : 'Enabled';
+
         $args = $cat_row->id . ",'" . $cat_row->disabled . "'";
-        $edit_args = $cat_row->id . ",'" . $cat_row->category . "'";
+        $edit_args = $cat_row->id . ",'" . $cat_row->category . "', " . $cat_row->parent ;
+
+        $parent = '';
+
+        foreach ($cats as $cat_row2) {
+          if ($cat_row->parent == $cat_row2->id) {
+            $parent = $cat_row2->category;
+          }
+        }
 
         $result .= '<tr>';
 
         $result .= '<td><a href="basic_table.html#">' . $cat_row->category . '</a></td>
+            <td><a href="basic_table.html#">' . $parent . '</a></td>
             <td><span class="label label-info label-mini cursor " style="background-color:' . $color . ';" onclick="disableRow(' . $args . ')">' . $cat_row->disabled . '</span></td>
 
             <td>

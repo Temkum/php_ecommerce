@@ -104,16 +104,17 @@
                 </select>
               </div>
             </div>
-            <button class="btn btn-warning save" type="" onclick="showEditCategory(0, '', event)">Cancel</button>
-            <button class="btn btn-primary save" type="button" onclick="getEditData(event)">Update</button>
+            <button class="btn btn-warning save" type="button" onclick="showEditCategory(0, '', event)">Cancel</button>
+            <button class="btn btn-primary save" type="button" onclick="editData(event)">Update</button>
           </form>
         </div>
-        <!-- end add new category -->
+        <!-- end edit category -->
         <hr>
         <thead>
           <tr>
-            <th><i class="fa fa-bullhorn"></i> Category</th>
-            <th><i class="fa fa-bookmark"></i> Status</th>
+            <th><i class=""></i> Category</th>
+            <th><i class=""></i> Parent</th>
+            <th><i class=""></i> Status</th>
             <th><i class=" fa fa-edit"></i> Action</th>
             <th></th>
           </tr>
@@ -140,7 +141,7 @@
     cat_input.value = '';
   }
 
-  function showEditCategory(id, category, e) {
+  function showEditCategory(id, category, parent, e) {
 
     EDIT_ID = id; //in order to update the id of edited item
 
@@ -152,6 +153,9 @@
 
     let cat_input = document.querySelector('#category_edit');
     cat_input.value = category;
+
+    let parent_input = document.querySelector('#parent_edit');
+    parent_input.value = parent;
 
     show_edit_modal.classList.toggle('hide');
 
@@ -180,26 +184,39 @@
       alert('Please enter a valid category name.');
     }
 
+    let parent_input = document.querySelector('#parent');
+    if (isNaN(parent_input.value.trim())) {
+      alert('Please select a valid parent name.');
+    }
+
     // send data as an object
-    let data = cat_input.value.trim();
+    let category = cat_input.value.trim();
+    let parent = parent_input.value.trim();
     sendData({
-      data: data,
+      category: category,
+      parent: parent,
       data_type: 'add_category'
     });
   }
 
-  function getEditData(e) {
+  function editData(e) {
     let cat_input = document.querySelector('#category_edit');
-
     if (cat_input.value.trim() == '' || !isNaN(cat_input.value.trim())) {
       alert('Please enter a valid category name.');
     }
 
+    let parent_input = document.querySelector('#parent_edit');
+    if (isNaN(parent_input.value.trim())) {
+      alert('Please select a valid parent name.');
+    }
+
     // send data as an object
-    let data = cat_input.value.trim();
+    let category = cat_input.value.trim();
+    let parent = parent_input.value.trim();
     sendData({
       id: EDIT_ID,
-      category: data,
+      category: category,
+      parent: parent,
       data_type: 'edit_category'
     });
   }
@@ -256,7 +273,7 @@
         } else
         if (obj.data_type == 'edit_category') {
 
-          showEditCategory(0, '', false);
+          showEditCategory(0, '', '', false);
 
           let table_body = document.querySelector('#table_body');
           table_body.innerHTML = obj.data;

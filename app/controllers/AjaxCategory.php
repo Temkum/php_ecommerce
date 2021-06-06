@@ -4,6 +4,8 @@ class AjaxCategory extends Controller
 {
   public function index()
   {
+    $_SESSION['error'] = '';
+
     $data = file_get_contents('php://input');
 
     $data = json_decode($data); //add true to convert to an array instead of stdObject
@@ -70,7 +72,7 @@ class AjaxCategory extends Controller
         echo json_encode($arr);
       } else 
         if ($data->data_type == 'edit_category') {
-        $category->edit($data->id, $data->category);
+        $category->edit($data);
         $arr['msg'] = $_SESSION['Modified successfully!'];
         $_SESSION['error'] = '';
         $arr['msg_type'] = 'success';
