@@ -1,6 +1,5 @@
 	<?php $this->view('header', $data); ?>
 
-
 	<section id="slider">
 		<!--slider-->
 		<div class="container">
@@ -231,9 +230,11 @@
 									<div class="product-image-wrapper">
 										<div class="single-products">
 											<div class="productinfo text-center">
-												<div>
-													<img class="product-img" src="<?= ROOT . $row->image ?>" alt="<?= $row->description ?>" />
-												</div>
+												<a href="<?php echo ROOT ?>product_details/<?php echo $row->id ?>">
+													<div>
+														<img class="product-img" src="<?= ROOT . $row->image ?>" alt="<?= $row->description ?>" />
+													</div>
+												</a>
 												<h2>$<?= $row->price ?></h2>
 												<p><?= $row->description ?></p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

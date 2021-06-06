@@ -93,5 +93,8 @@ add logout feature: create logout controller
 - save images data to db
 
 - Display products to UI
+
   - first thing is to read from db and modify the Home controller
   - then add a loop in the index.php page to display products from db
+
+  - add product details page
