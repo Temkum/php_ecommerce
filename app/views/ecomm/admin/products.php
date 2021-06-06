@@ -185,30 +185,29 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image" class="" name="image" placeholder="" required>
+                <input type="file" id="edit_image" class="" name="image" onchange="displayImage(this.files[0],this.name)" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image2" class="" name="image2" placeholder="">
+                <input type="file" id="edit_image2" class="" name="image2" onchange="displayImage(this.files[0],this.name)">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image3" class="" name="image3" placeholder="">
+                <input type="file" id="edit_image3" class="" name="image3" onchange="displayImage(this.files[0],this.name)">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image4" class="" name="image4" placeholder="">
+                <input type="file" id="edit_image4" class="" name="image4" onchange="displayImage(this.files[0],this.name)">
               </div>
             </div>
 
-            <div class="js-images edit-product-imgs">
-
+            <div class="js-product-imgs edit-product-imgs">
             </div>
 
             <button class="btn btn-warning save" type="button" onclick="showEditProduct(event)">Cancel</button>
@@ -518,6 +517,26 @@
       id: id,
       current_state: state
     })
+  }
+
+  function displayImage(file, name) {
+    let index = 0;
+
+    if (name == 'image2') {
+      index = 1;
+    } else
+    if (name == 'image3') {
+      index = 2;
+    } else
+    if (name == 'image4') {
+      index = 3;
+    }
+
+    const image_holder = document.querySelector('.js-product-imgs');
+    let images = image_holder.querySelectorAll('IMG');
+
+    // create url of img file
+    images[index].src = URL.createObjectURL(file);
   }
 </script>
 

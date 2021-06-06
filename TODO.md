@@ -98,3 +98,4 @@ add logout feature: create logout controller
   - then add a loop in the index.php page to display products from db
 
   - add product details page
+  - add product image edit preview
