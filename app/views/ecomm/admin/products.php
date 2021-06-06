@@ -283,14 +283,14 @@
       edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image3}"/>`;
       edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image4}"/>`;
     }
-    showModal.classList.toggle('hide');
+    // showModal.classList.toggle('hide');
 
-    /*  if (showModal.classList.contains('hide')) {
-       showModal.classList.remove('hide');
-     } else {
-       showModal.classList.add('hide');
+    if (showModal.classList.contains('hide')) {
+      showModal.classList.remove('hide');
+    } else {
+      showModal.classList.add('hide');
 
-     } */
+    }
   }
 
   // AJAX request
@@ -323,13 +323,13 @@
       return;
     }
 
+    let image_input = document.querySelector('#image');
+    if (image_input.files.length == 0) {
+      alert('Please enter a valid main image.');
+    }
+
     // create form
     let data = new FormData();
-
-    let image_input = document.querySelector('#image');
-    if (image_input.files.length > 0) {
-      data.append('image', image_input.files[0]);
-    }
 
     let image2_input = document.querySelector('#image2');
     if (image2_input.files.length > 0) {
@@ -387,13 +387,13 @@
       return;
     }
 
-    let image_input = document.querySelector('#edit_image');
-    if (image_input.files.length == 0) {
-      alert('Please enter a valid main image.')
-    }
-
     // create form
     let data = new FormData();
+
+    let image_input = document.querySelector('#edit_image');
+    if (image_input.files.length == 0) {
+      data.append('image', image_input.files[0]);
+    }
 
     let image2_input = document.querySelector('#edit_image2');
     if (image2_input.files.length > 0) {

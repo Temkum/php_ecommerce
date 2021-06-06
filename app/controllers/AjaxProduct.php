@@ -59,9 +59,9 @@ class AjaxProduct extends Controller
       } else 
         if ($data->data_type == 'edit_product') {
         $product->edit($data, $_FILES);
-        $arr['msg'] = $_SESSION['Modified successfully!'];
-        $_SESSION['error'] = '';
-        $arr['msg_type'] = 'success';
+        // $arr['msg'] = $_SESSION['Modified successfully!'];
+        // $_SESSION['error'] = '';
+        // $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats, $category);
