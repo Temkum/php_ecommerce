@@ -66,6 +66,7 @@ a#scrollUp {
   color: #FFF;
   -webkit-animation: bounce 2s ease infinite;
   animation: bounce 2s ease infinite;
+  border-radius: 50px;
 }
 
 a#scrollUp i {
@@ -851,7 +852,6 @@ h2.title:before {
   overflow: hidden;
 }
 
-
 h2.title {
   color: #FE980F;
   font-family: 'Roboto', sans-serif;
@@ -951,15 +951,12 @@ h2.title {
   color: #FE980F;
 }
 
-
 .product-overlay p {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #fff;
 }
-
-
 
 .add-to-cart {
   background: #F5F5ED;
@@ -2530,4 +2527,16 @@ textarea {
 
 .contact-info .social-networks ul li a:hover {
   color: #FE980F;
+}
+
+.product-img {
+  transition: all 1s ease;
+}
+
+.product-img:hover {
+  transform: scale(1.2);
+}
+
+.productinfo div {
+  overflow: hidden;
 }

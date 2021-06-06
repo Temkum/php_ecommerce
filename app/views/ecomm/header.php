@@ -12,8 +12,8 @@
   <link href="<?php echo ASSETS ?>css/prettyPhoto.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/price-range.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/animate.css" rel="stylesheet">
-  <link href="<?php echo ASSETS ?>css/main.css" rel="stylesheet">
   <link href="<?php echo ASSETS ?>css/responsive.css" rel="stylesheet">
+  <link href="<?php echo ASSETS ?>css/main.css" rel="stylesheet">
 
   <!--[if lt IE 9]>
     <script src="<?= ASSETS ?>js.php5shiv.js"></script>

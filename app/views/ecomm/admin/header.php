@@ -183,8 +183,12 @@
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="<?= ROOT ?>logout">Logout</a></li>
+          <li><a class="logout btn-sm" href="<?= ROOT ?>logout">Logout</a></li>
         </ul>
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="<?= ROOT ?>">Back to website</a></li>
+        </ul>
+
       </div>
     </header>
     <!--header end-->

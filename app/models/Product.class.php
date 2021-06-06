@@ -133,7 +133,7 @@ class Product
           move_uploaded_file($img_row['tmp_name'], $destination);
           $arr[$key] = $destination;
 
-          $imgs_string = ',' . $key . '= :' . $key;
+          $imgs_string .= ',' . $key . '= :' . $key;
         } else {
           $_SESSION['error'] .= $key . ' is bigger than required size.';
         }
