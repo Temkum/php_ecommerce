@@ -89,3 +89,4 @@ add logout feature: create logout controller
 - Add sub categories
 
 - Edit product feature
+- collect edit product  data

@@ -58,13 +58,13 @@ class AjaxProduct extends Controller
         echo json_encode($arr);
       } else 
         if ($data->data_type == 'edit_product') {
-        $product->edit($data->id, $data->product);
+        $product->edit($data, $_FILES);
         $arr['msg'] = $_SESSION['Modified successfully!'];
         $_SESSION['error'] = '';
         $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
-        $arr['data'] = $product->makeTable($cats);
+        $arr['data'] = $product->makeTable($cats, $category);
 
         $arr['data_type'] = 'edit_product';
 

@@ -82,12 +82,16 @@ class Product
     return false;
   }
 
-  public function edit($id, $description)
+  public function edit($data)
   {
+    $arr['id'] = $data->id;
+    $arr['description'] = $data->description;
+    $arr['category'] = $data->category;
+    $arr['quantity'] = $data->quantity;
+    $arr['price'] = $data->price;
+
     $DB = Database::newInstance();
-    $arr['id'] = $id;
-    $arr['description'] = $description;
-    $sql = "UPDATE `products` SET `description`=:description WHERE `id` = :id LIMIT 1";
+    $sql = "UPDATE `products` SET `description`=:description,`category`=:category,`quantity`=:quantity,`price`=:price WHERE `id` = :id LIMIT 1";
     $DB->write($sql, $arr);
   }
 
@@ -140,14 +144,17 @@ class Product
         <td><a href="basic_table.html#">' . $cat_row->description . '</a></td>
         <td><a href="basic_table.html#">' . $one_cat->category . '</a></td>
         <td><a href="basic_table.html#">' . $cat_row->quantity . '</a></td>
-        <td><a href="basic_table.html#">' . $cat_row->price . '</a></td>
+        <td><a href="basic_table.html#">$' . $cat_row->price . '</a></td>
         <td><a href="basic_table.html#"><img src="' . ROOT . $cat_row->image . '?>" width="50px" height="50px"></a></td>
         <td><a href="basic_table.html#">' . date("jS M, y H:i:s", strtotime($cat_row->date)) . '</a></td>
 
         <td>
-          <button info="' . $info . '" class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="editProduct(' . $edit_args . ', event)"></i></button>
-          
-          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i></button>
+          <button  class="btn btn-primary btn-xs">
+          <i class="fa fa-pencil" info="' . $info . '" onclick="showEditProduct(' . $edit_args . ', event)"></i>
+          </button>
+
+          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i>
+          </button>
         </td>';
         $result .= '</tr>';
       }

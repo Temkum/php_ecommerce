@@ -48,6 +48,17 @@
     input[type='file'] {
       margin-top: 4px;
     }
+
+    .edit-product-imgs {
+      display: inline-block;
+    }
+
+    .img-fluid {
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      border-radius: 10px;
+    }
   </style>
 
   <div class="col-md-12">
@@ -196,8 +207,12 @@
               </div>
             </div>
 
-            <button class="btn btn-warning save" type="" onclick="editProduct(0, '', event)">Cancel</button>
-            <button class="btn btn-primary save" type="button" onclick="editData(event)">Update</button>
+            <div class="js-images edit-product-imgs">
+
+            </div>
+
+            <button class="btn btn-warning save" type="button" onclick="showEditProduct(event)">Cancel</button>
+            <button class="btn btn-primary save" type="button" onclick="getEditData(event)">Update</button>
           </form>
         </div>
         <!-- end edit product -->
@@ -236,35 +251,46 @@
     product_input.value = '';
   }
 
-  function editProduct(id, product, e) {
 
-    let alrt = (e.currentTarget.getAttribute("info"));
-    let info = JSON.parse(alrt.replaceAll("'", '"'));
-    alert(info);
+  function showEditProduct(id, product, e) {
+    let showModal = document.querySelector('.edit_product');
 
-    EDIT_ID = id; //in order to update the id of edited item
+    if (e) {
+      let alrt = (e.currentTarget.getAttribute("info"));
+      let info = JSON.parse(alrt.replaceAll("'", '"'));
 
-    let show_edit_modal = document.querySelector('.edit_product');
+      EDIT_ID = info.id; //get id of edited item
 
-    // show modal on clicked position
-    /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
-    show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
+      // show modal on clicked position
+      /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
+      show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
 
-    let edit_description = document.querySelector('#edit_description');
-    edit_description.value = info.description;
+      let edit_description = document.querySelector('#edit_description');
+      edit_description.value = info.description;
 
-    let edit_category = document.querySelector('#edit_category');
-    edit_category.value = info.category;
+      let edit_category = document.querySelector('#edit_category');
+      edit_category.value = info.category;
 
-    let edit_price = document.querySelector('#edit_price');
-    edit_price.value = info.price;
+      let edit_price = document.querySelector('#edit_price');
+      edit_price.value = info.price;
 
-    let edit_quantity = document.querySelector('#edit_quantity');
-    edit_quantity.value = info.quantity;
+      let edit_quantity = document.querySelector('#edit_quantity');
+      edit_quantity.value = info.quantity;
 
-    show_edit_modal.classList.toggle('hide');
+      let edit_images = document.querySelector('.js-images');
+      edit_images.innerHTML = `<img class="img-fluid" src="<?= ROOT ?>${info.image}"/>`;
+      edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image2}"/>`;
+      edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image3}"/>`;
+      edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image4}"/>`;
+    }
+    showModal.classList.toggle('hide');
 
-    edit_input.focus();
+    /*  if (showModal.classList.contains('hide')) {
+       showModal.classList.remove('hide');
+     } else {
+       showModal.classList.add('hide');
+
+     } */
   }
 
   // AJAX request
@@ -280,49 +306,119 @@
     if (quantity_input.value.trim() == '' || isNaN(quantity_input.value.trim())) {
       alert('Please enter a valid quantity.');
 
-      return; //to exit function
+      return;
     }
 
     let category_input = document.querySelector('#category');
     if (category_input.value.trim() == '' || isNaN(category_input.value.trim())) {
       alert('Please enter a valid category.');
 
-      return; //to exit function
+      return;
     }
 
     let price_input = document.querySelector('#price');
     if (price_input.value.trim() == '' || isNaN(price_input.value.trim())) {
       alert('Please enter a valid price.');
 
-      return; //to exit function
+      return;
+    }
+
+    // create form
+    let data = new FormData();
+
+    let image_input = document.querySelector('#image');
+    if (image_input.files.length > 0) {
+      data.append('image', image_input.files[0]);
+    }
+
+    let image2_input = document.querySelector('#image2');
+    if (image2_input.files.length > 0) {
+      data.append('image2', image2_input.files[0]);
+    }
+
+    let image3_input = document.querySelector('#image3');
+    if (image3_input.files.length > 0) {
+      data.append('image3', image3_input.files[0]);
+    }
+
+    let image4_input = document.querySelector('#image4');
+    if (image4_input.files.length > 0) {
+      data.append('image4', image4_input.files[0]);
     }
 
     // send form data
-    let form_data = new FormData();
-    form_data.append('description', product_input.value.trim());
-    form_data.append('quantity', quantity_input.value.trim());
-    form_data.append('category', category_input.value.trim());
-    form_data.append('price', price_input.value.trim());
-    form_data.append('data_type', 'add_product');
+    data.append('description', product_input.value.trim());
+    data.append('quantity', quantity_input.value.trim());
+    data.append('category', category_input.value.trim());
+    data.append('price', price_input.value.trim());
+    data.append('image', image_input.files[0]);
+    data.append('data_type', 'add_product');
 
-    sendDataFiles(form_data);
+    sendDataFiles(data);
 
   }
 
-  function editData(e) {
-    let product_input = document.querySelector('#product_edit');
-
+  function getEditData(e) {
+    let product_input = document.querySelector('#edit_description');
     if (product_input.value.trim() == '' || !isNaN(product_input.value.trim())) {
       alert('Please enter a valid product name.');
+
+      return; //to exit function
     }
 
-    // send data as an object
-    let data = product_input.value.trim();
-    sendData({
-      id: EDIT_ID,
-      product: data,
-      data_type: 'edit_product'
-    });
+    let quantity_input = document.querySelector('#edit_quantity');
+    if (quantity_input.value.trim() == '' || isNaN(quantity_input.value.trim())) {
+      alert('Please enter a valid quantity.');
+
+      return;
+    }
+
+    let category_input = document.querySelector('#edit_category');
+    if (category_input.value.trim() == '' || isNaN(category_input.value.trim())) {
+      alert('Please enter a valid category.');
+
+      return;
+    }
+
+    let price_input = document.querySelector('#edit_price');
+    if (price_input.value.trim() == '' || isNaN(price_input.value.trim())) {
+      alert('Please enter a valid price.');
+
+      return;
+    }
+
+    let image_input = document.querySelector('#edit_image');
+    if (image_input.files.length == 0) {
+      alert('Please enter a valid main image.')
+    }
+
+    // create form
+    let data = new FormData();
+
+    let image2_input = document.querySelector('#edit_image2');
+    if (image2_input.files.length > 0) {
+      data.append('image2', image2_input.files[0]);
+    }
+
+    let image3_input = document.querySelector('#edit_image3');
+    if (image3_input.files.length > 0) {
+      data.append('image3', image3_input.files[0]);
+    }
+
+    let image4_input = document.querySelector('#edit_image4');
+    if (image4_input.files.length > 0) {
+      data.append('image4', image4_input.files[0]);
+    }
+
+    // send form data
+    data.append('description', product_input.value.trim());
+    data.append('quantity', quantity_input.value.trim());
+    data.append('category', category_input.value.trim());
+    data.append('price', price_input.value.trim());
+    data.append('data_type', 'edit_product');
+    data.append('id', EDIT_ID);
+
+    sendDataFiles(data);
   }
 
   function sendData(data = {}) {
@@ -388,7 +484,7 @@
         } else
         if (obj.data_type == 'edit_product') {
 
-          editProduct(0, '', false);
+          showEditProduct(0, '', false);
 
           let table_body = document.querySelector('#table_body');
           table_body.innerHTML = obj.data;
