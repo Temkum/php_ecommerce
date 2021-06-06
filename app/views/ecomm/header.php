@@ -40,7 +40,7 @@
                 <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
                 <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
                 <?php if (isset($data['user_data'])) : ?>
-                  <li><a href="#"><i class="fa fa-user"></i> <?php echo $data['user_data']->name ?></a></li>
+                  <li><a href="<?= ROOT ?>admin"><i class="fa fa-user"></i> <?php echo $data['user_data']->name ?></a></li>
                 <?php endif; ?>
               </ul>
             </div>
@@ -103,9 +103,9 @@
                 <li><a href="checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                 <li><a href="cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                 <?php if (isset($data['user_data'])) : ?>
-                  <li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
+                  <li><a href="<?= ROOT ?>logout"><i class="fa fa-lock"></i> Logout</a></li>
                 <?php else : ?>
-                  <li><a href="login"><i class="fa fa-lock"></i> Login</a></li>
+                  <li><a href="<?= ROOT ?>login"><i class="fa fa-lock"></i> Login</a></li>
                 <?php endif; ?>
               </ul>
             </div>
@@ -130,24 +130,24 @@
             </div>
             <div class="mainmenu pull-left">
               <ul class="nav navbar-nav collapse navbar-collapse">
-                <li><a href="index" class="active">Home</a></li>
-                <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                <li><a href="<?= ROOT ?>index" class="active">Home</a></li>
+                <li class="dropdown"><a href="<?= ROOT ?>shop">Shop<i class="fa fa-angle-down"></i></a>
                   <ul role="menu" class="sub-menu">
-                    <li><a href="shop">Products</a></li>
-                    <li><a href="product-details">Product Details</a></li>
-                    <li><a href="checkout">Checkout</a></li>
-                    <li><a href="cart">Cart</a></li>
-                    <li><a href="login">Login</a></li>
+                    <li><a href="<?= ROOT ?>shop">Products</a></li>
+                    <li><a href="<?= ROOT ?>product-details">Product Details</a></li>
+                    <li><a href="<?= ROOT ?>checkout">Checkout</a></li>
+                    <li><a href="<?= ROOT ?>cart">Cart</a></li>
+                    <li><a href="<?= ROOT ?>login">Login</a></li>
                   </ul>
                 </li>
-                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                <li class="dropdown"><a href="<?= ROOT ?>blog">Blog<i class="fa fa-angle-down"></i></a>
                   <ul role="menu" class="sub-menu">
-                    <li><a href="blog">Blog List</a></li>
-                    <li><a href="blog-single">Blog Single</a></li>
+                    <li><a href="<?= ROOT ?>blog">Blog List</a></li>
+                    <li><a href="<?= ROOT ?>blog-single">Blog Single</a></li>
                   </ul>
                 </li>
-                <li><a href="404">404</a></li>
-                <li><a href="contact-us">Contact</a></li>
+                <li><a href="<?= ROOT ?>404">404</a></li>
+                <li><a href="<?= ROOT ?>contact-us">Contact</a></li>
               </ul>
             </div>
           </div>

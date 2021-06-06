@@ -99,3 +99,5 @@ add logout feature: create logout controller
 
   - add product details page
   - add product image edit preview
+
+  - add product slug

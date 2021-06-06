@@ -13,9 +13,10 @@ class Product
     $arr['image'] = ucwords($DATA->image);
     $arr['date'] = date('Y-m-d H:i:s');
     $arr['user_url'] = $_SESSION['user_url'];
+    $arr['slug'] = $this->strToURL($DATA->description);
 
     // validate user input
-    if (!preg_match("/^[a-zA-Z ]+$/", trim($arr['description']))) {
+    if (!preg_match("/^[a-zA-Z 0-9]+$/", trim($arr['description']))) {
       $_SESSION['error'] .= 'Please enter a valid description for this product!<br>';
     }
 
@@ -70,7 +71,7 @@ class Product
 
     # create product
     if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
-      $sql = "INSERT INTO `products` (`description`, `quantity`, `category`, `price`, `user_url`, `date`, `image`, image2, image3, image4) VALUES (:description, :quantity, :category, :price, :user_url, :date, :image, :image2, :image3, :image4)";
+      $sql = "INSERT INTO `products` (`description`, `quantity`, `category`, `price`, `user_url`, `date`, `image`, image2, image3, image4, slug) VALUES (:description, :quantity, :category, :price, :user_url, :date, :image, :image2, :image3, :image4,:slug)";
       $check = $DB->write($sql, $arr);
 
       if ($check) {
@@ -213,5 +214,17 @@ class Product
     }
 
     return $result;
+  }
+
+  public function strToURL($url)
+  {
+    # code...
+    $url = preg_replace("~[^\\pL0-9_]+~u", "-", $url);
+    $url = trim($url, "-");
+    $url = iconv('utf-8', 'us-ascii//TRANSLIT', $url);
+    $url = strtolower($url);
+    $url = preg_replace('~[^-a-z0-9_]+~', '', $url);
+
+    return $url;
   }
 }
