@@ -230,7 +230,7 @@
 									<div class="product-image-wrapper">
 										<div class="single-products">
 											<div class="productinfo text-center">
-												<a href="<?php echo ROOT ?>product_details/<?php echo $row->id ?>">
+												<a href="<?php echo ROOT ?>product_details/<?php echo $row->slug ?>">
 													<div>
 														<img class="product-img" src="<?= ROOT . $row->image ?>" alt="<?= $row->description ?>" />
 													</div>

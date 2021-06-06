@@ -2,9 +2,9 @@
 
 class Product_Details extends Controller
 {
-  public function index($id)
+  public function index($slug)
   {
-    $id = (int) $id;
+    $slug = esc($slug);
 
     $User = $this->loadModel('User');
     $user_data = $User->checkLogin();
@@ -17,10 +17,12 @@ class Product_Details extends Controller
 
     // get all products from db
     $DB = Database::newInstance();
-    $ROW = $DB->read('SELECT * FROM products WHERE id=:id', ['id' => $id]);
+    $ROW = $DB->read('SELECT * FROM products WHERE slug=:slug', ['slug' => $slug]);
 
     $data['page_title'] = 'Product Details';
-    $data['ROW'] = $ROW[0];
+
+    // check if product is available
+    $data['ROW'] = is_array($ROW) ? $ROW[0] : false;
 
     $this->view('product_details', $data);
   }

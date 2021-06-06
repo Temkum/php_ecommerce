@@ -2541,3 +2541,13 @@ textarea {
 .productinfo div {
   overflow: hidden;
 }
+
+.no-products {
+  margin: 3rem;
+  border-left: 4px solid blue;
+  background-color: rgba(79, 76, 76, 0.083);
+  padding-left: 2rem;
+  line-height: 3rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+}
