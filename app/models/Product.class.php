@@ -16,7 +16,7 @@ class Product
     $arr['slug'] = $this->strToURL($DATA->description);
 
     // validate user input
-    if (!preg_match("/^[a-zA-Z 0-9]+$/", trim($arr['description']))) {
+    if (!preg_match("/^[a-zA-Z 0-9._\-,]+$/", trim($arr['description']))) {
       $_SESSION['error'] .= 'Please enter a valid description for this product!<br>';
     }
 
@@ -203,10 +203,10 @@ class Product
 
         <td>
           <button  class="btn btn-primary btn-xs">
-          <i class="fa fa-pencil" info="' . $info . '" onclick="showEditProduct(' . $edit_args . ', event)"></i>
+          <i class="fa fa-pencil fa-2x" info="' . $info . '" onclick="showEditProduct(' . $edit_args . ', event)"></i>
           </button>
 
-          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o " onclick="deleteRow(' . $cat_row->id . ')"></i>
+          <button class="btn btn-danger btn-xs "><i class="fa fa-trash-o fa-2x" onclick="deleteRow(' . $cat_row->id . ')"></i>
           </button>
         </td>';
         $result .= '</tr>';

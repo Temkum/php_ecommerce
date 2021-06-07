@@ -2545,9 +2545,9 @@ textarea {
 .no-products {
   margin: 3rem;
   border-left: 4px solid blue;
-  background-color: rgba(79, 76, 76, 0.083);
+  background-color: rgba(243, 165, 151, 0.836);
   padding-left: 2rem;
-  line-height: 3rem;
-  font-size: 1.5rem;
+  line-height: 5rem;
+  font-size: 2rem;
   border-radius: 10px;
 }

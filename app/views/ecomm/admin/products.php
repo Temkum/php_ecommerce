@@ -59,6 +59,13 @@
       margin: 10px;
       border-radius: 10px;
     }
+
+    .modal-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      margin-left: 10px;
+    }
   </style>
 
   <div class="col-md-12">
@@ -111,26 +118,33 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image" class="" name="image" placeholder="" required>
+                <input type="file" id="image" class="" name="image" onchange="displayModalImage(this.files[0],this.name, 'js-add-product-imgs')" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image2" class="" name="image2" placeholder="">
+                <input type="file" id="image2" class="" name="image2" onchange="displayModalImage(this.files[0],this.name, 'js-add-product-imgs')">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image3" class="" name="image3" placeholder="">
+                <input type="file" id="image3" class="" name="image3" onchange="displayModalImage(this.files[0],this.name, 'js-add-product-imgs')">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="image4" class="" name="image4" placeholder="">
+                <input type="file" id="image4" class="" name="image4" onchange="displayModalImage(this.files[0],this.name, 'js-add-product-imgs')">
               </div>
+            </div>
+
+            <div class="js-add-product-imgs">
+              <img class="modal-img" src="" alt="">
+              <img class="modal-img" src="" alt="">
+              <img class="modal-img" src="" alt="">
+              <img class="modal-img" src="" alt="">
             </div>
 
             <button class="btn btn-warning save" type="button" onclick="addNew(event)">Cancel</button>
@@ -185,29 +199,29 @@
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image" class="" name="image" onchange="displayImage(this.files[0],this.name)" required>
+                <input type="file" id="edit_image" class="" name="image" onchange="displayModalImage(this.files[0],this.name, 'js-edit-product-imgs')" required>
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 2 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image2" class="" name="image2" onchange="displayImage(this.files[0],this.name)">
+                <input type="file" id="edit_image2" class="" name="image2" onchange="displayModalImage(this.files[0],this.name, 'js-edit-product-imgs')">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 3 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image3" class="" name="image3" onchange="displayImage(this.files[0],this.name)">
+                <input type="file" id="edit_image3" class="" name="image3" onchange="displayModalImage(this.files[0],this.name, 'js-edit-product-imgs')">
               </div>
             </div>
             <div class="form-group ">
               <label for="" class="col-sm-3 control-label">Image 4 (Optional)</label>
               <div class="col-sm-9 mb">
-                <input type="file" id="edit_image4" class="" name="image4" onchange="displayImage(this.files[0],this.name)">
+                <input type="file" id="edit_image4" class="" name="image4" onchange="displayModalImage(this.files[0],this.name, 'js-edit-product-imgs')">
               </div>
             </div>
 
-            <div class="js-product-imgs edit-product-imgs">
+            <div class="js-edit-product-imgs edit-product-imgs">
             </div>
 
             <button class="btn btn-warning save" type="button" onclick="showEditProduct(event)">Cancel</button>
@@ -276,7 +290,7 @@
       let edit_quantity = document.querySelector('#edit_quantity');
       edit_quantity.value = info.quantity;
 
-      let edit_images = document.querySelector('.js-images');
+      let edit_images = document.querySelector('.js-edit-product-imgs');
       edit_images.innerHTML = `<img class="img-fluid" src="<?= ROOT ?>${info.image}"/>`;
       edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image2}"/>`;
       edit_images.innerHTML += `<img class="img-fluid" src="<?= ROOT ?>${info.image3}"/>`;
@@ -519,7 +533,7 @@
     })
   }
 
-  function displayImage(file, name) {
+  function displayModalImage(file, name, element) {
     let index = 0;
 
     if (name == 'image2') {
@@ -532,7 +546,7 @@
       index = 3;
     }
 
-    const image_holder = document.querySelector('.js-product-imgs');
+    const image_holder = document.querySelector('.' + element);
     let images = image_holder.querySelectorAll('IMG');
 
     // create url of img file
