@@ -30,6 +30,16 @@ class Product
       $_SESSION['error'] .= 'Please enter a valid price!<br>';
     }
 
+    // make slug unique
+    $slug_arr['slug'] = $arr['slug'];
+    $sql = "SELECT slug FROM products WHERE slug=:slug LIMIT 1";
+    $check = $DB->read($sql);
+
+    if ($check) {
+
+      $arr['slug'] .= "-" . rand(0, 9999);
+    }
+
     $arr['image'] = '';
     $arr['image2'] = '';
     $arr['image3'] = '';
@@ -56,7 +66,7 @@ class Product
     foreach ($FILES as $key => $img_row) {
       # code...
       if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
-        if ($img_row['size'] <= $size) {
+        if ($img_row['size'] < $size) {
           # code...
           $destination = $dir . $img_row['name'];
 
@@ -128,7 +138,7 @@ class Product
     foreach ($FILES as $key => $img_row) {
       # code...
       if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
-        if ($img_row['size'] <= $size) {
+        if ($img_row['size'] < $size) {
           # code...
           $destination = $dir . $img_row['name'];
           move_uploaded_file($img_row['tmp_name'], $destination);

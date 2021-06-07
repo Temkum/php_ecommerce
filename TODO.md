@@ -103,3 +103,4 @@ add logout feature: create logout controller
   - add product slug
   - add product not found
   - add product image preview
+  - verify that slug is unique
