@@ -14,10 +14,11 @@ class AjaxProduct extends Controller
       $DB = Database::getInstance();
       $product = $this->loadModel('Product');
       $category = $this->loadModel('Category');
+      $image_class = $this->loadModel('Image');
 
       if ($data->data_type == 'add_product') {
         # add new product
-        $check = $product->create($data, $_FILES);
+        $check = $product->create($data, $_FILES, $image_class);
 
         if ($_SESSION['error'] != '') {
           # code...
@@ -58,10 +59,11 @@ class AjaxProduct extends Controller
         echo json_encode($arr);
       } else 
         if ($data->data_type == 'edit_product') {
-        $product->edit($data, $_FILES);
-        // $arr['msg'] = $_SESSION['Modified successfully!'];
-        // $_SESSION['error'] = '';
-        // $arr['msg_type'] = 'success';
+
+        $product->edit($data, $_FILES, $image_class);
+        $arr['msg'] = 'Modified successfully!';
+        $_SESSION['error'] = '';
+        $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats, $category);

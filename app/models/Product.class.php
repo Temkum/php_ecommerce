@@ -1,7 +1,7 @@
 <?php
 class Product
 {
-  public function create($DATA, $FILES)
+  public function create($DATA, $FILES, $image_class = null)
   {
     # code...
     $DB = Database::newInstance();
@@ -68,11 +68,13 @@ class Product
       if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
         if ($img_row['size'] < $size) {
           # code...
-          $destination = $dir . $img_row['name'];
+          $destination = $dir . $image_class->generate_filename(60) . '.jpg';
 
           move_uploaded_file($img_row['tmp_name'], $destination);
 
           $arr[$key] = $destination;
+
+          $image_class->resize_image($destination, $destination, 1080, 1080);
         } else {
           $_SESSION['error'] .= $key . ' is bigger than required size.';
         }
@@ -93,14 +95,13 @@ class Product
     return false;
   }
 
-  public function edit($data, $FILES)
+  public function edit($data, $FILES, $image_class = null)
   {
     $arr['id'] = $data->id;
     $arr['description'] = $data->description;
     $arr['category'] = $data->category;
     $arr['quantity'] = $data->quantity;
     $arr['price'] = $data->price;
-
     $imgs_string = '';
 
     // validate user input
@@ -140,9 +141,11 @@ class Product
       if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
         if ($img_row['size'] < $size) {
           # code...
-          $destination = $dir . $img_row['name'];
+          $destination = $dir . $image_class->generate_filename(60) . '.jpg';
           move_uploaded_file($img_row['tmp_name'], $destination);
           $arr[$key] = $destination;
+
+          $image_class->resize_image($destination, $destination, 1080, 1080);
 
           $imgs_string .= ',' . $key . '= :' . $key;
         } else {
@@ -151,11 +154,13 @@ class Product
       }
     }
 
-    $DB = Database::newInstance();
+    if (!isset($_SESSION['error']) || $_SESSION['error'] == '') {
+      # code...
+      $DB = Database::newInstance();
 
-    $sql = "UPDATE `products` SET `description`=:description,`category`=:category,`quantity`=:quantity,`price`=:price '{$imgs_string}' WHERE `id` = :id LIMIT 1";
-    $DB->write($sql, $arr);
-    show($sql);
+      $sql = "UPDATE `products` SET `description`=:description,`category`=:category,`quantity`=:quantity,`price`=:price '{$imgs_string}' WHERE `id` = :id LIMIT 1";
+      $DB->write($sql, $arr);
+    }
   }
 
   public function getAll()

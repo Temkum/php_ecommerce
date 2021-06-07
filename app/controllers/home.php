@@ -5,6 +5,7 @@ class Home extends Controller
   public function index()
   {
     $User = $this->loadModel('User');
+    $image_class = $this->loadModel('Image');
     $user_data = $User->checkLogin();
 
     // check if user is logged in
@@ -18,7 +19,17 @@ class Home extends Controller
     $ROWS = $DB->read('SELECT * FROM products');
 
     $data['page_title'] = 'Home';
+
+    if ($ROWS) {
+      # code...
+      foreach ($ROWS as $key => $row) {
+        # edit actual row
+        $ROWS[$key]->image = $image_class->get_thumb_post($ROWS[$key]->image);
+      }
+    }
+
     $data['ROWS'] = $ROWS;
+
     $this->view('index', $data);
   }
 }
