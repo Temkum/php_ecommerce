@@ -5,7 +5,10 @@ class Controller
 
   public function view($path, $data = [])
   {
-    extract($data);
+    if (is_array($data)) {
+      # code...
+      extract($data);
+    }
 
     if (file_exists('../app/views/' . THEME . $path . '.php')) {
       include '../app/views/' . THEME . $path . '.php';

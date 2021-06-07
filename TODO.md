@@ -105,3 +105,6 @@ add logout feature: create logout controller
   - add product image preview
   - verify that slug is unique
   - resize product images
+
+- Product page
+  - added single product page & include it in index view

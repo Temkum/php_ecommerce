@@ -225,29 +225,8 @@
 						<!-- single product -->
 						<?php if (is_array($ROWS)) : ?>
 							<?php foreach ($ROWS as $row) : ?>
-
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<a href="<?php echo ROOT ?>product_details/<?php echo $row->slug ?>">
-													<div>
-														<img class="product-img" src="<?= ROOT . $row->image ?>" alt="<?= $row->description ?>" />
-													</div>
-												</a>
-												<h2>$<?= $row->price ?></h2>
-												<p><?= $row->description ?></p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-										</div>
-										<div class="choose">
-											<ul class="nav nav-pills nav-justified">
-												<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-												<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-											</ul>
-										</div>
-									</div>
-								</div><!-- end single product -->
+								<!-- include single product -->
+								<?php $this->view('product.inc', $row); ?>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -264,6 +243,7 @@
 								<li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>
 							</ul>
 						</div>
+						
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="tshirt">
 								<div class="col-sm-3">
