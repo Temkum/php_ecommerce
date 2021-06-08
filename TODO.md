@@ -107,8 +107,11 @@ add logout feature: create logout controller
   - resize product images
 
 - Product page
+
   - added single product page & include it in index view
 
 - Add to chart
   - create add to cart controller
   - create cart to return user to shopping & increase cart item quantity
+  - display the cart data
+  - cart quantity 

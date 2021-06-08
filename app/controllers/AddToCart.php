@@ -37,7 +37,6 @@ class AddToCart extends Controller
         $_SESSION['CART'][] = $arr;
       }
     }
-    show($_SESSION);
 
     // header('Location: ' . ROOT . 'shop');
 
