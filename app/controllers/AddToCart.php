@@ -2,8 +2,12 @@
 
 class AddToCart extends Controller
 {
+  private $redirect_to = '';
+
   public function index($id = '')
   {
+    $this->setRedirect();
+
     $id = esc($id);
 
     // get all products from db
@@ -37,15 +41,15 @@ class AddToCart extends Controller
         $_SESSION['CART'][] = $arr;
       }
     }
+    header('Location: ' . ROOT . 'cart');
 
-    // header('Location: ' . ROOT . 'shop');
-
-    // exit;
+    exit;
   }
 
   public function addQty($id = '')
   {
-    # code...
+    $this->setRedirect();
+
     $id = esc($id);
 
     if (isset($_SESSION['CART'])) {
@@ -58,11 +62,13 @@ class AddToCart extends Controller
         }
       }
     }
+    $this->redirect();
   }
 
   public function decreaseQty($id = '')
   {
-    # code...
+    $this->setRedirect();
+
     $id = esc($id);
 
     if (isset($_SESSION['CART'])) {
@@ -75,11 +81,13 @@ class AddToCart extends Controller
         }
       }
     }
+    $this->redirect();
   }
 
   public function removeCartItem($id = '')
   {
-    # code...
+    $this->setRedirect();
+
     $id = esc($id);
 
     if (isset($_SESSION['CART'])) {
@@ -94,5 +102,24 @@ class AddToCart extends Controller
         }
       }
     }
+    $this->redirect();
+  }
+
+  private function redirect()
+  {
+    header('Location: ' . $this->redirect_to);
+    // header('Location: ' . ROOT . 'cart');
+
+    exit;
+  }
+
+  private function setRedirect()
+  {
+    if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != "") {
+      $this->redirect_to = $_SERVER['HTTP_REFERER'];
+    } else {
+      $this->redirect_to = ROOT . 'shop';
+    }
+    show($_SERVER);
   }
 }

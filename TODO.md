@@ -114,5 +114,6 @@ add logout feature: create logout controller
   - create add to cart controller
   - create cart to return user to shopping & increase cart item quantity
   - display the cart data
-  - cart quantity 
-    - add and decrease cart qty & remove 
+  - cart quantity
+    - add and decrease cart qty & remove
+  - redirect to cart
