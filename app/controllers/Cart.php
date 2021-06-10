@@ -42,10 +42,15 @@ class Cart extends Controller
 
     $data['page_title'] = 'Cart';
 
+    // subtotal
+    $data['sub_total'] = 0;
+
     if ($ROWS) {
           foreach ($ROWS as $key => $row) {
-        # edit actual row
+        # edit actual row & create thumbnail
         $ROWS[$key]->image = $image_class->get_thumb_post($ROWS[$key]->image);
+        $mytotal = $row->price * $row->cart_qty;
+        $data['sub_total'] += $mytotal;
       }
     }
 

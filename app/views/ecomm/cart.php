@@ -10,6 +10,18 @@
 		.table {
 			margin-top: 20px !important;
 		}
+
+		.subtotal {
+			font-size: 2rem;
+		}
+
+		.total {
+			font-size: 3rem;
+		}
+
+		.total-num {
+			color: blue;
+		}
 	</style>
 	<div class="container">
 		<div class="breadcrumbs">
@@ -64,6 +76,7 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="pull-right"><span>$<?= number_format($sub_total, 2) ?></span></div>
 	</div>
 </section>
 <!-- end cart_items-->
@@ -132,16 +145,17 @@
 			<div class="col-sm-6">
 				<div class="total_area">
 					<ul>
-						<li>Cart Sub Total <span>$59</span></li>
-						<li>Eco Tax <span>$2</span></li>
+						<li>Sub Total <span class="subtotal">$<?= number_format($sub_total, 2) ?></span></li>
+						<li>Eco Tax <span>$0</span></li>
 						<li>Shipping Cost <span>Free</span></li>
-						<li>Total <span>$61</span></li>
+						<li class="total">Total <span class="total-num">$<?= number_format($sub_total, 2) ?></span></li>
 					</ul>
 					<a class="btn btn-default update" href="">Update</a>
 					<a class="btn btn-default check_out" href="">Check Out</a>
 				</div>
 			</div>
 		</div>
+
 	</div>
 </section>
 <!--/#do_action-->

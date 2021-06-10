@@ -120,3 +120,5 @@ add logout feature: create logout controller
   - Update qty using Ajax
   - Ajax cart controller: change quantity with ajax
   - Delete cart item
+
+  - Cart total
