@@ -117,3 +117,4 @@ add logout feature: create logout controller
   - cart quantity
     - add and decrease cart qty & remove
   - redirect to cart
+  - Update qty using Ajax

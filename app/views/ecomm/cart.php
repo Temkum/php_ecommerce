@@ -36,7 +36,7 @@
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
 										<a class="cart_quantity_down" href="<?= ROOT ?>addtocart/decreaseQty/<?= $row->id ?>"> - </a>
-										<input class="cart_quantity_input" type="text" name="quantity" value="<?= $row->cart_qty ?>" autocomplete="off" size="2">
+										<input oninput="editQuantity(this.value, '<?= $row->id ?>')" class="cart_quantity_input" type="text" name="quantity" value="<?= $row->cart_qty ?>" autocomplete="off" size="2">
 										<a class="cart_quantity_up" href="<?= ROOT ?>addtocart/addQty/<?= $row->id ?>"> + </a>
 									</div>
 								</td>
@@ -133,5 +133,46 @@
 	</div>
 </section>
 <!--/#do_action-->
+
+<script>
+	function editQuantity(quantity, id) {
+		if (isNaN(quantity))
+			return;
+
+		sendData({
+			quantity: quantity.trim(),
+			id: id.trim()
+		}, 'editQuantity');
+	}
+
+	function sendData(data = {}, data_type) {
+		// create new ajax object
+		let ajax = new XMLHttpRequest();
+
+		ajax.addEventListener('readystatechange', function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				handleResult(ajax.responseText);
+			}
+		});
+
+		ajax.open('POST', "<?= ROOT ?>ajaxcart/" + data_type + "/" + JSON.stringify(data), true); //true here is to tell it to run in the background
+		ajax.send();
+	}
+
+	function handleResult(result) {
+
+		console.log(result);
+		if (result != "") {
+			let obj = JSON.parse(result);
+
+			if (typeof obj.data_type != "undefined") {
+				if (obj.data_type == 'editQuantity') {
+					windows.location.href = windows.location.href; //refresh active window
+				}
+			}
+
+		}
+	}
+</script>
 
 <?php $this->view('footer', $data); ?>

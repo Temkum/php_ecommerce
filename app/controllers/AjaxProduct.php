@@ -4,10 +4,13 @@ class AjaxProduct extends Controller
 {
   public function index()
   {
-    /* $data = file_get_contents('php://input');
-    $data = json_decode($data); */ //add true to convert to an array instead of stdObject
+    /* $data = json_decode($data); //add true to convert to an array instead of stdObject */
 
-    $data = (object) $_POST;
+    if (count($_POST) > 0) {
+      $data = (object) $_POST;
+    } else {
+      $data = file_get_contents('php://input');
+    }
 
     if (is_object($data) && isset($data->data_type)) {
       # code...
@@ -23,15 +26,15 @@ class AjaxProduct extends Controller
         if ($_SESSION['error'] != '') {
           # code...
           $arr['msg'] = $_SESSION['error'];
-          $_SESSION['error'] = '';
+          $_SESSION['error'] = "";
           $arr['msg_type'] = 'error';
           $arr['data'] = '';
           $arr['data_type'] = 'add_new';
 
           echo json_encode($arr);
         } else {
-          $arr['msg'] = 'Product added successfully!';
-          $arr['msg_type'] = 'success';
+          $arr['msg'] = "Product added successfully!";
+          $arr['msg_type'] = "success";
           $cats = $product->getAll();
           $arr['data'] =  $product->makeTable($cats, $category);
           $arr['data_type'] = 'add_new';
@@ -47,7 +50,7 @@ class AjaxProduct extends Controller
         $sql = "UPDATE `products` SET disabled = '$disabled' WHERE `id` ='{$id}' LIMIT 1";
         $DB->write($sql);
 
-        $arr['msg'] = '';
+        $arr['msg'] = "";
         $_SESSION['error'] = '';
         $arr['msg_type'] = 'success';
 
@@ -61,8 +64,8 @@ class AjaxProduct extends Controller
         if ($data->data_type == 'edit_product') {
 
         $product->edit($data, $_FILES, $image_class);
-        $arr['msg'] = 'Modified successfully!';
-        $_SESSION['error'] = '';
+        $arr['msg'] = "Modified successfully!";
+        $_SESSION['error'] = "";
         $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
@@ -74,14 +77,14 @@ class AjaxProduct extends Controller
       } else 
         if ($data->data_type == 'delete_row') {
         $product->delete($data->id);
-        $arr['msg'] = $_SESSION['Row successfully deleted!'];
-        $_SESSION['error'] = '';
+        $arr['msg'] = $_SESSION["Row successfully deleted!"];
+        $_SESSION['error'] = "";
         $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats);
 
-        $arr['data_type'] = 'delete_row';
+        $arr['data_type'] = "delete_row";
 
         echo json_encode($arr);
       }
