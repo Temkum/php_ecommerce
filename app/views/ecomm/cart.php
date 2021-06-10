@@ -1,6 +1,16 @@
 <?php $this->view('header', $data); ?>
 
 <section id="cart_items">
+	<style>
+		.no-products {
+			text-align: center !important;
+			border: 0;
+		}
+
+		.table {
+			margin-top: 20px !important;
+		}
+	</style>
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
@@ -44,10 +54,12 @@
 									<p class="cart_total_price">$<?= $row->price * $row->cart_qty ?></p>
 								</td>
 								<td class="cart_delete">
-									<a class="cart_quantity_delete" href="<?= ROOT ?>addtocart/removeCartItem/<?= $row->id ?>"><i class="fa fa-times"></i></a>
+									<a onclick="deleteItem(this.getAttribute('delete_id'))" delete_id="<?= $row->id ?>" class="cart_quantity_delete" href="<?= ROOT ?>addtocart/removeCartItem/<?= $row->id ?>"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
+					<?php else : ?>
+						<div class="no-products">Cart is empty!</div>
 					<?php endif; ?>
 				</tbody>
 			</table>
@@ -145,6 +157,12 @@
 		}, 'editQuantity');
 	}
 
+	function deleteItem(id) {
+		sendData({
+			id: id.trim()
+		}, 'deleteItem');
+	}
+
 	function sendData(data = {}, data_type) {
 		// create new ajax object
 		let ajax = new XMLHttpRequest();
@@ -166,6 +184,9 @@
 			let obj = JSON.parse(result);
 
 			if (typeof obj.data_type != "undefined") {
+				if (obj.data_type == "deleteItem") {
+					windows.location.href = windows.location.href;
+				} else
 				if (obj.data_type == 'editQuantity') {
 					windows.location.href = windows.location.href; //refresh active window
 				}
