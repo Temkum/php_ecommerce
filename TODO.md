@@ -121,4 +121,7 @@ add logout feature: create logout controller
   - Ajax cart controller: change quantity with ajax
   - Delete cart item
 
-  - Cart total
+  - Cart total and subtotal
+  - create orders table in db
+
+  - checkout page

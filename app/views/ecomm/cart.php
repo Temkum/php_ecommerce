@@ -5,10 +5,7 @@
 		.no-products {
 			text-align: center !important;
 			border: 0;
-		}
-
-		.table {
-			margin-top: 20px !important;
+			margin-bottom: 20px !important;
 		}
 
 		.subtotal {
@@ -16,13 +13,24 @@
 		}
 
 		.total {
-			font-size: 3rem;
+			font-size: 2rem;
+			margin-bottom: 2rem;
 		}
 
 		.total-num {
 			color: blue;
 		}
+
+		.container {
+			margin-bottom: 5rem;
+		}
+
+		.checkout {
+			float: right;
+			margin-left: 60%;
+		}
 	</style>
+
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
@@ -76,12 +84,16 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="pull-right"><span>$<?= number_format($sub_total, 2) ?></span></div>
+		<div class="pull-right total-num total">Subtotal: <span> $<?= number_format($sub_total, 2) ?></span></div> <br> <br>
+		<a class="btn btn-primary pull-left" href="<?= ROOT ?>/shop">Continue shopping</a>
+		<a href="<?= ROOT ?>checkout">
+			<input type="button" value="Checkout" name="" class="btn btn-primary checkout">
+		</a>
 	</div>
 </section>
 <!-- end cart_items-->
 
-<section id="do_action">
+<!-- <section id="do_action">
 	<div class="container">
 		<div class="heading">
 			<h3>What would you like to do next?</h3>

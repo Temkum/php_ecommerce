@@ -1588,7 +1588,7 @@ h2.title {
 
 #cart_items .cart_info {
   border: 1px solid #E6E4DF;
-  margin-bottom: 50px
+  margin-bottom: 10px;
 }
 
 
@@ -2550,4 +2550,10 @@ textarea {
   line-height: 5rem;
   font-size: 2rem;
   border-radius: 10px;
+}
+
+.check-out {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
