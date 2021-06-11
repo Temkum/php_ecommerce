@@ -130,3 +130,7 @@ add logout feature: create logout controller
 
   - add country and state feature: modify country to get an updated list of states in the country
   - get data from checkout form
+
+  - create model to save order data
+  - add order class
+

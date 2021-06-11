@@ -32,7 +32,7 @@
 								<div class="form-two">
 									<select class="form-control mb-5" name="country" class="js-country" oninput="getStates(this.value)" required>
 										<option>-- Country --</option>
-										
+
 										<?php if (isset($countries) && $countries) : ?>
 											<?php foreach ($countries as $row) : ?>
 												<option value="<?= $row->id ?>"><?= $row->country ?></option>
@@ -44,8 +44,8 @@
 										<option>-- State / Province / Region --</option>
 									</select>
 
-									<input name="phone" class="form-control mb-5" type="text" placeholder="Home Phone *" required>
-									<input name="mobile" class="form-control mb-5" type="text" placeholder="Mobile Phone">
+									<input name="home_phone" class="form-control mb-5" type="text" placeholder="Home Phone *" required>
+									<input name="mobile_phone" class="form-control mb-5" type="text" placeholder="Mobile Phone">
 
 								</div>
 							</div>
