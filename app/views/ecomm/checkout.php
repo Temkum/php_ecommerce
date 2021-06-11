@@ -45,7 +45,7 @@
 									</select>
 
 									<input name="home_phone" class="form-control mb-5" type="text" placeholder="Home Phone *" required>
-									<input name="mobile_phone" class="form-control mb-5" type="text" placeholder="Mobile Phone">
+									<input name="mobile" class="form-control mb-5" type="text" placeholder="Mobile Phone">
 
 								</div>
 							</div>
@@ -61,7 +61,6 @@
 
 					<a class="btn btn-primary pull-left" href="<?= ROOT ?>/cart">Back to Cart</a>
 					<input type="submit" value="Pay" name="" class="btn btn-primary checkout pull-right">
-
 				</div>
 			</form>
 
@@ -114,11 +113,8 @@
 					}
 				}
 			}
-
 		}
 	}
 </script>
-
-
 
 <?php $this->view('footer', $data); ?>
