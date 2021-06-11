@@ -11,13 +11,13 @@ then with a constructor that runs immediately
 
 - creating views
 
-* connect template to our mvc
-* add assets
+- connect template to our mvc
+- add assets
 
-* login and signup page
+- login and signup page
   You could redirect user to the 404 page if the page doesn't exist or link is broken
 
-* Posting on login and signup
+- Posting on login and signup
 
 Models are classes which do specific things
 A simple model be used by many controller
@@ -111,6 +111,7 @@ add logout feature: create logout controller
   - added single product page & include it in index view
 
 - Add to chart
+
   - create add to cart controller
   - create cart to return user to shopping & increase cart item quantity
   - display the cart data
@@ -125,3 +126,6 @@ add logout feature: create logout controller
   - create orders table in db
 
   - checkout page
+  - modify checkout template
+
+  - add country and state feature: modify country to get an updated list of states in the country

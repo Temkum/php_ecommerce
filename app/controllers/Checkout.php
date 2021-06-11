@@ -57,6 +57,10 @@ class Checkout extends Controller
     rsort($ROWS); // sort by newly added
     $data['ROWS'] = $ROWS;
 
+    // get countries
+    $countries = $this->loadModel('Countries');
+    $data['countries'] = $countries->getCountries();
+
     $this->view('checkout', $data);
   }
 }
