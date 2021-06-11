@@ -54,7 +54,10 @@ class Checkout extends Controller
       }
     }
 
-    rsort($ROWS); // sort by newly added
+    // prevent error if there are no rows to display
+    if (is_array($ROWS)) {
+      rsort($ROWS); // sort by newly added
+    }
     $data['ROWS'] = $ROWS;
 
     // get countries

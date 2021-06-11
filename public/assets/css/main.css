@@ -2557,3 +2557,11 @@ textarea {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.mb-5 {
+  margin-bottom: 10px;
+}
+
+.text-capitalize {
+  text-transform: uppercase;
+}

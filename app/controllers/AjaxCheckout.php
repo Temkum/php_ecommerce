@@ -15,6 +15,6 @@ class AjaxCheckout extends Controller
     $info->data_type = 'getStates';
 
     // convert array to str since we can't echo an array
-    echo json_encode($data);
+    echo json_encode($info);
   }
 }

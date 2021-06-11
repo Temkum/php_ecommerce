@@ -54,7 +54,9 @@ class Cart extends Controller
       }
     }
 
-    rsort($ROWS); // sort by newly added
+    if (is_array($ROWS)) {
+      rsort($ROWS); // sort by newly added
+    }
     $data['ROWS'] = $ROWS;
 
     $this->view('cart', $data);

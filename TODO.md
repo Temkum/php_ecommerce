@@ -129,3 +129,4 @@ add logout feature: create logout controller
   - modify checkout template
 
   - add country and state feature: modify country to get an updated list of states in the country
+  - get data from checkout form
