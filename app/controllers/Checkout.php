@@ -65,11 +65,6 @@ class Checkout extends Controller
     $data['countries'] = $countries->getCountries();
 
     if (count($_POST) > 0) {
-      # code...
-      // show($_POST);
-      // show($ROWS);
-      // show($_SESSION);
-
       // run checkout as guest
       $sessionid = session_id();
       $user_url = "";
@@ -77,6 +72,7 @@ class Checkout extends Controller
       if (isset($_SESSION['user_url'])) {
         $user_url = $_SESSION['user_url'];
       }
+      show($_SESSION);
       $order = $this->loadModel('Order');
       $order->saveOrder($_POST, $ROWS, $user_url, $sessionid);
 

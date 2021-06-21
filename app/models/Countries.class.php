@@ -25,6 +25,7 @@ class Countries
 
   public function getCountry($id)
   {
+    $id = (int) $id;
     $DB = Database::newInstance();
     $sql = "SELECT * FROM countries WHERE id='$id' ORDER BY id DESC";
     $data = $DB->read($sql);

@@ -57,6 +57,7 @@ class Cart extends Controller
     if (is_array($ROWS)) {
       rsort($ROWS); // sort by newly added
     }
+    
     $data['ROWS'] = $ROWS;
 
     $this->view('cart', $data);

@@ -133,4 +133,6 @@ add logout feature: create logout controller
 
   - create model to save order data
   - add order class
-    __Bug__ fix country state and names
+    **Bug** fix country state and names
+
+  - Save order details

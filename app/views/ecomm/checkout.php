@@ -15,7 +15,6 @@
 				<p>Please Register an account to Checkout easily and get access to your order history, or use Checkout as Guest</p>
 			</div>
 			<!--/register-req-->
-
 			<form method="POST">
 				<div class="shopper-informations">
 					<div class="row check-out">
@@ -32,21 +31,19 @@
 								<div class="form-two">
 									<select class="form-control mb-5" name="country" class="js-country" oninput="getStates(this.value)" required>
 										<option>-- Country --</option>
-
 										<?php if (isset($countries) && $countries) : ?>
 											<?php foreach ($countries as $row) : ?>
+
 												<option value="<?= $row->id ?>"><?= $row->country ?></option>
+
 											<?php endforeach; ?>
 										<?php endif; ?>
 									</select>
-
 									<select class="form-control mb-5" name="state" class="js-state" required>
 										<option>-- State / Province / Region --</option>
 									</select>
-
-									<input name="home_phone" class="form-control mb-5" type="text" placeholder="Home Phone *" required>
-									<input name="mobile" class="form-control mb-5" type="text" placeholder="Mobile Phone">
-
+									<input name="mobile_phone" class="form-control mb-5" type="text" placeholder="Mobile Phone *" required>
+									<input name="home_phone" class="form-control mb-5" type="text" placeholder="Home Phone">
 								</div>
 							</div>
 						</div>
@@ -54,7 +51,6 @@
 							<div class="order-message form-three">
 								<p>Shipping Order</p>
 								<textarea name="message" placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-
 							</div>
 						</div>
 					</div>
@@ -63,12 +59,9 @@
 					<input type="submit" value="Pay" name="" class="btn btn-primary checkout pull-right">
 				</div>
 			</form>
-
 		<?php else : ?>
 			<div class="no-products">Please add items in cart before checkout!</div>
 		<?php endif; ?>
-
-		<a class="btn btn-primary pull-left" href="<?= ROOT ?>/shop">Shop now</a>
 	</div>
 </section>
 <!-- end cart_items-->
@@ -98,6 +91,7 @@
 	function handleResult(result) {
 
 		console.log(result);
+
 		if (result != "") {
 			let obj = JSON.parse(result);
 
@@ -106,10 +100,10 @@
 
 					let select_input = document.querySelector('.js-state');
 					select_input.innerHTML = "<option>-- State / Province / Region --</option>";
-
+					// loop through the array of obj
 					for (let i = 0; i < obj.data.length; i++) {
-						select_input.innerHTML += '<option value="' + obj.data[i].id + '">"' + obj.data[i].state + '"</option>';
 
+						select_input.innerHTML += "<option value='" + obj.data[i].id + "'>" + obj.data[i].state + "</option>"
 					}
 				}
 			}
