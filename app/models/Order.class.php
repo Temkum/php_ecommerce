@@ -36,6 +36,29 @@ class Order extends Controller
       $sql = 'INSERT INTO orders (user_url, delivery_address, total, state, zip, country, tax, shipping, date, sessionid, home_phone, mobile_phone) VALUES (:user_url, :delivery_address, :total, :state, :zip, :country, :tax, :shipping, :date, :sessionid, :home_phone, :mobile_phone)';
 
       $result = $db->write($sql, $data);
+
+      // save details
+
+      $order_id = 0;
+      $query = 'SELECT id FROM orders ORDER BY id DESC LIMIT 1';
+      $result = $db->read($query);
+
+      if (is_array($result)) {
+        $order_id = $result[0]->id;
+      }
+
+      foreach ($ROWS as $row) {
+        $data = [];
+        $data['order_id'] = $order_id;
+        $data['qty'] = $row->cart_qty;
+        $data['description'] = $row->description;
+        $data['amount'] = $row->price;
+        $data['total'] = $row->cart_qty * $row->price;
+        $data['product_id'] = $row->id;
+
+        $sql = 'INSERT INTO order_details (order_id, qty, description, amount, total,product_id) VALUES (:order_id, :qty, :description, :amount, :total,:product_id)';
+        $result = $db->write($sql, $data);
+      }
     }
   }
 }
