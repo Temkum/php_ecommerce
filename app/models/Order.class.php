@@ -57,7 +57,6 @@ class Order extends Controller
       $result = $db->write($sql, $data);
 
       // save details
-
       $order_id = 0;
       $query = 'SELECT id FROM orders ORDER BY id DESC LIMIT 1';
       $result = $db->read($query);
@@ -79,6 +78,29 @@ class Order extends Controller
         $result = $db->write($sql, $data);
       }
     }
+  }
+
+  public function getOrdersByUser($user_url)
+  {
+    $orders = false;
+    $db = Database::newInstance();
+    $data['user_url'] = $user_url;
+
+    $sql = 'SELECT * FROM orders WHERE user_url=:user_url ORDER BY id DESC LIMIT 100';
+    $orders = $db->read($sql, $data);
+
+    return $orders;
+  }
+
+  public function getAllOrders()
+  {
+    $orders = false;
+    $db = Database::newInstance();
+
+    $sql = 'SELECT * FROM orders ORDER BY id DESC LIMIT 100';
+    $orders = $db->read($sql, $data);
+
+    return $orders;
   }
 }
 

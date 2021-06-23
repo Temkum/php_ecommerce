@@ -138,3 +138,6 @@ add logout feature: create logout controller
   - Save order details
   - data validation
   - save country and state
+
+  - Read orders
+  - display orders
