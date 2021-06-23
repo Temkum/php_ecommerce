@@ -10,6 +10,7 @@ class AjaxProduct extends Controller
       $data = (object) $_POST;
     } else {
       $data = file_get_contents('php://input');
+      $data = json_decode($data);
     }
 
     if (is_object($data) && isset($data->data_type)) {
@@ -64,9 +65,16 @@ class AjaxProduct extends Controller
         if ($data->data_type == 'edit_product') {
 
         $product->edit($data, $_FILES, $image_class);
-        $arr['msg'] = "Modified successfully!";
+        if ($_SESSION['error'] != "") {
+          # code...
+          $arr['msg'] = $_SESSION['error'];
+          $arr['msg_type'] = 'error';
+        } else {
+          $arr['msg'] = "Modified successfully!";
+          $arr['msg_type'] = 'success';
+        }
+
         $_SESSION['error'] = "";
-        $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats, $category);
@@ -82,7 +90,7 @@ class AjaxProduct extends Controller
         $arr['msg_type'] = 'success';
 
         $cats = $product->getAll();
-        $arr['data'] = $product->makeTable($cats);
+        $arr['data'] = $product->makeTable($cats, $category);
 
         $arr['data_type'] = "delete_row";
 

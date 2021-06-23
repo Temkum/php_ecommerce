@@ -105,17 +105,17 @@ class Product
     $imgs_string = '';
 
     // validate user input
-    if (!preg_match("/^[a-zA-Z ]+$/", trim($arr['description']))) {
-      $_SESSION['error'] .= 'Please enter a valid description for this product!<br>';
+    if (!preg_match("/^[a-zA-Z 0-9._\-,]+$/", trim($arr['description']))) {
+      $_SESSION['error'] .= 'Please enter a valid description for this product!';
     }
     if (!is_numeric($arr['quantity'])) {
-      $_SESSION['error'] .= 'Please enter a valid quantity!<br>';
+      $_SESSION['error'] .= 'Please enter a valid quantity!';
     }
     if (!is_numeric($arr['category'])) {
-      $_SESSION['error'] .= 'Please enter a valid category!<br>';
+      $_SESSION['error'] .= 'Please enter a valid category!';
     }
     if (!is_numeric($arr['price'])) {
-      $_SESSION['error'] .= 'Please enter a valid price!<br>';
+      $_SESSION['error'] .= 'Please enter a valid price!';
     }
 
     // set whitelisting rules

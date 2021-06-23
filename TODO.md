@@ -136,3 +136,5 @@ add logout feature: create logout controller
     **Bug** fix country state and names
 
   - Save order details
+  - data validation
+  - save country and state

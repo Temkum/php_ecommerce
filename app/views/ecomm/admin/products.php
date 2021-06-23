@@ -272,13 +272,14 @@
       let alrt = (e.currentTarget.getAttribute("info"));
       let info = JSON.parse(alrt.replaceAll("'", '"'));
 
+      let edit_description = document.querySelector('#edit_description');
+
       EDIT_ID = info.id; //get id of edited item
 
       // show modal on clicked position
       /* show_edit_modal.style.left = (e.clientX - 700) + 'px';
       show_edit_modal.style.top = (e.clientY - 140) + 'px'; */
 
-      let edit_description = document.querySelector('#edit_description');
       edit_description.value = info.description;
 
       let edit_category = document.querySelector('#edit_category');
@@ -463,6 +464,8 @@
   }
 
   function handleResult(result) {
+    // console.log(result);
+
     // check if result is not empty
     if (result != '') {
 
@@ -484,6 +487,18 @@
           }
 
         } else
+        if (obj.data_type == 'edit_product') {
+
+          if (obj.msg_type == 'success') {
+
+            showEditProduct(0, '', false);
+
+            let table_body = document.querySelector('#table_body');
+            table_body.innerHTML = obj.data;
+          } else {
+            alert(obj.msg);
+          }
+        } else
         if (obj.data_type == 'disable_row') {
           let table_body = document.querySelector('#table_body');
           table_body.innerHTML = obj.data;
@@ -494,13 +509,6 @@
           table_body.innerHTML = obj.data;
 
           alert(obj.msg);
-        } else
-        if (obj.data_type == 'edit_product') {
-
-          showEditProduct(0, '', false);
-
-          let table_body = document.querySelector('#table_body');
-          table_body.innerHTML = obj.data;
         }
       }
     }

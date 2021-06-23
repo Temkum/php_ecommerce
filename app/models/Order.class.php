@@ -1,9 +1,28 @@
 <?php
 class Order extends Controller
 {
+  public $errors = [];
+
   public function saveOrder($POST, $ROWS, $user_url, $sessionid)
   {
+    foreach ($POST as $key => $value) {
+
+      if ($key == 'country') {
+        if ($value == '' || $value == '-- Country --') {
+          # code...
+          $this->errors[] = 'Please enter a valid country!';
+        }
+      }
+
+      if ($key == 'state') {
+        if ($value == '' || $value == '-- State / Province / Region --') {
+          # code...
+          $this->errors[] = 'Please enter a valid state!';
+        }
+      }
+    }
     $total = 0;
+
     foreach ($ROWS as $key => $row) {
       $total += $row->cart_qty * $row->price;
     }
@@ -11,7 +30,7 @@ class Order extends Controller
     // instantiate db
     $db = Database::newInstance();
 
-    if (is_array($ROWS)) {
+    if (is_array($ROWS) && count($this->errors) == 0) {
 
       $countries = $this->loadModel('Countries');
 
