@@ -1,9 +1,13 @@
 <?php $this->view('header', $data); ?>
 
-<?php 
-if(isset($errors) && count($errors) >0){
-	
+<?php
+if (isset($errors) && count($errors) > 0) {
+
+	foreach ($errors as $error) {
+		echo '<div class="no-products alert alert-danger">$error</div>';
+	}
 }
+
 ?>
 <section id="cart_items">
 	<div class="container">

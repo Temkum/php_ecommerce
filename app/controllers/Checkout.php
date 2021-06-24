@@ -72,10 +72,10 @@ class Checkout extends Controller
       if (isset($_SESSION['user_url'])) {
         $user_url = $_SESSION['user_url'];
       }
-      
+
       $order = $this->loadModel('Order');
       $order->saveOrder($_POST, $ROWS, $user_url, $sessionid);
-      $data['errors'] = $order->error;
+      $data['errors'] = $order->errors;
 
       // header('Location: '.ROOT.'thank_you');
 
