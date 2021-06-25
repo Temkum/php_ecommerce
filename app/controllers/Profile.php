@@ -21,7 +21,7 @@ class Profile extends Controller
     if (is_array($orders)) {
       foreach ($orders as $key => $row) {
         $details = $Order->getOrderDetails($row->id);
-        $totals = array_column($details, 'total');
+        $totals = array_column([$details], 'total');
         $grand_total = array_sum($totals);
 
         $orders[$key]->details = $details;

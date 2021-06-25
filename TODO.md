@@ -145,3 +145,5 @@ add logout feature: create logout controller
   *Fix checkout errors*: 
 
   - Display order details
+
+  - Display orders in admin section
