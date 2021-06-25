@@ -4,7 +4,7 @@
 if (isset($errors) && count($errors) > 0) {
 
 	foreach ($errors as $error) {
-		echo '<div class="no-products alert alert-danger">$error</div>';
+		echo '<div class="alert alert-danger">$errors</div>';
 	}
 }
 
@@ -98,7 +98,6 @@ if (isset($errors) && count($errors) > 0) {
 	}
 
 	function handleResult(result) {
-
 		console.log(result);
 
 		if (result != "") {

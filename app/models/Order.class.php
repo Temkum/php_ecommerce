@@ -98,9 +98,21 @@ class Order extends Controller
     $db = Database::newInstance();
 
     $sql = 'SELECT * FROM orders ORDER BY id DESC LIMIT 100';
-    $orders = $db->read($sql, $data);
+    $orders = $db->read($sql);
 
     return $orders;
+  }
+
+  public function getOrderDetails($id)
+  {
+    $details = false;
+    $data['id'] = addslashes($id);
+    $db = Database::newInstance();
+
+    $sql = "SELECT * FROM order_details WHERE order_id=:id ORDER BY id DESC";
+    $details = $db->read($sql, $data);
+
+    return $details;
   }
 }
 

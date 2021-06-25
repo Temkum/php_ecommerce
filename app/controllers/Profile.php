@@ -17,6 +17,18 @@ class Profile extends Controller
     // retrieve order data
     $orders = $Order->getOrdersByUser($user_data->url_address);
 
+    # add order details to each order
+    if (is_array($orders)) {
+      foreach ($orders as $key => $row) {
+        $details = $Order->getOrderDetails($row->id);
+        $totals = array_column($details, 'total');
+        $grand_total = array_sum($totals);
+
+        $orders[$key]->details = $details;
+        $orders[$key]->grand_total = $grand_total;
+      }
+    }
+
     $data['page_title'] = 'Profile';
     $data['orders'] = $orders;
 
