@@ -4,10 +4,13 @@ class AjaxCheckout extends Controller
 {
   public function index($data_type = '', $id = '')
   {
-    $id = json_decode($id);
+    $info = file_get_contents('php://input');
+    $info = json_decode($info); //convert to array
+
+    $id = $info->data->id;
 
     $countries = $this->loadModel('Countries');
-    $data = $countries->getStates($id->id);
+    $data = $countries->getStates($id);
 
     // create obj to return
     $info = (object)[];

@@ -142,8 +142,13 @@ add logout feature: create logout controller
   - Read orders
   - display orders
 
-  *Fix checkout errors*: 
+  _Fix checkout errors_:
 
   - Display order details
 
   - Display orders in admin section
+
+  - Checkout summary
+  - retain checkout data
+
+  _Fix countries data_:

@@ -41,6 +41,15 @@
     table *>td {
       cursor: pointer;
     }
+
+    .details-tbl {
+      display: flex;
+      margin: 4px;
+    }
+
+    .details-tbl>table {
+      margin: 4px;
+    }
   </style>
 
   <div class="col-md-12">
@@ -70,33 +79,36 @@
                   <a style="float: right; cursor:pointer;">Close</a>
                   <h4>Order #<?= $order->id ?></h4>
                   <h5>Customer: <?= $order->user->name ?></h5>
-
-                  <table class="table">
-                    <tr>
-                      <th>Country</th>
-                      <td><?= $order->country ?></td>
-                    </tr>
-                    <tr>
-                      <th>State</th>
-                      <td><?= $order->state ?></td>
-                    </tr>
-                    <tr>
-                      <th>Delivery Address</th>
-                      <td><?= $order->delivery_address ?></td>
-                    </tr>
-                    <tr>
-                      <th>Home Phone</th>
-                      <td><?= $order->home_phone ?></td>
-                    </tr>
-                    <tr>
-                      <th>Mobile Phone</th>
-                      <td><?= $order->mobile_phone ?></td>
-                    </tr>
-                    <tr>
-                      <th>Date</th>
-                      <td><?= $order->date ?></td>
-                    </tr>
-                  </table>
+                  <div class="details-tbl">
+                    <table class="table">
+                      <tr>
+                        <th>Country</th>
+                        <td><?= $order->country ?></td>
+                      </tr>
+                      <tr>
+                        <th>State</th>
+                        <td><?= $order->state ?></td>
+                      </tr>
+                      <tr>
+                        <th>Delivery Address</th>
+                        <td><?= $order->delivery_address ?></td>
+                      </tr>
+                    </table>
+                    <table class="table">
+                      <tr>
+                        <th>Home Phone</th>
+                        <td><?= $order->home_phone ?></td>
+                      </tr>
+                      <tr>
+                        <th>Mobile Phone</th>
+                        <td><?= $order->mobile_phone ?></td>
+                      </tr>
+                      <tr>
+                        <th>Date</th>
+                        <td><?= $order->date ?></td>
+                      </tr>
+                    </table>
+                  </div>
                   <!-- orders -->
                   <br>
                   <h4>Order Summary</h4>

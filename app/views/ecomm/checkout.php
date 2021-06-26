@@ -4,7 +4,7 @@
 if (isset($errors) && count($errors) > 0) {
 
 	foreach ($errors as $error) {
-		echo '<div class="alert alert-danger">$errors</div>';
+		echo '<div class="alert alert-danger">$errors->error</div>';
 	}
 }
 
@@ -24,6 +24,24 @@ if (isset($errors) && count($errors) > 0) {
 				<p>Please Register an account to Checkout easily and get access to your order history, or use Checkout as Guest</p>
 			</div>
 			<!--/register-req-->
+
+			<?php
+			$name = '';
+			$address2 = '';
+			$address1 = '';
+			$zip = '';
+			$mobile_phone = '';
+			$home_phone = '';
+			$message = '';
+			$state = '';
+			$country = '';
+
+			if (isset($POST_DATA)) {
+
+				extract($POST_DATA);
+			}
+			?>
+
 			<form method="POST">
 				<div class="shopper-informations">
 					<div class="row check-out">
@@ -31,41 +49,55 @@ if (isset($errors) && count($errors) > 0) {
 							<div class="bill-to">
 								<p>Bill To</p>
 								<div class="form-one">
-									<input name="name" class="form-control mb-5" type="text" placeholder="Name *" autofocus="autofocus" required>
-									<input name="address1" class="form-control mb-5" type="text" placeholder="Address 1 *" required>
-									<input name="address2" class="form-control mb-5" type="text" placeholder="Address 2">
-									<input name="zip" class="form-control mb-5" type="text" placeholder="Zip / Postal Code *">
+									<input name="name" value="<?= $name ?>" class="form-control mb-5" type="text" placeholder="Name *" autofocus="autofocus" required>
+
+									<input name="address1" value="<?= $address1 ?>" class="form-control mb-5" type="text" placeholder="Address 1 *" required>
+
+									<input name="address2" value="<?= $address2 ?>" class="form-control mb-5" type="text" placeholder="Address 2">
+
+									<input name="zip" value="<?= $zip ?>" class="form-control mb-5" type="text" placeholder="Zip / Postal Code *">
 								</div>
 
 								<div class="form-two">
 									<select class="form-control mb-5" name="country" class="js-country" oninput="getStates(this.value)" required>
-										<option>-- Country --</option>
+										<?php if ($country == '') {
+											# code...
+											echo "<option>Country</option>";
+										} else {
+											echo "<option>$country</option>";
+										} ?>
 										<?php if (isset($countries) && $countries) : ?>
 											<?php foreach ($countries as $row) : ?>
 
-												<option value="<?= $row->id ?>"><?= $row->country ?></option>
+												<option value="<?= $row->country ?>"><?= $row->country ?></option>
 
 											<?php endforeach; ?>
 										<?php endif; ?>
 									</select>
-									<select class="form-control mb-5" name="state" class="js-state" required>
-										<option>-- State / Province / Region --</option>
+									<select class="form-control mb-5" value="<?= $state ?>" name="state" class="js-state" required>
+										<?php if ($state == '') {
+											# code...
+											echo "<option>State / Province / Region</option>";
+										} else {
+											echo "<option>$state</option>";
+										} ?>
 									</select>
-									<input name="mobile_phone" class="form-control mb-5" type="text" placeholder="Mobile Phone *" required>
-									<input name="home_phone" class="form-control mb-5" type="text" placeholder="Home Phone">
+
+									<input name="mobile_phone" value="<?= $mobile_phone ?>" class="form-control mb-5" type="text" placeholder="Mobile Phone *" required>
+									<input name="home_phone" value="<?= $home_phone ?>" class="form-control mb-5" type="text" placeholder="Home Phone">
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-4">
 							<div class="order-message form-three">
 								<p>Shipping Order</p>
-								<textarea name="message" placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
+								<textarea name="message" placeholder="Notes about your order, Special Notes for Delivery" rows="16"><?= $message ?></textarea>
 							</div>
 						</div>
 					</div>
 
 					<a class="btn btn-primary pull-left" href="<?= ROOT ?>/cart">Back to Cart</a>
-					<input type="submit" value="Pay" name="" class="btn btn-primary checkout pull-right">
+					<input type="submit" value="Continue to payments" name="" class="btn btn-primary checkout pull-right">
 				</div>
 			</form>
 		<?php else : ?>
@@ -77,9 +109,9 @@ if (isset($errors) && count($errors) > 0) {
 <br> <br>
 
 <script>
-	function getStates(id) {
+	function getStates(country) {
 		sendData({
-			id: id.trim()
+			id: country.trim()
 		}, 'getStates');
 	}
 
@@ -93,8 +125,12 @@ if (isset($errors) && count($errors) > 0) {
 			}
 		});
 
-		ajax.open('POST', "<?= ROOT ?>ajaxcheckout/" + data_type + "/" + JSON.stringify(data), true); //true here is to tell it to run in the background
-		ajax.send();
+		let info = {};
+		info.data_type = data_type;
+		info.data = data;
+
+		ajax.open('POST', "<?= ROOT ?>ajaxcheckout", true);
+		ajax.send(JSON.stringify(info));
 	}
 
 	function handleResult(result) {
@@ -107,11 +143,11 @@ if (isset($errors) && count($errors) > 0) {
 				if (obj.data_type == "getStates") {
 
 					let select_input = document.querySelector('.js-state');
-					select_input.innerHTML = "<option>-- State / Province / Region --</option>";
+					select_input.innerHTML = "<option>State / Province / Region</option>";
 					// loop through the array of obj
 					for (let i = 0; i < obj.data.length; i++) {
 
-						select_input.innerHTML += "<option value='" + obj.data[i].id + "'>" + obj.data[i].state + "</option>"
+						select_input.innerHTML += "<option value='" + obj.data[i].state + "'>" + obj.data[i].state + "</option>"
 					}
 				}
 			}

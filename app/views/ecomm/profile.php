@@ -206,7 +206,7 @@
 									<tr style="position: relative;">
 										<td><?= $order->id ?></td>
 										<td>$<?= $order->total ?></td>
-										<td><?= date('jS M Y H: a', strtotime($order->date)) ?></td>
+										<td><?= date('jS M Y H a', strtotime($order->date)) ?></td>
 										<td><?= $order->delivery_address ?></td>
 										<td><?= $order->country ?></td>
 										<td><?= $order->state ?></td>

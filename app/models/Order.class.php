@@ -3,24 +3,31 @@ class Order extends Controller
 {
   public $errors = [];
 
-  public function saveOrder($POST, $ROWS, $user_url, $sessionid)
+  public function validate($POST)
   {
     foreach ($POST as $key => $value) {
 
+      $this->errors = [];
+
       if ($key == 'country') {
-        if ($value == '' || $value == '-- Country --') {
+        if ($value == '' || $value == 'Country') {
           # code...
           $this->errors[] = 'Please enter a valid country!';
         }
       }
 
       if ($key == 'state') {
-        if ($value == '' || $value == '-- State / Province / Region --') {
+        if ($value == '' || $value == 'State / Province / Region') {
           # code...
           $this->errors[] = 'Please enter a valid state!';
         }
       }
     }
+  }
+
+  public function saveOrder($POST, $ROWS, $user_url, $sessionid)
+  {
+
     $total = 0;
 
     foreach ($ROWS as $key => $row) {
@@ -42,10 +49,10 @@ class Order extends Controller
       $data['delivery_address'] = $POST['address1'] . '' . $POST['address2'];
       $data['total'] = $total;
       $data['zip'] = $POST['zip'];
-      $country_obj = $countries->getCountry($POST['country']);
-      $data['country'] = $country_obj->country;
-      $state_obj = $countries->getState($POST['state']);
-      $data['state'] = $state_obj->state;
+      // $country_obj = $countries->getCountry($POST['country']);
+      $data['country'] = $POST['country'];
+      // $state_obj = $countries->getState($POST['state']);
+      $data['state'] = $POST['state'];
       $data['tax'] = 0;
       $data['shipping'] = 0;
       $data['date'] = date('Y-m-d H:i:s');
