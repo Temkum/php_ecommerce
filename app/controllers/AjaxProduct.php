@@ -9,7 +9,7 @@ class AjaxProduct extends Controller
     if (count($_POST) > 0) {
       $data = (object) $_POST;
     } else {
-      $data = file_get_contents('php://input');
+      $data = file_get_contents("php://input");
       $data = json_decode($data);
     }
 

@@ -156,9 +156,24 @@ class Checkout extends Controller
       $order->saveOrder($_SESSION['POST_DATA'], $ROWS, $user_url, $sessionid);
       $data['errors'] = $order->errors;
 
-      // header('Location:' . ROOT. 'thank_you)
+      // check if it's set before unsetting
+      unset($_SESSION['POST_DATA']);
+      unset($_SESSION['CART']);
+
+      header('Location:' . ROOT . "checkout/thankyou");
+
+      exit;
     }
 
     $this->view('checkout.summary', $data);
+  }
+
+  public function thankYou()
+  {
+    # code...
+
+    
+    $data['page_title'] = 'Thank You';
+    $this->view('checkout.thankyou', $data);
   }
 }

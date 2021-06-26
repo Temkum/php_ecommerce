@@ -241,7 +241,7 @@
 														<div>No order details found for this order!</div>
 													<?php endif; ?>
 												</table>
-												<h3 class="grand-total">Grand Total: <?= $order->grand_total ?></h3>
+												<h3 class="grand-total">Grand Total: <?= $order->total ?></h3>
 											</div>
 										</td>
 									</tr>

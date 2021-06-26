@@ -36,7 +36,6 @@ class Product
     $check = $DB->read($sql);
 
     if ($check) {
-
       $arr['slug'] .= "-" . rand(0, 9999);
     }
 
