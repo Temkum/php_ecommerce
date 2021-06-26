@@ -154,3 +154,5 @@ add logout feature: create logout controller
   _Fix countries & state data_:
 
   - Thank you page
+
+  - Users in admin area

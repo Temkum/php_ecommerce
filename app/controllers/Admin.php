@@ -108,4 +108,38 @@ class Admin extends Controller
     $data['page_title'] = 'Admin - Orders';
     $this->view('admin/orders', $data);
   }
+
+  public function users($type = "customers")
+  {
+    # code...
+    $User = $this->loadModel('User');
+    $Order = $this->loadModel('Order');
+
+    $user_data = $User->checkLogin(true, ['admin']);
+
+    // check if user is logged in
+    if (is_object($user_data)) {
+      // code...
+      $data['user_data'] = $user_data;
+    }
+
+    if ($type == "admins") {
+      $users = $User->getAdmins();
+    } else {
+      $users = $User->getCustomers();
+    }
+
+    if (is_array($users)) {
+      foreach ($users as $key => $row) {
+        # check how many orders they have
+        $orders_num = $Order->getOrdersCount($row->url_address);
+        $users[$key]->orders_count = $orders_num;
+      }
+    }
+
+    $data['users'] = $users;
+
+    $data['page_title'] = "Admin - $type";
+    $this->view('admin/users', $data);
+  }
 }
