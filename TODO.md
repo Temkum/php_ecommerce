@@ -151,4 +151,5 @@ add logout feature: create logout controller
   - Checkout summary
   - retain checkout data
 
-  _Fix countries data_:
+  _Fix countries & state data_:
+

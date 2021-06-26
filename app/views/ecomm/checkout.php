@@ -4,10 +4,9 @@
 if (isset($errors) && count($errors) > 0) {
 
 	foreach ($errors as $error) {
-		echo '<div class="alert alert-danger">$errors->error</div>';
+		echo "<div class='alert alert-danger text-center'>$error</div>";
 	}
 }
-
 ?>
 <section id="cart_items">
 	<div class="container">
@@ -74,7 +73,7 @@ if (isset($errors) && count($errors) > 0) {
 											<?php endforeach; ?>
 										<?php endif; ?>
 									</select>
-									<select class="form-control mb-5" value="<?= $state ?>" name="state" class="js-state" required>
+									<select class="form-control mb-5 js-state" value="<?= $state ?>" name="state" required>
 										<?php if ($state == '') {
 											# code...
 											echo "<option>State / Province / Region</option>";
@@ -112,7 +111,7 @@ if (isset($errors) && count($errors) > 0) {
 	function getStates(country) {
 		sendData({
 			id: country.trim()
-		}, 'getStates');
+		}, "getStates");
 	}
 
 	function sendData(data = {}, data_type) {
@@ -129,12 +128,12 @@ if (isset($errors) && count($errors) > 0) {
 		info.data_type = data_type;
 		info.data = data;
 
-		ajax.open('POST', "<?= ROOT ?>ajaxcheckout", true);
+		ajax.open("POST", "<?= ROOT ?>ajaxcheckout", true);
 		ajax.send(JSON.stringify(info));
 	}
 
 	function handleResult(result) {
-		console.log(result);
+		// console.log(result);
 
 		if (result != "") {
 			let obj = JSON.parse(result);
@@ -142,7 +141,7 @@ if (isset($errors) && count($errors) > 0) {
 			if (typeof obj.data_type != "undefined") {
 				if (obj.data_type == "getStates") {
 
-					let select_input = document.querySelector('.js-state');
+					let select_input = document.querySelector(".js-state");
 					select_input.innerHTML = "<option>State / Province / Region</option>";
 					// loop through the array of obj
 					for (let i = 0; i < obj.data.length; i++) {

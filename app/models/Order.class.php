@@ -5,21 +5,39 @@ class Order extends Controller
 
   public function validate($POST)
   {
-    foreach ($POST as $key => $value) {
+    $this->errors = [];
 
-      $this->errors = [];
+    foreach ($POST as $key => $value) {
 
       if ($key == 'country') {
         if ($value == '' || $value == 'Country') {
           # code...
-          $this->errors[] = 'Please enter a valid country!';
+          $this->errors[] = "Please enter a valid country!";
         }
       }
 
       if ($key == 'state') {
-        if ($value == '' || $value == 'State / Province / Region') {
+        if ($value == '' || $value == "State / Province / Region") {
           # code...
-          $this->errors[] = 'Please enter a valid state!';
+          $this->errors[] = "Please enter a valid state!";
+        }
+      }
+      if ($key == 'address1') {
+        if (empty($value)) {
+          # code...
+          $this->errors[] = "Please enter a valid Address 1";
+        }
+      }
+      if ($key == 'zip') {
+        if (empty($value)) {
+          # code...
+          $this->errors[] = "Please enter a valid Zip/Postal code!";
+        }
+      }
+      if ($key == 'mobile_phone') {
+        if (empty($value)) {
+          # code...
+          $this->errors[] = "Please enter a valid phone number!";
         }
       }
     }
@@ -59,13 +77,13 @@ class Order extends Controller
       $data['home_phone'] = $POST['home_phone'];
       $data['mobile_phone'] = $POST['mobile_phone'];
 
-      $sql = 'INSERT INTO orders (user_url, delivery_address, total, state, zip, country, tax, shipping, date, sessionid, home_phone, mobile_phone) VALUES (:user_url, :delivery_address, :total, :state, :zip, :country, :tax, :shipping, :date, :sessionid, :home_phone, :mobile_phone)';
+      $sql = "INSERT INTO orders (user_url, delivery_address, total, state, zip, country, tax, shipping, date, sessionid, home_phone, mobile_phone) VALUES (:user_url, :delivery_address, :total, :state, :zip, :country, :tax, :shipping, :date, :sessionid, :home_phone, :mobile_phone)";
 
       $result = $db->write($sql, $data);
 
       // save details
       $order_id = 0;
-      $query = 'SELECT id FROM orders ORDER BY id DESC LIMIT 1';
+      $query = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
       $result = $db->read($query);
 
       if (is_array($result)) {
@@ -81,7 +99,7 @@ class Order extends Controller
         $data['total'] = $row->cart_qty * $row->price;
         $data['product_id'] = $row->id;
 
-        $sql = 'INSERT INTO order_details (order_id, qty, description, amount, total,product_id) VALUES (:order_id, :qty, :description, :amount, :total,:product_id)';
+        $sql = "INSERT INTO order_details (order_id, qty, description, amount, total,product_id) VALUES (:order_id, :qty, :description, :amount, :total,:product_id)";
         $result = $db->write($sql, $data);
       }
     }
@@ -93,7 +111,7 @@ class Order extends Controller
     $db = Database::newInstance();
     $data['user_url'] = $user_url;
 
-    $sql = 'SELECT * FROM orders WHERE user_url=:user_url ORDER BY id DESC LIMIT 100';
+    $sql = "SELECT * FROM orders WHERE user_url=:user_url ORDER BY id DESC LIMIT 100";
     $orders = $db->read($sql, $data);
 
     return $orders;
@@ -104,7 +122,7 @@ class Order extends Controller
     $orders = false;
     $db = Database::newInstance();
 
-    $sql = 'SELECT * FROM orders ORDER BY id DESC LIMIT 100';
+    $sql = "SELECT * FROM orders ORDER BY id DESC LIMIT 100";
     $orders = $db->read($sql);
 
     return $orders;

@@ -82,7 +82,7 @@ class Checkout extends Controller
       // check if errors exist & exit
       if (count($order->errors) == 0) {
         # code...
-        header('Location: ' . ROOT . 'checkout/summary');
+        header('Location: ' . ROOT . "checkout/summary");
 
         exit;
       }
@@ -140,10 +140,10 @@ class Checkout extends Controller
     // order details
     $data['order_details'] = $ROWS;
     $data['orders'][] = $_SESSION['POST_DATA'];
-    
+
     $data['page_title'] = 'Checkout Summary';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['POST_DATA'])) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_SESSION['POST_DATA'])) {
       // run checkout as guest
       $sessionid = session_id();
       $user_url = '';

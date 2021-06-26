@@ -9,7 +9,7 @@ class App
   public function __construct()
   {
     $url = $this->parseURL();
-   
+
     if (file_exists('../app/controllers/' . strtolower($url[0]) . '.php')) {
 
       $this->controller = strtolower($url[0]);
@@ -38,7 +38,7 @@ class App
 
   private function parseURL()
   {
-    $url = isset($_GET['url']) ? $_GET['url'] : 'home';
+    $url = isset($_GET['url']) ? $_GET['url'] : "home";
 
     /* sanitize url & turn into an array 
       - trim to remove extra space from url

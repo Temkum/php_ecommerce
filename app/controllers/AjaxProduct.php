@@ -28,9 +28,9 @@ class AjaxProduct extends Controller
           # code...
           $arr['msg'] = $_SESSION['error'];
           $_SESSION['error'] = "";
-          $arr['msg_type'] = 'error';
+          $arr['msg_type'] = "error";
           $arr['data'] = '';
-          $arr['data_type'] = 'add_new';
+          $arr['data_type'] = "add_new";
 
           echo json_encode($arr);
         } else {
@@ -38,7 +38,7 @@ class AjaxProduct extends Controller
           $arr['msg_type'] = "success";
           $cats = $product->getAll();
           $arr['data'] =  $product->makeTable($cats, $category);
-          $arr['data_type'] = 'add_new';
+          $arr['data_type'] = "add_new";
 
           echo json_encode($arr);
         }
@@ -52,13 +52,13 @@ class AjaxProduct extends Controller
         $DB->write($sql);
 
         $arr['msg'] = "";
-        $_SESSION['error'] = '';
-        $arr['msg_type'] = 'success';
+        $_SESSION['error'] = "";
+        $arr['msg_type'] = "success";
 
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats);
 
-        $arr['data_type'] = 'disable_row';
+        $arr['data_type'] = "disable_row";
 
         echo json_encode($arr);
       } else 
@@ -68,10 +68,10 @@ class AjaxProduct extends Controller
         if ($_SESSION['error'] != "") {
           # code...
           $arr['msg'] = $_SESSION['error'];
-          $arr['msg_type'] = 'error';
+          $arr['msg_type'] = "error";
         } else {
           $arr['msg'] = "Modified successfully!";
-          $arr['msg_type'] = 'success';
+          $arr['msg_type'] = "success";
         }
 
         $_SESSION['error'] = "";
@@ -79,7 +79,7 @@ class AjaxProduct extends Controller
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats, $category);
 
-        $arr['data_type'] = 'edit_product';
+        $arr['data_type'] = "edit_product";
 
         echo json_encode($arr);
       } else 
@@ -87,7 +87,7 @@ class AjaxProduct extends Controller
         $product->delete($data->id);
         $arr['msg'] = $_SESSION["Row successfully deleted!"];
         $_SESSION['error'] = "";
-        $arr['msg_type'] = 'success';
+        $arr['msg_type'] = "success";
 
         $cats = $product->getAll();
         $arr['data'] = $product->makeTable($cats, $category);

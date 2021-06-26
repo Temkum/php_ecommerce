@@ -102,20 +102,20 @@ class Product
     $arr['category'] = $data->category;
     $arr['quantity'] = $data->quantity;
     $arr['price'] = $data->price;
-    $imgs_string = '';
+    $imgs_string = "";
 
     // validate user input
     if (!preg_match("/^[a-zA-Z 0-9._\-,]+$/", trim($arr['description']))) {
-      $_SESSION['error'] .= 'Please enter a valid description for this product!';
+      $_SESSION['error'] .= "Please enter a valid description for this product!";
     }
     if (!is_numeric($arr['quantity'])) {
-      $_SESSION['error'] .= 'Please enter a valid quantity!';
+      $_SESSION['error'] .= "Please enter a valid quantity!";
     }
     if (!is_numeric($arr['category'])) {
-      $_SESSION['error'] .= 'Please enter a valid category!';
+      $_SESSION['error'] .= "Please enter a valid category!";
     }
     if (!is_numeric($arr['price'])) {
-      $_SESSION['error'] .= 'Please enter a valid price!';
+      $_SESSION['error'] .= "Please enter a valid price!";
     }
 
     // set whitelisting rules
@@ -181,7 +181,7 @@ class Product
   public function makeTable($cats, $model = null)
   {
     # use result instead of echo
-    $result = '';
+    $result = "";
 
     if (is_array($cats)) {
       foreach ($cats as $cat_row) {
@@ -206,7 +206,7 @@ class Product
 
         $one_cat = $model->getOne($cat_row->category);
 
-        $result .= '<tr>';
+        $result .= "<tr>";
 
         $result .= '<td><a href="basic_table.html#">' . $cat_row->id . '</a></td>
         <td><a href="basic_table.html#">' . $cat_row->description . '</a></td>
@@ -224,7 +224,7 @@ class Product
           <button class="btn btn-danger btn-xs "><i class="fa fa-trash-o fa-2x" onclick="deleteRow(' . $cat_row->id . ')"></i>
           </button>
         </td>';
-        $result .= '</tr>';
+        $result .= "</tr>";
       }
     }
 

@@ -6,7 +6,7 @@ class Countries
   public function getCountries()
   {
     $DB = Database::newInstance();
-    $sql = 'SELECT * FROM countries ORDER BY id DESC';
+    $sql = "SELECT * FROM countries ORDER BY id DESC";
     $data = $DB->read($sql);
 
     return $data;
@@ -17,7 +17,7 @@ class Countries
     $arr['country'] = addslashes($country);
 
     $DB = Database::newInstance();
-    $sql = 'SELECT * FROM countries WHERE country=:country LIMIT 1';
+    $sql = "SELECT * FROM countries WHERE country=:country LIMIT 1";
     $check = $DB->read($sql, $arr);
     $data = false;
 
@@ -26,7 +26,7 @@ class Countries
       $arr = false; //clear everything in it
       $arr['id'] = $check[0]->id;
 
-      $sql = 'SELECT * FROM states WHERE parent=:id ORDER BY id DESC';
+      $sql = "SELECT * FROM states WHERE parent=:id ORDER BY id DESC";
       $data = $DB->read($sql, $arr);
     }
 
@@ -49,9 +49,9 @@ class Countries
     $arr['id'] = (int) $id;
 
     $DB = Database::newInstance();
-    $sql = 'SELECT * FROM states WHERE id=:id';
+    $sql = "SELECT * FROM states WHERE id=:id";
     $data = $DB->read($sql, $arr);
 
-    return is_array($data) ? $data[0] : false;;
+    return is_array($data) ? $data[0] : false;
   }
 }
