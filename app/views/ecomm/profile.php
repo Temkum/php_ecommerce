@@ -5,7 +5,6 @@
 			.profile {
 				min-height: 500px;
 				margin: auto;
-
 			}
 
 			.col-md-6 {
@@ -83,6 +82,23 @@
 			.grand-total {
 				float: right;
 			}
+
+			tbody {
+				cursor: pointer;
+			}
+
+			.no-order {
+				font-size: 2rem;
+				background-color: #aaa;
+				padding: 1.5rem;
+				font-weight: 400;
+			}
+
+			.no-profile {
+				margin-top: 20px;
+				flex-direction: column !important;
+				margin-left: 30rem;
+			}
 		</style>
 
 		<h2 class="text-center">Admin profile</h2>
@@ -91,95 +107,37 @@
 			<section class="wrapper">
 				<div class="row mt">
 					<div class="order">
-						<div class="col-md-4 mb">
-							<!-- WHITE PANEL - TOP USER -->
-							<div class="white-panel pn">
-								<div class="white-header">
-									<h5 class="my-header">My account</h5>
-								</div>
-								<p><img src="<?= ASSETS ?>admin/img/ui-zac.jpg" class="img-circle" width="80"></p>
-								<p class="mt"><b><?= $data['user_data']->name ?></b></p>
-								<div class="row">
-									<div class="col-md-6">
-										<p class="small mt">MEMBER SINCE</p>
-										<p><?= date('jS M Y', strtotime($data['user_data']->date)) ?></p>
-									</div>
-									<div class="col-md-6">
-										<p class="small mt">TOTAL SPEND</p>
-										<p class="amt">$ 47,60</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="col-md-6">
-										<p class="btn btn-small text-info">Edit</p>
-									</div>
-									<div class="col-md-6">
-										<p class="btn btn-small text-danger"><i class="fa fa-trash"></i> Delete</p>
-									</div>
-								</div>
-							</div>
-						</div><!-- end profile data -->
+						<?php if (is_object($profile_data)) : ?>
 
-						<!-- <section class="col-md-8 mt-5">
-							<?php if (is_array($orders)) : ?>
-								<div class="order-table">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Order No</th>
-												<th>Amount</th>
-												<th>Order Date</th>
-												<th>Delivery Address</th>
-												<th>Country</th>
-												<th>State/City</th>
-												<th>Mobile Phone</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody onclick="showDetails(event)">
-											<?php foreach ($orders as $order) : ?>
-												<tr style="position: relative;">
-													<td><?= $order->id ?></td>
-													<td>$<?= $order->total ?></td>
-													<td><?= date('jS M Y H: a', strtotime($order->date)) ?></td>
-													<td><?= $order->delivery_address ?></td>
-													<td><?= $order->country ?></td>
-													<td><?= $order->state ?></td>
-													<td><?= $order->mobile_phone ?></td>
-													<td><i class="fa fa-arrow-down"></i>
-
-														<div class="js-order-details details hide">
-															<a style="float: right; cursor:pointer;">Close</a>
-															<table class="table">
-																<thead>
-																	<tr>
-																		<th>Order No</th>
-																		<th>Quantity</th>
-																		<th>Description</th>
-																		<th>Amount</th>
-																		<th>Total</th>
-																	</tr>
-																</thead>
-																<?php if (isset($order->details) && is_array($order->details)) : ?>
-																	<?php foreach ($order->details as $detail) : ?>
-
-																	<?php endforeach; ?>
-																<?php else : ?>
-																	<div>No order details found for this order!</div>
-																<?php endif; ?>
-															</table>
-														</div>
-													</td>
-												<?php endforeach; ?>
-												</tr>
-										</tbody>
-									</table>
+							<div class="col-md-4 mb">
+								<!-- WHITE PANEL - TOP USER -->
+								<div class="white-panel pn">
+									<div class="white-header">
+										<h5 class="my-header">My account</h5>
+									</div>
+									<p><img src="<?= ASSETS ?>admin/img/ui-zac.jpg" class="img-circle" width="80"></p>
+									<p class="mt"><b><?= $profile_data->name ?></b></p>
+									<div class="row">
+										<div class="col-md-6">
+											<p class="small mt">MEMBER SINCE</p>
+											<p><?= date('jS M Y', strtotime($profile_data->date)) ?></p>
+										</div>
+										<div class="col-md-6">
+											<p class="small mt">TOTAL SPEND</p>
+											<p class="amt">$ 47,60</p>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-md-6">
+											<p class="btn btn-small text-info">Edit</p>
+										</div>
+										<div class="col-md-6">
+											<p class="btn btn-small text-danger"><i class="fa fa-trash"></i> Delete</p>
+										</div>
+									</div>
 								</div>
-							<?php else : ?>
-								<div>This user has no orders yet</div>
-							<?php endif; ?>
-						</section> -->
+							</div><!-- end profile data -->
 					</div>
 				</div><!-- /row -->
 			</section>
@@ -250,8 +208,12 @@
 						</table>
 
 					<?php else : ?>
-						<div>This user has no orders yet</div>
+						<div class="text-center no-order">This user has no orders yet</div>
 					<?php endif; ?>
+
+				<?php else : ?>
+					<div class="no-profile no-order">Oops! That profile could not be found!</div>
+				<?php endif; ?>
 					</div>
 			</section>
 		</section>

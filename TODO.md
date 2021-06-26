@@ -156,3 +156,5 @@ add logout feature: create logout controller
   - Thank you page
 
   - Users in admin area
+
+  - link user to profile page in admin area
